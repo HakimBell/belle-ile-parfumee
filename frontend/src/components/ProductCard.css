@@ -172,3 +172,63 @@
     font-size: 13px;
     font-weight: 500;
 }
+
+/* Responsive - Tablet */
+@media (max-width: 1024px) {
+    .product-image {
+        height: 200px;
+    }
+
+    .product-placeholder {
+        font-size: 60px;
+    }
+}
+
+/* Responsive - Mobile */
+@media (max-width: 768px) {
+    .product-image {
+        height: 180px;
+    }
+
+    .product-title {
+        font-size: 15px;
+    }
+
+    .product-price {
+        font-size: 16px;
+    }
+
+    .product-description {
+        font-size: 12px;
+        margin-bottom: 8px;
+    }
+
+    .product-btn {
+        padding: 10px 14px;
+        font-size: 13px;
+    }
+}
+
+/* Responsive - Small Mobile */
+@media (max-width: 480px) {
+    .product-card {
+        border-radius: 8px;
+    }
+
+    .product-image {
+        height: 220px;
+        border-radius: 6px;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-title {
+        font-size: 16px;
+    }
+
+    .product-price {
+        font-size: 18px;
+    }
+}
