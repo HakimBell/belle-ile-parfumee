@@ -75,6 +75,7 @@ const AdminProducts: React.FC = () => {
                 <table className="products-table">
                     <thead>
                     <tr>
+                        <th>Photo</th>
                         <th>Code</th>
                         <th>Nom</th>
                         <th>Marque</th>
@@ -87,13 +88,20 @@ const AdminProducts: React.FC = () => {
                     <tbody>
                     {products.map((product) => (
                         <tr key={product.productCode}>
+                            <td>
+                                <img
+                                    src={product.imageUrl || '/placeholder.png'}
+                                    alt={product.name}
+                                    className="product-thumbnail"
+                                />
+                            </td>
                             <td>{product.productCode}</td>
                             <td>{product.name}</td>
                             <td>{product.brand}</td>
                             <td>{product.price.toFixed(2)} €</td>
                             <td>{product.stock}</td>
                             <td>{product.gender}</td>
-                            <td>
+                            <td className="actions-cell">
                                 <button
                                     className="btn-edit"
                                     onClick={() => openEditModal(product)}
