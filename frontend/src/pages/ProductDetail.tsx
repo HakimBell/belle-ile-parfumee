@@ -2,13 +2,16 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
 import { useProduct } from '../hooks/useProduct';
+import { useCart } from '../context/CartContext';
 import './ProductDetail.css';
 
 const ProductDetail: React.FC = () => {
     const { productCode } = useParams<{ productCode: string }>();
     const navigate = useNavigate();
     const { product, loading, error } = useProduct(productCode || '');
+    const { addToCart } = useCart();
     const [quantity, setQuantity] = useState(1);
+    const [addedToCart, setAddedToCart] = useState(false);
 
     const handleIncrement = () => {
         if (product && quantity < product.stock) {
@@ -19,6 +22,14 @@ const ProductDetail: React.FC = () => {
     const handleDecrement = () => {
         if (quantity > 1) {
             setQuantity(quantity - 1);
+        }
+    };
+
+    const handleAddToCart = () => {
+        if (product) {
+            addToCart(product, quantity);
+            setAddedToCart(true);
+            setTimeout(() => setAddedToCart(false), 2000);
         }
     };
 
@@ -83,8 +94,12 @@ const ProductDetail: React.FC = () => {
                                 <input type="number" value={quantity} readOnly />
                                 <button className="qty-btn" onClick={handleIncrement}>+</button>
                             </div>
-                            <button className="add-to-cart-btn" disabled={product.stock === 0}>
-                                🛒 Ajouter au panier
+                            <button
+                                className={`add-to-cart-btn ${addedToCart ? 'added' : ''}`}
+                                disabled={product.stock === 0}
+                                onClick={handleAddToCart}
+                            >
+                                {addedToCart ? '✓ Ajouté au panier' : '🛒 Ajouter au panier'}
                             </button>
                         </div>
                     </div>

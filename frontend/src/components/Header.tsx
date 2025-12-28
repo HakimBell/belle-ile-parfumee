@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
+import { useCart } from '../context/CartContext';
 import './Header.css';
 
 const Header: React.FC = () => {
     const navigate = useNavigate();
     const isAuthenticated = authService.isAuthenticated();
+    const { totalItems } = useCart();
 
     const handleLoginClick = () => {
         navigate('/login');
@@ -33,9 +35,9 @@ const Header: React.FC = () => {
                     {isAuthenticated ? (
                         <>
                             <button className="icon-btn">♡</button>
-                            <button className="icon-btn">
+                            <button className="icon-btn" onClick={() => navigate('/cart')}>
                                 🛒
-                                <span className="cart-badge">0</span>
+                                {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
                             </button>
                             <button className="login-btn" onClick={handleLogout}>
                                 Déconnexion
@@ -44,9 +46,9 @@ const Header: React.FC = () => {
                     ) : (
                         <>
                             <button className="icon-btn">♡</button>
-                            <button className="icon-btn">
+                            <button className="icon-btn" onClick={() => navigate('/cart')}>
                                 🛒
-                                <span className="cart-badge">0</span>
+                                {totalItems > 0 && <span className="cart-badge">{totalItems}</span>}
                             </button>
                             <button className="login-btn" onClick={handleLoginClick}>
                                 Se connecter

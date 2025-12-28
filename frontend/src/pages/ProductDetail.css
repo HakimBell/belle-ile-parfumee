@@ -205,6 +205,14 @@
     cursor: not-allowed;
 }
 
+.add-to-cart-btn.added {
+    background: #2e7d32;
+}
+
+.add-to-cart-btn.added:hover {
+    background: #2e7d32;
+}
+
 .loading-container,
 .error-container {
     min-height: 50vh;

@@ -17,7 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     return (
         <div className="product-card" onClick={handleClick}>
             <div className="product-image">
-                <div className="product-badge">{product.gender}</div>
+                <div className="product-badge" data-gender={product.gender}>{product.gender}</div>
                 {product.imageUrl ? (
                     <img src={product.imageUrl} alt={product.name} />
                 ) : (
