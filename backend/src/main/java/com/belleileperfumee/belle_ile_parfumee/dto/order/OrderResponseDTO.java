@@ -8,5 +8,8 @@ public class OrderResponseDTO {
     private String commandNumber;
     private String email;
     private LocalDate orderDate;
-    // ✅ On ne renvoie PAS le Client (qui contient l'Account avec le password)
+    private String status;
+    private String clientFirstName;
+    private String clientLastName;
+    private String clientPhoneNumber;
 }

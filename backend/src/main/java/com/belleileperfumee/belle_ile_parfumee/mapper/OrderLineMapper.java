@@ -37,9 +37,10 @@ public class OrderLineMapper {
         dto.setCommandNumber(orderLine.getId().getCommandNumber());
         dto.setQuantity(orderLine.getQuantity());
         dto.setUnitPrice(orderLine.getUnitPrice());
-
-        // ✅ On ne renvoie PAS le Product ni l'Order complets !
-
+        if (orderLine.getProduct() != null) {
+            dto.setProductName(orderLine.getProduct().getName());
+            dto.setProductImageUrl(orderLine.getProduct().getImageUrl());
+        }
         return dto;
     }
 }

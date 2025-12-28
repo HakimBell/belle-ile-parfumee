@@ -28,7 +28,14 @@ public class OrderMapper {
         dto.setCommandNumber(order.getCommandNumber());
         dto.setEmail(order.getEmail());
         dto.setOrderDate(order.getOrderDate());
-        // ✅ On ne renvoie PAS le Client !
+        if (order.getStatus() != null) {
+            dto.setStatus(order.getStatus().name());
+        }
+        if (order.getClient() != null) {
+            dto.setClientFirstName(order.getClient().getFirstName());
+            dto.setClientLastName(order.getClient().getLastName());
+            dto.setClientPhoneNumber(order.getClient().getPhoneNumber());
+        }
         return dto;
     }
 }

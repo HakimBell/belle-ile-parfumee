@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import AdminProducts from './pages/admin/AdminProducts';
 import AdminClients from './pages/admin/AdminClients';
+import AdminOrders from './pages/admin/AdminOrders';
 import ProductDetail from "./pages/ProductDetail.tsx";
 import ParfumsPage from './pages/ParfumsPage';
 import Cart from './pages/Cart';
@@ -26,6 +27,7 @@ const App: React.FC = () => {
                     <Route path="/order-confirmation" element={<OrderConfirmation />} />
                     <Route path="/admin/products" element={<AdminProducts />} />
                     <Route path="/admin/clients" element={<AdminClients />} />
+                    <Route path="/admin/orders" element={<AdminOrders />} />
                 </Routes>
             </Router>
         </CartProvider>

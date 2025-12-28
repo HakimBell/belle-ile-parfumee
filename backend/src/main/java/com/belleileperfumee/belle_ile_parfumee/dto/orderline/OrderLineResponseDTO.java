@@ -6,8 +6,9 @@ import java.math.BigDecimal;
 @Data
 public class OrderLineResponseDTO {
     private String productCode;
+    private String productName;
+    private String productImageUrl;
     private String commandNumber;
     private Integer quantity;
     private BigDecimal unitPrice;
-    // ✅ On ne renvoie PAS le Product ni l'Order complets
 }
