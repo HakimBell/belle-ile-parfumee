@@ -1,6 +1,7 @@
 package com.belleileperfumee.belle_ile_parfumee.repository;
 
 import com.belleileperfumee.belle_ile_parfumee.entity.Order;
+import com.belleileperfumee.belle_ile_parfumee.entity.OrderStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -18,4 +19,8 @@ public interface OrderRepository extends JpaRepository<Order, String> {
     List<Order> findByOrderDate(LocalDate orderDate);
 
     List<Order> findByOrderDateBetween(LocalDate startDate, LocalDate endDate);
+
+    Optional<Order> findByClient_EmailAndStatus(String clientEmail, OrderStatus status);
+
+    List<Order> findByStatus(OrderStatus status);
 }

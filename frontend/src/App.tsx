@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { CartProvider } from './context/CartContext';
 import Home from './pages/Home';
 import Login from './pages/Login';
+import Register from './pages/Register';
 import AdminProducts from './pages/admin/AdminProducts';
 import ProductDetail from "./pages/ProductDetail.tsx";
 import ParfumsPage from './pages/ParfumsPage';
 import Cart from './pages/Cart';
+import OrderConfirmation from './pages/OrderConfirmation';
 import './App.css';
 
 const App: React.FC = () => {
@@ -16,9 +18,11 @@ const App: React.FC = () => {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
                     <Route path="/product/:productCode" element={<ProductDetail />} />
                     <Route path="/parfums/:category" element={<ParfumsPage />} />
                     <Route path="/cart" element={<Cart />} />
+                    <Route path="/order-confirmation" element={<OrderConfirmation />} />
                     <Route path="/admin/products" element={<AdminProducts />} />
                 </Routes>
             </Router>

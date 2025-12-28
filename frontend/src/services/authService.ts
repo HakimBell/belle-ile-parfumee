@@ -30,9 +30,20 @@ export const authService = {
         return localStorage.getItem('authToken');
     },
 
-    // Supprimer le token (logout)
+    // Sauvegarder l'email de l'utilisateur
+    saveUserEmail: (email: string) => {
+        localStorage.setItem('userEmail', email);
+    },
+
+    // Récupérer l'email de l'utilisateur
+    getUserEmail: (): string | null => {
+        return localStorage.getItem('userEmail');
+    },
+
+    // Supprimer le token et l'email (logout)
     removeToken: () => {
         localStorage.removeItem('authToken');
+        localStorage.removeItem('userEmail');
     },
 
     // Vérifier si l'utilisateur est connecté

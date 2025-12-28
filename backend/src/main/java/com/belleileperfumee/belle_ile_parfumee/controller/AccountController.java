@@ -4,6 +4,7 @@ import com.belleileperfumee.belle_ile_parfumee.config.JwtUtil;
 import com.belleileperfumee.belle_ile_parfumee.dto.account.AccountRequestDTO;
 import com.belleileperfumee.belle_ile_parfumee.dto.account.AccountResponseDTO;
 import com.belleileperfumee.belle_ile_parfumee.dto.account.LoginResponseDTO;
+import com.belleileperfumee.belle_ile_parfumee.dto.account.RegisterRequestDTO;
 import com.belleileperfumee.belle_ile_parfumee.entity.Account;
 import com.belleileperfumee.belle_ile_parfumee.mapper.AccountMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.AccountService;
@@ -25,17 +26,24 @@ public class AccountController {
     @Autowired
     private JwtUtil jwtUtil; // ✅ AJOUTER JwtUtil
 
-    // Inscription
+    // Inscription complète (Account + Client)
     @PostMapping("/register")
-    public ResponseEntity<AccountResponseDTO> register(@RequestBody AccountRequestDTO requestDTO) {
-        Account account = AccountMapper.toEntity(requestDTO);
-        Account createdAccount = accountService.createAccount(account);
+    public ResponseEntity<LoginResponseDTO> register(@RequestBody RegisterRequestDTO requestDTO) {
+        Account createdAccount = accountService.register(requestDTO);
 
         if (createdAccount == null) {
             return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
 
-        AccountResponseDTO responseDTO = AccountMapper.toResponseDTO(createdAccount);
+        // Générer le token JWT
+        String token = jwtUtil.generateToken(createdAccount.getEmail(), createdAccount.getRole());
+
+        // Créer la réponse avec le token
+        LoginResponseDTO responseDTO = new LoginResponseDTO();
+        responseDTO.setEmail(createdAccount.getEmail());
+        responseDTO.setRole(createdAccount.getRole());
+        responseDTO.setToken(token);
+
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 

@@ -19,6 +19,10 @@ public class Order {
     @Column(name = "order_date", nullable = false)
     private LocalDate orderDate;
 
+    @Enumerated(EnumType.STRING)
+    @Column(length = 20, nullable = false)
+    private OrderStatus status = OrderStatus.PENDING;
+
     @ManyToOne
     @JoinColumn(name = "email_1", nullable = false)
     private Client client;

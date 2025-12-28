@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams, Link } from 'react-router-dom';
 import { authService } from '../services/authService';
+import { useCart } from '../context/CartContext';
 import type { LoginRequest } from '../types/Account';
 import './Login.css';
 
@@ -10,6 +11,8 @@ const Login: React.FC = () => {
     const [error, setError] = useState<string | null>(null);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
+    const [searchParams] = useSearchParams();
+    const { syncCart } = useCart();
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -20,14 +23,21 @@ const Login: React.FC = () => {
             const credentials: LoginRequest = { email, password };
             const response = await authService.login(credentials);
 
-            // Sauvegarder le token
+            // Sauvegarder le token et l'email
             authService.saveToken(response.token);
+            authService.saveUserEmail(email);
 
-            // Rediriger selon le rôle
+            // Synchroniser le panier localStorage avec le backend
+            await syncCart();
+
+            // Rediriger selon le rôle ou l'URL de redirection
+            const redirectUrl = searchParams.get('redirect');
             if (response.role === 'ADMIN') {
                 navigate('/admin/products');
+            } else if (redirectUrl) {
+                navigate(redirectUrl);
             } else {
-                navigate('/'); // Client vers accueil
+                navigate('/');
             }
         } catch (err) {
             setError('Email ou mot de passe incorrect');
@@ -78,7 +88,8 @@ const Login: React.FC = () => {
                 </form>
 
                 <div className="login-footer">
-                    <a href="/">← Retour à l'accueil</a>
+                    <p>Pas encore de compte ? <Link to="/register">Créer un compte</Link></p>
+                    <Link to="/" className="back-link">← Retour à l'accueil</Link>
                 </div>
             </div>
         </div>

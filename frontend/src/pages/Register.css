@@ -1,21 +1,22 @@
-.login-page-container {
+.register-page-container {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background: var(--color-gray-light);
+    padding: 24px;
 }
 
-.login-page-card {
+.register-page-card {
     background: var(--color-white);
     padding: 48px;
     border-radius: 12px;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
-    max-width: 400px;
+    max-width: 480px;
     width: 100%;
 }
 
-.login-page-card h1 {
+.register-page-card h1 {
     font-size: 24px;
     font-weight: 600;
     color: var(--color-black);
@@ -23,7 +24,7 @@
     text-align: center;
 }
 
-.login-page-card h2 {
+.register-page-card h2 {
     font-size: 16px;
     font-weight: 400;
     color: var(--color-gray-medium);
@@ -31,13 +32,19 @@
     text-align: center;
 }
 
-.login-page-form {
+.register-page-form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 20px;
 }
 
-.login-page-btn {
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.register-page-btn {
     width: 100%;
     padding: 14px 24px;
     background: var(--color-black);
@@ -52,44 +59,59 @@
     margin-top: 8px;
 }
 
-.login-page-btn:hover {
+.register-page-btn:hover {
     background: #2A2A2A;
 }
 
-.login-page-btn:disabled {
+.register-page-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-.login-footer {
+.register-footer {
     margin-top: 24px;
     text-align: center;
 }
 
-.login-footer p {
+.register-footer p {
     color: var(--color-gray-medium);
     font-size: 14px;
     margin-bottom: 12px;
 }
 
-.login-footer p a {
+.register-footer p a {
     color: var(--color-black);
     text-decoration: none;
     font-weight: 500;
     transition: opacity 0.3s ease;
 }
 
-.login-footer p a:hover {
+.register-footer p a:hover {
     opacity: 0.7;
 }
 
-.login-footer .back-link {
+.register-footer .back-link {
     color: var(--color-gray-medium);
     text-decoration: none;
     font-size: 14px;
     transition: color 0.3s ease;
 }
 
-.login-footer .back-link:hover {
+.register-footer .back-link:hover {
     color: var(--color-black);
+}
+
+@media (max-width: 480px) {
+    .register-page-container {
+        padding: 16px;
+    }
+
+    .register-page-card {
+        padding: 32px 24px;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
 }

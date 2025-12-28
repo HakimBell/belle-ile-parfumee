@@ -1,10 +1,14 @@
 package com.belleileperfumee.belle_ile_parfumee.service;
 
+import com.belleileperfumee.belle_ile_parfumee.dto.account.RegisterRequestDTO;
 import com.belleileperfumee.belle_ile_parfumee.entity.Account;
+import com.belleileperfumee.belle_ile_parfumee.entity.Client;
 import com.belleileperfumee.belle_ile_parfumee.repository.AccountRepository;
+import com.belleileperfumee.belle_ile_parfumee.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -15,20 +19,49 @@ public class AccountService {
     private AccountRepository accountRepository;
 
     @Autowired
-    private PasswordEncoder passwordEncoder; // ✅ BCrypt déjà là
+    private ClientRepository clientRepository;
 
-    // Créer un nouveau compte
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    // Créer un nouveau compte (simple)
     public Account createAccount(Account account) {
-        // Vérifier si l'email existe déjà
         if (emailExists(account.getEmail())) {
             return null;
         }
 
-        // ✅ HASHER le mot de passe avant de sauvegarder
         String hashedPassword = passwordEncoder.encode(account.getPassword());
         account.setPassword(hashedPassword);
 
         return accountRepository.save(account);
+    }
+
+    // Inscription complète : Account + Client
+    @Transactional
+    public Account register(RegisterRequestDTO request) {
+        if (emailExists(request.getEmail())) {
+            return null;
+        }
+
+        // Créer le compte
+        Account account = new Account();
+        account.setEmail(request.getEmail());
+        account.setPassword(passwordEncoder.encode(request.getPassword()));
+        account.setRole("CLIENT");
+
+        Account savedAccount = accountRepository.save(account);
+
+        // Créer le client associé
+        Client client = new Client();
+        client.setEmail(request.getEmail());
+        client.setFirstName(request.getFirstName());
+        client.setLastName(request.getLastName());
+        client.setPhoneNumber(request.getPhoneNumber());
+        client.setAccount(savedAccount);
+
+        clientRepository.save(client);
+
+        return savedAccount;
     }
 
     // Vérifier les identifiants lors du login
