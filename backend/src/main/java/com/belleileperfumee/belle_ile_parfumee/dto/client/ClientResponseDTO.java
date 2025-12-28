@@ -8,5 +8,5 @@ public class ClientResponseDTO {
     private String lastName;
     private String firstName;
     private String phoneNumber;
-    // ✅ On ne renvoie PAS l'Account (qui contient le password)
+    private String role;
 }

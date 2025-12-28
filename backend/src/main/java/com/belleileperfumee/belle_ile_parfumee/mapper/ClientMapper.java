@@ -31,7 +31,10 @@ public class ClientMapper {
         dto.setLastName(client.getLastName());
         dto.setFirstName(client.getFirstName());
         dto.setPhoneNumber(client.getPhoneNumber());
-        // ✅ On ne renvoie PAS l'Account !
+        // Récupérer le rôle depuis l'Account associé
+        if (client.getAccount() != null) {
+            dto.setRole(client.getAccount().getRole());
+        }
         return dto;
     }
 }
