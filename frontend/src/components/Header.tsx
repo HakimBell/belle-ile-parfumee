@@ -26,8 +26,8 @@ const Header: React.FC = () => {
         navigate('/login');
     };
 
-    const handleLogout = () => {
-        authService.removeToken();
+    const handleLogout = async () => {
+        await authService.logout();
         window.location.href = '/';
     };
 

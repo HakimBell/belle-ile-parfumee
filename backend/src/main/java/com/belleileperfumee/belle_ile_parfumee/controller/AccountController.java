@@ -8,16 +8,20 @@ import com.belleileperfumee.belle_ile_parfumee.dto.account.RegisterRequestDTO;
 import com.belleileperfumee.belle_ile_parfumee.entity.Account;
 import com.belleileperfumee.belle_ile_parfumee.mapper.AccountMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.AccountService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.Duration;
 
 import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/accounts")
-@CrossOrigin(origins = "*")
 public class AccountController {
 
     @Autowired
@@ -26,9 +30,20 @@ public class AccountController {
     @Autowired
     private JwtUtil jwtUtil; // ✅ AJOUTER JwtUtil
 
+    // Helper pour créer le cookie JWT
+    private ResponseCookie createAuthCookie(String token) {
+        return ResponseCookie.from("authToken", token)
+                .httpOnly(true)
+                .secure(false) // Mettre true en production (HTTPS)
+                .sameSite("Lax")
+                .path("/")
+                .maxAge(Duration.ofHours(24))
+                .build();
+    }
+
     // Inscription complète (Account + Client)
     @PostMapping("/register")
-    public ResponseEntity<LoginResponseDTO> register(@RequestBody RegisterRequestDTO requestDTO) {
+    public ResponseEntity<LoginResponseDTO> register(@RequestBody RegisterRequestDTO requestDTO, HttpServletResponse response) {
         Account createdAccount = accountService.register(requestDTO);
 
         if (createdAccount == null) {
@@ -38,32 +53,84 @@ public class AccountController {
         // Générer le token JWT
         String token = jwtUtil.generateToken(createdAccount.getEmail(), createdAccount.getRole());
 
-        // Créer la réponse avec le token
+        // Ajouter le cookie httpOnly
+        response.addHeader(HttpHeaders.SET_COOKIE, createAuthCookie(token).toString());
+
+        // Créer la réponse (sans le token dans le body)
         LoginResponseDTO responseDTO = new LoginResponseDTO();
         responseDTO.setEmail(createdAccount.getEmail());
         responseDTO.setRole(createdAccount.getRole());
-        responseDTO.setToken(token);
 
         return new ResponseEntity<>(responseDTO, HttpStatus.CREATED);
     }
 
-    // Login - MODIFIÉ pour renvoyer un token JWT
+    // Login - Token dans cookie httpOnly
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody AccountRequestDTO requestDTO) {
+    public ResponseEntity<LoginResponseDTO> login(@RequestBody AccountRequestDTO requestDTO, HttpServletResponse response) {
         Account account = accountService.login(requestDTO.getEmail(), requestDTO.getPassword());
 
         if (account == null) {
             return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
 
-        // ✅ GÉNÉRER LE TOKEN JWT
+        // Générer le token JWT
         String token = jwtUtil.generateToken(account.getEmail(), account.getRole());
 
-        // ✅ CRÉER LA RÉPONSE AVEC LE TOKEN
+        // Ajouter le cookie httpOnly
+        response.addHeader(HttpHeaders.SET_COOKIE, createAuthCookie(token).toString());
+
+        // Créer la réponse (sans le token dans le body)
         LoginResponseDTO responseDTO = new LoginResponseDTO();
         responseDTO.setEmail(account.getEmail());
         responseDTO.setRole(account.getRole());
-        responseDTO.setToken(token);
+
+        return new ResponseEntity<>(responseDTO, HttpStatus.OK);
+    }
+
+    // Logout - Supprimer le cookie
+    @PostMapping("/logout")
+    public ResponseEntity<Void> logout(HttpServletResponse response) {
+        ResponseCookie cookie = ResponseCookie.from("authToken", "")
+                .httpOnly(true)
+                .secure(false)
+                .sameSite("Lax")
+                .path("/")
+                .maxAge(0) // Expire immédiatement
+                .build();
+        response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    // Endpoint pour vérifier l'authentification
+    @GetMapping("/me")
+    public ResponseEntity<LoginResponseDTO> getCurrentUser(jakarta.servlet.http.HttpServletRequest request) {
+        String token = null;
+
+        // Lire le token depuis le cookie
+        if (request.getCookies() != null) {
+            for (jakarta.servlet.http.Cookie cookie : request.getCookies()) {
+                if ("authToken".equals(cookie.getName())) {
+                    token = cookie.getValue();
+                    break;
+                }
+            }
+        }
+
+        if (token == null || !jwtUtil.validateToken(token, jwtUtil.extractEmail(token))) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        String email = jwtUtil.extractEmail(token);
+        Optional<Account> accountOpt = accountService.getAccountByEmail(email);
+
+        if (accountOpt.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        Account account = accountOpt.get();
+        LoginResponseDTO responseDTO = new LoginResponseDTO();
+        responseDTO.setEmail(account.getEmail());
+        responseDTO.setRole(account.getRole());
 
         return new ResponseEntity<>(responseDTO, HttpStatus.OK);
     }

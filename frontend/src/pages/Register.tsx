@@ -54,11 +54,10 @@ const Register: React.FC = () => {
             }
 
             // Inscription
-            const response = await authService.register(formData);
+            await authService.register(formData);
 
-            // Sauvegarder le token et l'email
-            authService.saveToken(response.token);
-            authService.saveUserEmail(formData.email);
+            // Le token est maintenant dans un cookie httpOnly (géré par le backend)
+            // L'email et le rôle sont sauvegardés automatiquement par authService.register()
 
             // Synchroniser le panier localStorage avec le backend
             await syncCart();

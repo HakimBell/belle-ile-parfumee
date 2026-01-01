@@ -6,5 +6,5 @@ import lombok.Data;
 public class LoginResponseDTO {
     private String email;
     private String role;
-    private String token; // ✅ Le token JWT
+    // Le token est maintenant dans un cookie httpOnly (pas dans la réponse JSON)
 }

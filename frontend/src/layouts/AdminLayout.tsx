@@ -10,9 +10,9 @@ interface AdminLayoutProps {
 const AdminLayout: React.FC<AdminLayoutProps> = ({ children }) => {
     const navigate = useNavigate();
 
-    const handleLogout = () => {
-        authService.removeToken();
-        navigate('/admin/login');
+    const handleLogout = async () => {
+        await authService.logout();
+        navigate('/login');
     };
 
     return (

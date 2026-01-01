@@ -11,7 +11,7 @@ export interface LoginRequest {
 export interface LoginResponse {
     email: string;
     role: 'CLIENT' | 'ADMIN';
-    token: string;
+    // token n'est plus dans la réponse - il est dans un cookie httpOnly
 }
 
 export interface RegisterRequest {

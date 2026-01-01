@@ -23,9 +23,8 @@ const Login: React.FC = () => {
             const credentials: LoginRequest = { email, password };
             const response = await authService.login(credentials);
 
-            // Sauvegarder le token et l'email
-            authService.saveToken(response.token);
-            authService.saveUserEmail(email);
+            // Le token est maintenant dans un cookie httpOnly (géré par le backend)
+            // L'email et le rôle sont sauvegardés automatiquement par authService.login()
 
             // Synchroniser le panier localStorage avec le backend
             await syncCart();

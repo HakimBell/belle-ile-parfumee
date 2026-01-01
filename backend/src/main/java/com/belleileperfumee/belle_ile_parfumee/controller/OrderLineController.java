@@ -14,7 +14,6 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/orderlines")
-@CrossOrigin(origins = "*")
 public class OrderLineController {
 
     @Autowired
