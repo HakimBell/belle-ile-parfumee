@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,5 +84,11 @@ public class ProductService {
     // BONUS - Rechercher par genre
     public List<Product> getProductsByGender(String gender) {
         return productRepository.findByGender(gender);
+    }
+
+    // Nouveautés - Produits ajoutés dans les 7 derniers jours
+    public List<Product> getNewArrivals() {
+        LocalDate oneWeekAgo = LocalDate.now().minusDays(7);
+        return productRepository.findByCreatedAtAfterOrderByCreatedAtDesc(oneWeekAgo);
     }
 }

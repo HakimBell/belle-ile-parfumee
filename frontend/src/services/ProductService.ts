@@ -21,6 +21,11 @@ export const productService = {
         const response = await api.get<Product[]>(`/products/gender/${gender}`);
         return response.data;
     },
+
+    getNewArrivals: async (): Promise<Product[]> => {
+        const response = await api.get<Product[]>('/products/new-arrivals');
+        return response.data;
+    },
     // POST /api/products - Créer un nouveau produit
     createProduct: async (product: CreateProductDto): Promise<Product> => {
         const response = await api.post<Product>('/products', product);

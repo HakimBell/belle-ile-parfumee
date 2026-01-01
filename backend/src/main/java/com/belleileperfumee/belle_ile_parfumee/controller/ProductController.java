@@ -127,4 +127,16 @@ public class ProductController {
 
         return new ResponseEntity<>(responseDTOs, HttpStatus.OK);
     }
+
+    // Nouveautés - Produits ajoutés dans les 7 derniers jours
+    @GetMapping("/new-arrivals")
+    public ResponseEntity<List<ProductResponseDTO>> getNewArrivals() {
+        List<Product> products = productService.getNewArrivals();
+
+        List<ProductResponseDTO> responseDTOs = products.stream()
+                .map(ProductMapper::toResponseDTO)
+                .toList();
+
+        return new ResponseEntity<>(responseDTOs, HttpStatus.OK);
+    }
 }
