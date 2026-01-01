@@ -9,6 +9,7 @@ import AdminClients from './pages/admin/AdminClients';
 import AdminOrders from './pages/admin/AdminOrders';
 import ProductDetail from "./pages/ProductDetail.tsx";
 import ParfumsPage from './pages/ParfumsPage';
+import SearchResults from './pages/SearchResults';
 import Cart from './pages/Cart';
 import OrderConfirmation from './pages/OrderConfirmation';
 import './App.css';
@@ -23,6 +24,7 @@ const App: React.FC = () => {
                     <Route path="/register" element={<Register />} />
                     <Route path="/product/:productCode" element={<ProductDetail />} />
                     <Route path="/parfums/:category" element={<ParfumsPage />} />
+                    <Route path="/search" element={<SearchResults />} />
                     <Route path="/cart" element={<Cart />} />
                     <Route path="/order-confirmation" element={<OrderConfirmation />} />
                     <Route path="/admin/products" element={<AdminProducts />} />

@@ -9,6 +9,17 @@ const Header: React.FC = () => {
     const isAuthenticated = authService.isAuthenticated();
     const { totalItems } = useCart();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [isSearchOpen, setIsSearchOpen] = useState(false);
+
+    const handleSearch = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            navigate(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+            setSearchQuery('');
+            setIsSearchOpen(false);
+        }
+    };
 
     const handleLoginClick = () => {
         setIsMenuOpen(false);
@@ -51,9 +62,9 @@ const Header: React.FC = () => {
                         </button>
                     </div>
                     <a href="/" onClick={(e) => { e.preventDefault(); handleNavClick('/'); }}>Accueil</a>
-                    <a href="/parfums/hommes" onClick={(e) => { e.preventDefault(); handleNavClick('/parfums/hommes'); }}>Parfums Hommes</a>
-                    <a href="/parfums/femmes" onClick={(e) => { e.preventDefault(); handleNavClick('/parfums/femmes'); }}>Parfums Femmes</a>
-                    <a href="/parfums/mixtes" onClick={(e) => { e.preventDefault(); handleNavClick('/parfums/mixtes'); }}>Parfums Mixtes</a>
+                    <a href="/parfums/hommes" onClick={(e) => { e.preventDefault(); handleNavClick('/parfums/hommes'); }}>Hommes</a>
+                    <a href="/parfums/femmes" onClick={(e) => { e.preventDefault(); handleNavClick('/parfums/femmes'); }}>Femmes</a>
+                    <a href="/parfums/mixtes" onClick={(e) => { e.preventDefault(); handleNavClick('/parfums/mixtes'); }}>Mixtes</a>
                     <a href="/nouveautes" onClick={(e) => { e.preventDefault(); handleNavClick('/nouveautes'); }}>Nouveautés</a>
 
                     {/* Mobile only: auth buttons in nav */}
@@ -73,7 +84,34 @@ const Header: React.FC = () => {
                 {/* Overlay for mobile menu */}
                 {isMenuOpen && <div className="nav-overlay" onClick={() => setIsMenuOpen(false)}></div>}
 
+                {/* Search bar - opens on icon click */}
+                <div className={`search-container ${isSearchOpen ? 'open' : ''}`}>
+                    <form className="search-form" onSubmit={handleSearch}>
+                        <input
+                            type="text"
+                            placeholder="Rechercher un parfum..."
+                            value={searchQuery}
+                            onChange={(e) => setSearchQuery(e.target.value)}
+                            className="search-input"
+                            autoFocus={isSearchOpen}
+                        />
+                        <button type="button" className="search-close" onClick={() => setIsSearchOpen(false)}>
+                            ✕
+                        </button>
+                    </form>
+                </div>
+
+                {/* Overlay when search is open */}
+                {isSearchOpen && <div className="search-overlay" onClick={() => setIsSearchOpen(false)}></div>}
+
                 <div className="header-icons">
+                    {/* Search toggle */}
+                    <button
+                        className="icon-btn"
+                        onClick={() => setIsSearchOpen(!isSearchOpen)}
+                    >
+                        🔍
+                    </button>
                     <button className="icon-btn">♡</button>
                     <button className="icon-btn" onClick={() => navigate('/cart')}>
                         🛒
