@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import Header from '../components/Header';
 import { useProduct } from '../hooks/useProduct';
 import { useCart } from '../context/CartContext';
@@ -33,74 +33,171 @@ const ProductDetail: React.FC = () => {
         }
     };
 
-    if (loading) return <div className="loading-container">Chargement...</div>;
-    if (error || !product) return <div className="error-container">Produit non trouvé</div>;
+    const getGenderRoute = (gender: string) => {
+        switch (gender) {
+            case 'Homme': return '/parfums/hommes';
+            case 'Femme': return '/parfums/femmes';
+            case 'Mixte': return '/parfums/mixtes';
+            default: return '/';
+        }
+    };
+
+    const getGenderLabel = (gender: string) => {
+        switch (gender) {
+            case 'Homme': return 'Hommes';
+            case 'Femme': return 'Femmes';
+            case 'Mixte': return 'Mixtes';
+            default: return gender;
+        }
+    };
+
+    if (loading) {
+        return (
+            <div>
+                <Header />
+                <div className="product-loading">
+                    <div className="loading-spinner"></div>
+                    <p>Chargement...</p>
+                </div>
+            </div>
+        );
+    }
+
+    if (error || !product) {
+        return (
+            <div>
+                <Header />
+                <div className="product-error">
+                    <h2>Produit non trouvé</h2>
+                    <p>Le produit que vous recherchez n'existe pas.</p>
+                    <button onClick={() => navigate('/')} className="btn-back-home">
+                        Retour à l'accueil
+                    </button>
+                </div>
+            </div>
+        );
+    }
 
     return (
         <div>
             <Header />
-            <div className="product-detail-container">
-                <button onClick={() => navigate(-1)} className="back-btn">
-                    ← Retour
-                </button>
+            <div className="product-page">
+                {/* Breadcrumb */}
+                <nav className="breadcrumb">
+                    <Link to="/">Accueil</Link>
+                    <span className="breadcrumb-separator">/</span>
+                    <Link to={getGenderRoute(product.gender)}>Parfums {getGenderLabel(product.gender)}</Link>
+                    <span className="breadcrumb-separator">/</span>
+                    <span className="breadcrumb-current">{product.name}</span>
+                </nav>
 
-                <div className="product-detail-content">
-                    <div className="product-detail-image">
-                        {product.imageUrl ? (
-                            <img src={product.imageUrl} alt={product.name} />
-                        ) : (
-                            <div className="product-placeholder-large">🧴</div>
-                        )}
-                    </div>
-
-                    <div className="product-detail-info">
-                        <div className="product-badge-detail">{product.gender}</div>
-                        <p className="product-brand-detail">{product.brand}</p>
-                        <h1 className="product-name-detail">{product.name}</h1>
-
-                        <div className="product-price-detail">{product.price.toFixed(2)} €</div>
-
-                        <div className="product-stock-detail">
-                            {product.stock > 0 ? (
-                                <span className="stock-available">✓ En stock</span>
+                <div className="product-main">
+                    {/* Image Section */}
+                    <div className="product-gallery">
+                        <div className="product-image-main">
+                            {product.imageUrl ? (
+                                <img src={product.imageUrl} alt={product.name} />
                             ) : (
-                                <span className="stock-unavailable">✗ Rupture de stock</span>
+                                <div className="product-image-placeholder">
+                                    <span>Image non disponible</span>
+                                </div>
                             )}
                         </div>
+                    </div>
 
-                        <div className="product-description-detail">
+                    {/* Info Section */}
+                    <div className="product-info">
+                        <div className="product-header">
+                            <span className="product-brand">{product.brand}</span>
+                            <h1 className="product-title">{product.name}</h1>
+                            <div className="product-meta">
+                                <span className="product-size">{product.size} ml</span>
+                                <span className="product-meta-separator">•</span>
+                                <span className="product-type">{product.concentrationType}</span>
+                            </div>
+                        </div>
+
+                        <div className="product-price-section">
+                            <span className="product-price">{product.price.toFixed(2)} €</span>
+                            <div className={`product-stock ${product.stock > 0 ? 'in-stock' : 'out-of-stock'}`}>
+                                {product.stock > 0 ? (
+                                    <>
+                                        <span className="stock-dot"></span>
+                                        En stock
+                                    </>
+                                ) : (
+                                    <>
+                                        <span className="stock-dot"></span>
+                                        Rupture de stock
+                                    </>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Add to Cart Section */}
+                        <div className="product-purchase">
+                            <div className="quantity-control">
+                                <span className="quantity-label">Quantité</span>
+                                <div className="quantity-selector">
+                                    <button
+                                        className="qty-btn"
+                                        onClick={handleDecrement}
+                                        disabled={quantity <= 1}
+                                    >
+                                        −
+                                    </button>
+                                    <span className="qty-value">{quantity}</span>
+                                    <button
+                                        className="qty-btn"
+                                        onClick={handleIncrement}
+                                        disabled={product.stock <= quantity}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div className="product-buttons">
+                                <button
+                                    className={`btn-add-cart ${addedToCart ? 'added' : ''}`}
+                                    disabled={product.stock === 0}
+                                    onClick={handleAddToCart}
+                                >
+                                    {addedToCart ? 'Ajouté au panier ✓' : 'Ajouter au panier'}
+                                </button>
+                                <button className="btn-wishlist" aria-label="Ajouter aux favoris">
+                                    ♡
+                                </button>
+                            </div>
+                        </div>
+
+                        {/* Description */}
+                        <div className="product-description">
                             <h3>Description</h3>
-                            <p>{product.description}</p>
+                            <p>{product.description || 'Aucune description disponible.'}</p>
                         </div>
 
-                        <div className="product-details-grid">
-                            <div className="detail-item">
-                                <span className="detail-label">Type :</span>
-                                <span className="detail-value">{product.concentrationType}</span>
+                        {/* Caractéristiques */}
+                        <div className="product-specs">
+                            <h3>Caractéristiques</h3>
+                            <div className="specs-tags">
+                                <div className="spec-tag">
+                                    <span className="spec-tag-label">Marque</span>
+                                    <span className="spec-tag-value">{product.brand}</span>
+                                </div>
+                                <div className="spec-tag">
+                                    <span className="spec-tag-label">Concentration</span>
+                                    <span className="spec-tag-value">{product.concentrationType}</span>
+                                </div>
+                                <div className="spec-tag">
+                                    <span className="spec-tag-label">Contenance</span>
+                                    <span className="spec-tag-value">{product.size} ml</span>
+                                </div>
+                                <div className="spec-tag">
+                                    <span className="spec-tag-label">Genre</span>
+                                    <span className="spec-tag-value">{product.gender}</span>
+                                </div>
                             </div>
-                            <div className="detail-item">
-                                <span className="detail-label">Taille :</span>
-                                <span className="detail-value">{product.size} ml</span>
-                            </div>
-                            <div className="detail-item">
-                                <span className="detail-label">Genre :</span>
-                                <span className="detail-value">{product.gender}</span>
-                            </div>
-                        </div>
-
-                        <div className="product-actions">
-                            <div className="quantity-selector">
-                                <button className="qty-btn" onClick={handleDecrement}>-</button>
-                                <input type="number" value={quantity} readOnly />
-                                <button className="qty-btn" onClick={handleIncrement}>+</button>
-                            </div>
-                            <button
-                                className={`add-to-cart-btn ${addedToCart ? 'added' : ''}`}
-                                disabled={product.stock === 0}
-                                onClick={handleAddToCart}
-                            >
-                                {addedToCart ? '✓ Ajouté au panier' : '🛒 Ajouter au panier'}
-                            </button>
                         </div>
                     </div>
                 </div>

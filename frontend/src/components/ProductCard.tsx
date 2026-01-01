@@ -27,7 +27,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
             <div className="product-info">
                 <div className="product-brand">{product.brand}</div>
-                <h3 className="product-title">{product.name}</h3>
+                <h3 className="product-title">
+                    {product.name.startsWith(product.brand)
+                        ? product.name.slice(product.brand.length).trim()
+                        : product.name}
+                </h3>
                 <p className="product-description">{product.description}</p>
                 <div className="product-price">{product.price.toFixed(2)} €</div>
                 <div className="product-stock">
