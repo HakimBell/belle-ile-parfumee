@@ -198,9 +198,10 @@ public class CartService {
         cart.setOrderDate(LocalDate.now());
         orderRepository.save(cart);
 
-        // Envoyer l'email de notification
+        // Envoyer les emails
         CartResponseDTO response = buildCartResponse(cart);
         emailService.sendOrderNotification(response, cart.getClient());
+        emailService.sendOrderConfirmationToClient(response, cart.getClient());
 
         return response;
     }
