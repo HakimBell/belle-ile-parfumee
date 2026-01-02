@@ -51,7 +51,7 @@ public class CartService {
                 .orElseThrow(() -> new RuntimeException("Client non trouvé"));
 
         Order cart = new Order();
-        cart.setCommandNumber("CART-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
+        cart.setCommandNumber("CMD-" + UUID.randomUUID().toString().substring(0, 8).toUpperCase());
         cart.setEmail(email);
         cart.setOrderDate(LocalDate.now());
         cart.setStatus(OrderStatus.PENDING);
