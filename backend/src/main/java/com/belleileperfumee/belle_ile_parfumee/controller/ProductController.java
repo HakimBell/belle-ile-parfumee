@@ -5,6 +5,7 @@ import com.belleileperfumee.belle_ile_parfumee.dto.product.ProductResponseDTO;
 import com.belleileperfumee.belle_ile_parfumee.entity.Product;
 import com.belleileperfumee.belle_ile_parfumee.mapper.ProductMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.ProductService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,7 @@ public class ProductController {
 
     // CREATE - Créer un nouveau produit
     @PostMapping
-    public ResponseEntity<ProductResponseDTO> createProduct(@RequestBody ProductRequestDTO requestDTO) {
+    public ResponseEntity<ProductResponseDTO> createProduct(@Valid @RequestBody ProductRequestDTO requestDTO) {
         // 1. Convertir DTO → Entity
         Product product = ProductMapper.toEntity(requestDTO);
 
@@ -70,7 +71,7 @@ public class ProductController {
 
     // UPDATE - Modifier un produit
     @PutMapping("/{productCode}")
-    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable String productCode, @RequestBody ProductRequestDTO requestDTO) {
+    public ResponseEntity<ProductResponseDTO> updateProduct(@PathVariable String productCode, @Valid @RequestBody ProductRequestDTO requestDTO) {
         // Assurer que le productCode du path correspond à celui du body
         requestDTO.setProductCode(productCode);
 

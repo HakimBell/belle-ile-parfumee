@@ -9,6 +9,7 @@ import com.belleileperfumee.belle_ile_parfumee.entity.Account;
 import com.belleileperfumee.belle_ile_parfumee.mapper.AccountMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.AccountService;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -43,7 +44,7 @@ public class AccountController {
 
     // Inscription complète (Account + Client)
     @PostMapping("/register")
-    public ResponseEntity<LoginResponseDTO> register(@RequestBody RegisterRequestDTO requestDTO, HttpServletResponse response) {
+    public ResponseEntity<LoginResponseDTO> register(@Valid @RequestBody RegisterRequestDTO requestDTO, HttpServletResponse response) {
         Account createdAccount = accountService.register(requestDTO);
 
         if (createdAccount == null) {
@@ -66,7 +67,7 @@ public class AccountController {
 
     // Login - Token dans cookie httpOnly
     @PostMapping("/login")
-    public ResponseEntity<LoginResponseDTO> login(@RequestBody AccountRequestDTO requestDTO, HttpServletResponse response) {
+    public ResponseEntity<LoginResponseDTO> login(@Valid @RequestBody AccountRequestDTO requestDTO, HttpServletResponse response) {
         Account account = accountService.login(requestDTO.getEmail(), requestDTO.getPassword());
 
         if (account == null) {
