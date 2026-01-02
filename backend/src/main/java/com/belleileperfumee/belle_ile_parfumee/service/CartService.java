@@ -33,6 +33,9 @@ public class CartService {
     @Autowired
     private ClientRepository clientRepository;
 
+    @Autowired
+    private EmailService emailService;
+
     /**
      * Récupère ou crée un panier (commande PENDING) pour un utilisateur
      */
@@ -195,7 +198,11 @@ public class CartService {
         cart.setOrderDate(LocalDate.now());
         orderRepository.save(cart);
 
-        return buildCartResponse(cart);
+        // Envoyer l'email de notification
+        CartResponseDTO response = buildCartResponse(cart);
+        emailService.sendOrderNotification(response, cart.getClient());
+
+        return response;
     }
 
     /**
