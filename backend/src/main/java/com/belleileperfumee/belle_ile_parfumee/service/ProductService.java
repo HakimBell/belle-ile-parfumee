@@ -55,13 +55,16 @@ public class ProductService {
         // Cherche le produit existant par son code
         return productRepository.findById(updatedProduct.getProductCode())
                 .map(existingProduct -> {
-                    // Mettre à jour uniquement les champs fournis
+                    // Mettre à jour tous les champs
                     existingProduct.setName(updatedProduct.getName());
                     existingProduct.setPrice(updatedProduct.getPrice());
                     existingProduct.setDescription(updatedProduct.getDescription());
                     existingProduct.setBrand(updatedProduct.getBrand());
                     existingProduct.setGender(updatedProduct.getGender());
                     existingProduct.setImageUrl(updatedProduct.getImageUrl());
+                    existingProduct.setStock(updatedProduct.getStock());
+                    existingProduct.setSize(updatedProduct.getSize());
+                    existingProduct.setConcentrationType(updatedProduct.getConcentrationType());
                     return productRepository.save(existingProduct);
                 })
                 .orElse(null); // Si le produit n'existe pas, retourne null
