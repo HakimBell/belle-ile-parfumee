@@ -36,8 +36,9 @@ public class AccountController {
         return ResponseCookie.from("authToken", token)
                 .httpOnly(true)
                 .secure(false) // Mettre true en production (HTTPS)
-                .sameSite("Lax")
+                .sameSite("Strict")
                 .path("/")
+                .domain("localhost") // Important pour cross-port
                 .maxAge(Duration.ofHours(24))
                 .build();
     }

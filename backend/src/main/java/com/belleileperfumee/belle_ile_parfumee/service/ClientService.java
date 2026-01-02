@@ -2,8 +2,10 @@ package com.belleileperfumee.belle_ile_parfumee.service;
 
 import com.belleileperfumee.belle_ile_parfumee.entity.Account;
 import com.belleileperfumee.belle_ile_parfumee.entity.Client;
+import com.belleileperfumee.belle_ile_parfumee.entity.Order;
 import com.belleileperfumee.belle_ile_parfumee.repository.AccountRepository;
 import com.belleileperfumee.belle_ile_parfumee.repository.ClientRepository;
+import com.belleileperfumee.belle_ile_parfumee.repository.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,7 +19,10 @@ public class ClientService {
     private ClientRepository clientRepository;
 
     @Autowired
-    private AccountRepository accountRepository;  // ✅ AJOUTER
+    private AccountRepository accountRepository;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     // Créer un nouveau client
     public Client createClient(Client client) {
@@ -72,11 +77,17 @@ public class ClientService {
     }
 
     // Supprimer un client
-    public boolean deleteClient(String email) {
-        if (clientRepository.existsById(email)) {
-            clientRepository.deleteById(email);
-            return true;
+    public void deleteClient(String email) {
+        if (!clientRepository.existsById(email)) {
+            throw new RuntimeException("Client non trouvé");
         }
-        return false; // Client non trouvé
+
+        // Vérifier si le client a des commandes
+        List<Order> orders = orderRepository.findByClient_Email(email);
+        if (!orders.isEmpty()) {
+            throw new RuntimeException("Impossible de supprimer ce client car il a " + orders.size() + " commande(s) associée(s)");
+        }
+
+        clientRepository.deleteById(email);
     }
 }

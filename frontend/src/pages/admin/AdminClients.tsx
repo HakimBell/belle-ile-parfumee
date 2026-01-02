@@ -1,10 +1,16 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useClients } from '../../hooks/useClients';
 import AdminLayout from '../../layouts/AdminLayout';
 import './AdminClients.css';
 
 const AdminClients: React.FC = () => {
     const { clients, loading, error, refetch, deleteClient } = useClients();
+    const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' } | null>(null);
+
+    const showToast = (message: string, type: 'success' | 'error') => {
+        setToast({ message, type });
+        setTimeout(() => setToast(null), 4000);
+    };
 
     const handleDelete = async (email: string, name: string) => {
         const confirmed = window.confirm(
@@ -13,10 +19,13 @@ const AdminClients: React.FC = () => {
 
         if (!confirmed) return;
 
-        const success = await deleteClient(email);
+        const result = await deleteClient(email);
 
-        if (success) {
+        if (result.success) {
+            showToast(`Client "${name}" supprimé avec succès`, 'success');
             await refetch();
+        } else {
+            showToast(result.error || 'Erreur lors de la suppression', 'error');
         }
     };
 
@@ -25,6 +34,13 @@ const AdminClients: React.FC = () => {
 
     return (
         <AdminLayout>
+            {toast && (
+                <div className={`toast toast-${toast.type}`}>
+                    <span className="toast-icon">{toast.type === 'success' ? '✓' : '⚠'}</span>
+                    <span className="toast-message">{toast.message}</span>
+                    <button className="toast-close" onClick={() => setToast(null)}>×</button>
+                </div>
+            )}
             <div className="admin-clients-container">
                 <header className="clients-header">
                     <h1>Gestion des Clients</h1>

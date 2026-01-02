@@ -25,13 +25,14 @@ export const useClients = () => {
         fetchClients();
     }, [fetchClients]);
 
-    const deleteClient = async (email: string): Promise<boolean> => {
+    const deleteClient = async (email: string): Promise<{ success: boolean; error?: string }> => {
         try {
             await clientService.delete(email);
-            return true;
-        } catch (err) {
-            console.error('Erreur lors de la suppression:', err);
-            return false;
+            return { success: true };
+        } catch (err: any) {
+            const errorMessage = err.response?.data?.error || 'Erreur lors de la suppression';
+            console.error('Erreur lors de la suppression:', errorMessage);
+            return { success: false, error: errorMessage };
         }
     };
 

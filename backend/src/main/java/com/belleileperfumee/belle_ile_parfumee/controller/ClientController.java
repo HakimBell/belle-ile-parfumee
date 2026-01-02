@@ -108,11 +108,16 @@ public class ClientController {
 
     // DELETE - Supprimer un client
     @DeleteMapping("/{email}")
-    public ResponseEntity<Void> deleteClient(@PathVariable String email) {
-        boolean deleted = clientService.deleteClient(email);
-        if (deleted) {
+    public ResponseEntity<?> deleteClient(@PathVariable String email) {
+        try {
+            clientService.deleteClient(email);
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (RuntimeException e) {
+            if (e.getMessage().contains("non trouvé")) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+            // Client a des commandes
+            return new ResponseEntity<>(java.util.Map.of("error", e.getMessage()), HttpStatus.CONFLICT);
         }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
