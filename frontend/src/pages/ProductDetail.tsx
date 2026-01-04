@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { useProduct } from '../hooks/useProduct';
 import { useCart } from '../context/CartContext';
 import './ProductDetail.css';
@@ -53,19 +54,20 @@ const ProductDetail: React.FC = () => {
 
     if (loading) {
         return (
-            <div>
+            <div className="page-wrapper">
                 <Header />
                 <div className="product-loading">
                     <div className="loading-spinner"></div>
                     <p>Chargement...</p>
                 </div>
+                <Footer />
             </div>
         );
     }
 
     if (error || !product) {
         return (
-            <div>
+            <div className="page-wrapper">
                 <Header />
                 <div className="product-error">
                     <h2>Produit non trouvé</h2>
@@ -74,12 +76,13 @@ const ProductDetail: React.FC = () => {
                         Retour à l'accueil
                     </button>
                 </div>
+                <Footer />
             </div>
         );
     }
 
     return (
-        <div>
+        <div className="page-wrapper">
             <Header />
             <div className="product-page">
                 {/* Breadcrumb */}
@@ -202,6 +205,7 @@ const ProductDetail: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

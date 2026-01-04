@@ -1,13 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import './OrderConfirmation.css';
 
 const OrderConfirmation: React.FC = () => {
     const navigate = useNavigate();
 
     return (
-        <div>
+        <div className="page-wrapper">
             <Header />
             <div className="confirmation-container">
                 <div className="confirmation-card">
@@ -31,6 +32,7 @@ const OrderConfirmation: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

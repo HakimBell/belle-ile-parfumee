@@ -4,11 +4,22 @@
     box-sizing: border-box;
 }
 
+html, body, #root {
+    min-height: 100vh;
+}
+
 body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     background-color: #FFFFFF;
     color: #0A0A0A;
     line-height: 1.6;
+}
+
+/* Page wrapper pour footer sticky */
+.page-wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
 :root {

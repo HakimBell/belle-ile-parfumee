@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import ProductCard from '../components/ProductCard';
-import { productService } from '../services/productService';
+import { productService } from '../services/ProductService';
 import type { Product } from '../types/Product';
 import './SearchResults.css';
 
@@ -46,7 +47,7 @@ const SearchResults: React.FC = () => {
     }, [query]);
 
     return (
-        <div>
+        <div className="page-wrapper">
             <Header />
             <div className="search-results-container">
                 <div className="search-results-header">
@@ -78,6 +79,7 @@ const SearchResults: React.FC = () => {
                     </div>
                 )}
             </div>
+            <Footer />
         </div>
     );
 };

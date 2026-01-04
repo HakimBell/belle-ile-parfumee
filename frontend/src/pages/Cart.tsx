@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import { useCart } from '../context/CartContext';
 import { authService } from '../services/authService';
 import './Cart.css';
@@ -28,7 +29,7 @@ const Cart: React.FC = () => {
 
     if (items.length === 0 && !isLoading) {
         return (
-            <div>
+            <div className="page-wrapper">
                 <Header />
                 <div className="cart-container">
                     <div className="cart-empty">
@@ -40,12 +41,13 @@ const Cart: React.FC = () => {
                         </button>
                     </div>
                 </div>
+                <Footer />
             </div>
         );
     }
 
     return (
-        <div>
+        <div className="page-wrapper">
             <Header />
             <div className="cart-container">
                 <div className="cart-header">
@@ -166,6 +168,7 @@ const Cart: React.FC = () => {
                     </div>
                 </div>
             </div>
+            <Footer />
         </div>
     );
 };

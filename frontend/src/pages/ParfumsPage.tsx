@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Header from '../components/Header';
+import Footer from '../components/Footer';
 import ProductList from '../components/ProductList';
 import { useProductsByGender } from '../hooks/useProductsByGender';
 
@@ -35,7 +36,7 @@ const ParfumsPage: React.FC = () => {
     }
 
     return (
-        <div>
+        <div className="page-wrapper">
             <Header />
             <ProductList
                 products={products}
@@ -44,6 +45,7 @@ const ParfumsPage: React.FC = () => {
                 title={config.title}
                 description={config.description}
             />
+            <Footer />
         </div>
     );
 };
