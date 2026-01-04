@@ -1,0 +1,27 @@
+flowchart TD
+    A["🏠 Accueil"] --> B["📦 Catalogue"]
+    A --> C["🔐 Authentification"]
+    A --> D["🛒 Panier"]
+    A --> E["⚙️ Administration"]
+
+    B --> B1["Parfums Hommes"]
+    B --> B2["Parfums Femmes"]
+    B --> B3["Parfums Mixtes"]
+    B --> B4["Nouveautes"]
+    B --> B5["🔍 Recherche"]
+    B1 --> F["📄 Detail Produit"]
+    B2 --> F
+    B3 --> F
+    B4 --> F
+    B5 --> F
+
+    C --> C1["Connexion"]
+    C --> C2["Inscription"]
+
+    D --> D1["Voir Panier"]
+    D1 --> D2["Validation Commande"]
+    D2 --> D3["✅ Confirmation"]
+
+    E --> E1["Gestion Produits"]
+    E --> E2["Gestion Clients"]
+    E --> E3["Gestion Commandes"]

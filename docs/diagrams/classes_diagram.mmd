@@ -1,0 +1,67 @@
+classDiagram
+    class Account {
+        -String email
+        -String password
+        -String role
+        +getEmail() String
+        +getPassword() String
+        +getRole() String
+    }
+
+    class Client {
+        -String email
+        -String lastName
+        -String firstName
+        -String phoneNumber
+        -Account account
+        +getEmail() String
+        +getLastName() String
+        +getFirstName() String
+    }
+
+    class Product {
+        -String productCode
+        -String name
+        -String brand
+        -BigDecimal price
+        -Integer stock
+        -String description
+        -String concentrationType
+        -String gender
+        -Integer size
+        +getProductCode() String
+        +getName() String
+        +getPrice() BigDecimal
+    }
+
+    class Order {
+        -String commandNumber
+        -LocalDate orderDate
+        -OrderStatus status
+        -Client client
+        +getCommandNumber() String
+        +getStatus() OrderStatus
+    }
+
+    class OrderLine {
+        -OrderLineId id
+        -Integer quantity
+        -BigDecimal unitPrice
+        -Product product
+        -Order order
+        +getQuantity() Integer
+        +getUnitPrice() BigDecimal
+    }
+
+    class OrderStatus {
+        &lt;&lt;enumeration&gt;&gt;
+        PENDING
+        COMPLETED
+        CANCELLED
+    }
+
+    Account "1" -- "1" Client : possede
+    Client "1" -- "*" Order : passe
+    Order "1" -- "*" OrderLine : contient
+    Product "1" -- "*" OrderLine : est commande
+    Order -- OrderStatus : a un statut

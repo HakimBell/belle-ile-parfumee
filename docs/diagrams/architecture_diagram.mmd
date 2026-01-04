@@ -1,0 +1,35 @@
+flowchart TB
+    subgraph Client["👤 Client"]
+        Browser[Navigateur]
+    end
+
+    subgraph Frontend["Frontend - React"]
+        UI[Interface Utilisateur]
+        Context[CartContext]
+        Services[Services API]
+    end
+
+    subgraph Backend["Backend - Spring Boot"]
+        Controllers[REST Controllers]
+        Security[JWT Security]
+        BusinessServices[Services Metier]
+        Repositories[Repositories JPA]
+    end
+
+    subgraph Database["Base de Donnees"]
+        PostgreSQL[(PostgreSQL)]
+    end
+
+    subgraph External["Services Externes"]
+        SMTP[Serveur SMTP Gmail]
+    end
+
+    Browser --> UI
+    UI --> Context
+    Context --> Services
+    Services -->|HTTP REST| Controllers
+    Controllers --> Security
+    Security --> BusinessServices
+    BusinessServices --> Repositories
+    Repositories --> PostgreSQL
+    BusinessServices --> SMTP

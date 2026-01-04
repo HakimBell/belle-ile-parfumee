@@ -1,0 +1,36 @@
+sequenceDiagram
+    autonumber
+    actor Client
+    participant React as Frontend React
+    participant API as API REST
+    participant Service as CartService
+    participant Repo as Repository
+    participant DB as PostgreSQL
+
+    Client->>React: Clic Ajouter au panier
+    React->>API: POST /api/orders/cart/items
+    API->>Service: addItemToCart(email, productCode, qty)
+
+    Service->>Repo: findById(productCode)
+    Repo->>DB: SELECT * FROM products
+    DB-->>Repo: Product
+    Repo-->>Service: Product
+
+    Service->>Service: Verifier stock
+
+    alt Stock suffisant
+        Service->>Repo: findByClient_EmailAndStatus(PENDING)
+        Repo->>DB: SELECT * FROM orders
+        DB-->>Repo: Order
+
+        Service->>DB: INSERT order_lines
+        DB-->>Service: OK
+
+        Service-->>API: CartResponseDTO
+        API-->>React: 200 OK + Cart JSON
+        React-->>Client: Badge panier mis a jour
+    else Stock insuffisant
+        Service-->>API: 400 Bad Request
+        API-->>React: Erreur
+        React-->>Client: Message erreur stock
+    end

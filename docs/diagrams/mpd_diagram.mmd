@@ -1,0 +1,48 @@
+erDiagram
+    account {
+        varchar_255 email PK
+        varchar_255 password
+        varchar_50 role
+    }
+
+    clients {
+        varchar_255 email PK
+        varchar_50 last_name
+        varchar_50 first_name
+        varchar_20 phone_number
+        varchar_255 email_1 FK
+    }
+
+    products {
+        varchar_50 product_code PK
+        varchar_100 name
+        varchar_50 brand
+        decimal_10_2 price
+        integer stock
+        text description
+        varchar_255 image_url
+        date created_at
+        varchar_20 concentration_type
+        varchar_10 gender
+        integer size
+    }
+
+    orders {
+        varchar_50 command_number PK
+        varchar_255 email
+        date order_date
+        varchar_20 status
+        varchar_255 email_1 FK
+    }
+
+    order_lines {
+        varchar_50 product_code PK
+        varchar_50 command_number PK
+        integer quantity
+        decimal_10_2 unit_price
+    }
+
+    account ||--|| clients : "FK email_1"
+    clients ||--o{ orders : "FK email_1"
+    orders ||--|{ order_lines : "FK command_number"
+    products ||--o{ order_lines : "FK product_code"
