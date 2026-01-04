@@ -1,0 +1,48 @@
+erDiagram
+    account ||--|| clients : "email_1"
+    clients ||--o{ orders : "email_1"
+    orders ||--|{ order_lines : "command_number"
+    products ||--o{ order_lines : "product_code"
+
+    account {
+        VARCHAR_255 email PK
+        VARCHAR_255 password
+        VARCHAR_50 role
+    }
+
+    clients {
+        VARCHAR_255 email PK
+        VARCHAR_50 last_name
+        VARCHAR_50 first_name
+        VARCHAR_20 phone_number
+        VARCHAR_255 email_1 FK
+    }
+
+    products {
+        VARCHAR_50 product_code PK
+        VARCHAR_100 name
+        VARCHAR_50 brand
+        DECIMAL_10_2 price
+        INTEGER stock
+        TEXT description
+        VARCHAR_255 image_url
+        DATE created_at
+        VARCHAR_20 concentration_type
+        VARCHAR_10 gender
+        INTEGER size
+    }
+
+    orders {
+        VARCHAR_50 command_number PK
+        VARCHAR_255 email
+        DATE order_date
+        VARCHAR_20 status
+        VARCHAR_255 email_1 FK
+    }
+
+    order_lines {
+        VARCHAR_50 product_code PK_FK
+        VARCHAR_50 command_number PK_FK
+        INTEGER quantity
+        DECIMAL_10_2 unit_price
+    }

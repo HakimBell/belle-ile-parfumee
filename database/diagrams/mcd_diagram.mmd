@@ -1,0 +1,46 @@
+erDiagram
+    ACCOUNT ||--|| CLIENT : "possede"
+    CLIENT ||--o{ ORDER : "passe"
+    ORDER ||--|{ ORDER_LINE : "contient"
+    PRODUCT ||--o{ ORDER_LINE : "est commande"
+
+    ACCOUNT {
+        string email PK
+        string password
+        string role
+    }
+
+    CLIENT {
+        string email PK
+        string lastName
+        string firstName
+        string phoneNumber
+    }
+
+    PRODUCT {
+        string productCode PK
+        string name
+        string brand
+        decimal price
+        int stock
+        text description
+        string imageUrl
+        date createdAt
+        string concentrationType
+        string gender
+        int size
+    }
+
+    ORDER {
+        string commandNumber PK
+        string email
+        date orderDate
+        string status
+    }
+
+    ORDER_LINE {
+        string productCode PK_FK
+        string commandNumber PK_FK
+        int quantity
+        decimal unitPrice
+    }
