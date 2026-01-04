@@ -20,24 +20,82 @@ public class ProductService {
     public Product createProduct(Product product) {
         // Générer un code produit automatique si non fourni
         if (product.getProductCode() == null || product.getProductCode().isEmpty()) {
-            product.setProductCode(generateProductCode());
+            product.setProductCode(generateProductCode(product));
         }
         return productRepository.save(product);
     }
 
-    // Méthode privée pour générer un code produit unique
-    private String generateProductCode() {
-        String prefix = "PROD-";
-        long timestamp = System.currentTimeMillis();
-        String code = prefix + timestamp;
+    /**
+     * Génère un code produit au format: XXX-TTT-MMM-YYYY
+     * XXX = Code marque (3 lettres)
+     * TTT = Type concentration (EDP, EDT, EXT, EDC)
+     * MMM = Taille en ml (050, 100, etc.)
+     * YYYY = Numéro séquentiel (0001, 0002, etc.)
+     */
+    private String generateProductCode(Product product) {
+        String brandCode = generateBrandCode(product.getBrand());
+        String typeCode = generateTypeCode(product.getConcentrationType());
+        String sizeCode = String.format("%03d", product.getSize());
 
-        // Vérifier que le code n'existe pas déjà (très peu probable)
-        while (productRepository.existsById(code)) {
-            timestamp++;
-            code = prefix + timestamp;
+        // Préfixe sans le numéro séquentiel
+        String prefix = brandCode + "-" + typeCode + "-" + sizeCode + "-";
+
+        // Trouver le prochain numéro disponible
+        int nextNumber = getNextSequenceNumber(prefix);
+
+        return prefix + String.format("%04d", nextNumber);
+    }
+
+    /**
+     * Génère le code marque (3 premières lettres en majuscules)
+     */
+    private String generateBrandCode(String brand) {
+        if (brand == null || brand.isEmpty()) {
+            return "XXX";
+        }
+        // Supprimer les espaces et caractères spéciaux, garder les 3 premières lettres
+        String cleaned = brand.replaceAll("[^a-zA-Z]", "").toUpperCase();
+        if (cleaned.length() >= 3) {
+            return cleaned.substring(0, 3);
+        }
+        // Compléter avec X si moins de 3 caractères
+        return String.format("%-3s", cleaned).replace(' ', 'X');
+    }
+
+    /**
+     * Génère le code type de concentration
+     */
+    private String generateTypeCode(String concentrationType) {
+        if (concentrationType == null) {
+            return "EDP";
+        }
+        return switch (concentrationType.toLowerCase()) {
+            case "eau de parfum" -> "EDP";
+            case "eau de toilette" -> "EDT";
+            case "extrait" -> "EXT";
+            case "eau de cologne" -> "EDC";
+            default -> "EDP";
+        };
+    }
+
+    /**
+     * Trouve le prochain numéro séquentiel pour un préfixe donné
+     */
+    private int getNextSequenceNumber(String prefix) {
+        List<String> existingCodes = productRepository.findProductCodesByPrefix(prefix);
+
+        if (existingCodes.isEmpty()) {
+            return 1;
         }
 
-        return code;
+        // Récupérer le dernier code et extraire le numéro
+        String lastCode = existingCodes.get(0);
+        try {
+            String numberPart = lastCode.substring(lastCode.lastIndexOf("-") + 1);
+            return Integer.parseInt(numberPart) + 1;
+        } catch (Exception e) {
+            return 1;
+        }
     }
 
     // READ - Récupérer tous les produits

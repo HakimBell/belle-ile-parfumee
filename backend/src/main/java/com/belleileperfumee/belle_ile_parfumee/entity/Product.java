@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.UUID;
 @Entity
 @Table(name = "products")
 @Data
@@ -47,9 +46,8 @@ public class Product {
 
     @PrePersist
     protected void onCreate() {
-        this.createdAt = LocalDate.now();
-        if (this.productCode == null || this.productCode.isBlank()) {
-            this.productCode = "PROD-" + UUID.randomUUID().toString().replace("-", "").substring(0, 12).toUpperCase();
+        if (this.createdAt == null) {
+            this.createdAt = LocalDate.now();
         }
     }
 }
