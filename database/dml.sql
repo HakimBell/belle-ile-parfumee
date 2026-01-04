@@ -5,23 +5,13 @@
 
 -- ============================================
 -- Comptes utilisateurs
--- Mot de passe: "password123" hashé avec BCrypt
+-- NOTE: Les comptes doivent être créés via l'application (POST /api/auth/register)
+-- car les mots de passe sont hashés avec BCrypt par Spring Security.
+--
+-- Pour créer un admin :
+-- 1. S'inscrire via l'app avec email/password
+-- 2. UPDATE account SET role = 'ADMIN' WHERE email = 'votre@email.com';
 -- ============================================
-INSERT INTO account (email, password, role) VALUES
-('admin@belleileperfumee.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZRGdjGj/n3.QGv3hnAGXP1b5EQrKO', 'ADMIN'),
-('marie.dupont@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZRGdjGj/n3.QGv3hnAGXP1b5EQrKO', 'CLIENT'),
-('jean.martin@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZRGdjGj/n3.QGv3hnAGXP1b5EQrKO', 'CLIENT'),
-('sophie.bernard@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZRGdjGj/n3.QGv3hnAGXP1b5EQrKO', 'CLIENT'),
-('pierre.durand@email.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZRGdjGj/n3.QGv3hnAGXP1b5EQrKO', 'CLIENT');
-
--- ============================================
--- Clients
--- ============================================
-INSERT INTO clients (email, last_name, first_name, phone_number, email_1) VALUES
-('marie.dupont@email.com', 'Dupont', 'Marie', '0612345678', 'marie.dupont@email.com'),
-('jean.martin@email.com', 'Martin', 'Jean', '0623456789', 'jean.martin@email.com'),
-('sophie.bernard@email.com', 'Bernard', 'Sophie', '0634567890', 'sophie.bernard@email.com'),
-('pierre.durand@email.com', 'Durand', 'Pierre', NULL, 'pierre.durand@email.com');
 
 -- ============================================
 -- Produits - Parfums Femmes
@@ -59,31 +49,9 @@ INSERT INTO products (product_code, name, brand, price, stock, description, imag
 
 -- ============================================
 -- Commandes de démonstration
+-- NOTE: Les commandes nécessitent des clients existants.
+-- Créez d'abord des comptes via l'application avant d'insérer des commandes.
 -- ============================================
-INSERT INTO orders (command_number, email, order_date, status, email_1) VALUES
-('CMD-2024-0001', 'marie.dupont@email.com', '2024-03-15', 'COMPLETED', 'marie.dupont@email.com'),
-('CMD-2024-0002', 'jean.martin@email.com', '2024-03-18', 'COMPLETED', 'jean.martin@email.com'),
-('CMD-2024-0003', 'sophie.bernard@email.com', '2024-03-20', 'PENDING', 'sophie.bernard@email.com'),
-('CMD-2024-0004', 'marie.dupont@email.com', '2024-03-22', 'PENDING', 'marie.dupont@email.com');
-
--- ============================================
--- Lignes de commande
--- ============================================
--- Commande 1: Marie - Chanel N°5 + Dior J'adore
-INSERT INTO order_lines (product_code, command_number, quantity, unit_price) VALUES
-('CHA-EDP-100-0001', 'CMD-2024-0001', 1, 152.00),
-('DIO-EDP-100-0001', 'CMD-2024-0001', 1, 148.00);
-
--- Commande 2: Jean - Sauvage + Bleu de Chanel
-INSERT INTO order_lines (product_code, command_number, quantity, unit_price) VALUES
-('DIO-EDT-100-0003', 'CMD-2024-0002', 2, 125.00),
-('CHA-EDT-100-0003', 'CMD-2024-0002', 1, 138.00);
-
--- Commande 3: Sophie - Tom Ford Oud Wood
-INSERT INTO order_lines (product_code, command_number, quantity, unit_price) VALUES
-('TFO-EDP-050-0001', 'CMD-2024-0003', 1, 285.00);
-
--- Commande 4: Marie - Panier en cours
-INSERT INTO order_lines (product_code, command_number, quantity, unit_price) VALUES
-('YSL-EDP-090-0001', 'CMD-2024-0004', 1, 135.00),
-('LAN-EDP-075-0001', 'CMD-2024-0004', 2, 119.00);
+-- Exemple (après création de clients) :
+-- INSERT INTO orders (command_number, email, order_date, status, email_1) VALUES
+-- ('CMD-2024-0001', 'client@email.com', '2024-03-15', 'COMPLETED', 'client@email.com');
