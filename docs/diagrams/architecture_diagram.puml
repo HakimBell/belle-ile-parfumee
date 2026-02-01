@@ -1,0 +1,71 @@
+@startuml architecture_diagram
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam shadowing true
+skinparam roundCorner 10
+skinparam nodesep 50
+skinparam ranksep 40
+
+skinparam rectangle {
+    BorderThickness 2
+    FontStyle bold
+    FontSize 14
+}
+
+skinparam component {
+    BorderThickness 2
+    FontSize 12
+}
+
+skinparam arrow {
+    Thickness 2
+    FontSize 11
+    Color #546E7A
+}
+
+title <size:24><b>Architecture 3-Tiers</b></size>\nBelle Île Parfumée
+
+' === COUCHE CLIENT ===
+rectangle "COUCHE CLIENT" as L1 #E8F5E9 {
+    component [Navigateur Web] as Browser #C8E6C9
+}
+
+' === COUCHE PRESENTATION (Frontend) ===
+rectangle "COUCHE PRÉSENTATION" as L2 #E3F2FD {
+    component [React 19\nTypeScript 5.9\nVite 7] as React #BBDEFB
+}
+
+' === COUCHE METIER (Backend) ===
+rectangle "COUCHE MÉTIER" as L3 #FFF3E0 {
+    component [Spring Boot 3.5\nJava 21] as Spring #FFE0B2
+    component [Spring Security\nJWT] as Security #FFCC80
+}
+
+' === COUCHE DONNEES ===
+rectangle "COUCHE DONNÉES" as L4 #FCE4EC {
+    database "PostgreSQL" as DB #F48FB1
+}
+
+' === SERVICE EXTERNE ===
+rectangle "SERVICE EXTERNE" as L5 #F3E5F5 {
+    component [SMTP Gmail] as SMTP #CE93D8
+}
+
+' Connexions verticales simples
+Browser -[#2E7D32]down-> React : <color:#2E7D32><b>HTTPS</b>
+React -[#1565C0]down-> Spring : <color:#1565C0><b>REST API</b>\nJSON
+Spring -[#EF6C00]right-> Security
+Spring -[#C2185B]down-> DB : <color:#C2185B><b>JPA/JDBC</b>
+Spring -[#7B1FA2]right-> SMTP : <color:#7B1FA2><b>SMTP</b>
+
+legend right
+  |= Couche |= Technologie |
+  | Client | Navigateur |
+  | Présentation | React 19, Vite 7 |
+  | Métier | Spring Boot 3.5, JWT |
+  | Données | PostgreSQL |
+  | Externe | Gmail SMTP |
+endlegend
+
+@enduml

@@ -1,0 +1,98 @@
+@startuml mcd_diagram
+!define ENTITY_BG #E3F2FD
+!define RELATION_BG #FFF3E0
+
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam shadowing true
+skinparam roundCorner 10
+
+skinparam class {
+    BackgroundColor ENTITY_BG
+    BorderColor #1565C0
+    BorderThickness 2
+    FontColor #1A237E
+    FontStyle bold
+}
+
+skinparam object {
+    BackgroundColor RELATION_BG
+    BorderColor #EF6C00
+    BorderThickness 2
+    FontColor #E65100
+}
+
+title <size:22><b>Modèle Conceptuel de Données (MCD)</b></size>\n<size:14>Belle Île Parfumée - Méthode MERISE</size>
+
+' === ENTITÉS ===
+entity "ACCOUNT" as account {
+    <u>email</u>
+    --
+    password
+    role
+}
+
+entity "CLIENT" as client {
+    <u>email</u>
+    --
+    lastName
+    firstName
+    phoneNumber
+}
+
+entity "PRODUCT" as product {
+    <u>productCode</u>
+    --
+    name
+    brand
+    price
+    stock
+    description
+    concentrationType
+    gender
+    size
+}
+
+entity "ORDER" as order {
+    <u>commandNumber</u>
+    --
+    orderDate
+    status
+}
+
+' === ASSOCIATIONS ===
+diamond "possède" as poss #FFE0B2
+diamond "passe" as pass #BBDEFB
+diamond "contient" as cont #C8E6C9
+diamond "référence" as ref #F8BBD9
+
+' === RELATIONS ===
+account "1,1" -- poss
+poss -- "0,1" client
+
+client "1,1" -- pass
+pass -- "0,n" order
+
+order "1,1" -- cont
+cont -- "1,n" : "quantity\nunitPrice"
+
+product "1,1" -- ref
+ref -- "0,n" cont
+
+note bottom of cont
+  **Entité associative**
+  ORDER_LINE avec :
+  - quantity
+  - unitPrice
+end note
+
+legend right
+  |= Symbole |= Signification |
+  | 1,1 | Un et un seul |
+  | 0,1 | Zéro ou un |
+  | 0,n | Zéro à plusieurs |
+  | 1,n | Un à plusieurs |
+endlegend
+
+@enduml

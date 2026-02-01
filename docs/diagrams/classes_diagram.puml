@@ -1,0 +1,135 @@
+@startuml classes_diagram
+!define ENTITY_BG #E8EAF6
+!define ENTITY_BORDER #3F51B5
+!define ENUM_BG #FFF8E1
+!define ENUM_BORDER #FF8F00
+
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam shadowing true
+skinparam roundCorner 5
+skinparam linetype ortho
+
+skinparam class {
+    BackgroundColor ENTITY_BG
+    BorderColor ENTITY_BORDER
+    BorderThickness 2
+    FontColor #1A237E
+    FontStyle bold
+    HeaderBackgroundColor #3F51B5
+    HeaderFontColor white
+    AttributeFontColor #37474F
+    AttributeFontSize 12
+    StereotypeFontColor #7986CB
+}
+
+skinparam enum {
+    BackgroundColor ENUM_BG
+    BorderColor ENUM_BORDER
+    BorderThickness 2
+    FontColor #E65100
+    HeaderBackgroundColor #FF8F00
+    HeaderFontColor white
+}
+
+skinparam arrow {
+    Color #455A64
+    FontColor #455A64
+    Thickness 2
+}
+
+title <size:22><b>Diagramme de Classes UML</b></size>\n<size:14>Belle Île Parfumée - Entités JPA</size>
+
+' ============ ENUM ============
+enum OrderStatus <<enumeration>> {
+    PENDING
+    COMPLETED
+    CANCELLED
+}
+
+' ============ ENTITÉS ============
+class Account <<Entity>> {
+    - email : String <<PK>>
+    - password : String
+    - role : String
+    ==
+    + getEmail() : String
+    + setPassword(String)
+    + getRole() : String
+}
+
+class Client <<Entity>> {
+    - email : String <<PK>>
+    - lastName : String
+    - firstName : String
+    - phoneNumber : String
+    ==
+    + getFullName() : String
+    + getEmail() : String
+}
+
+class Product <<Entity>> {
+    - productCode : String <<PK>>
+    - name : String
+    - brand : String
+    - price : BigDecimal
+    - stock : Integer
+    - description : String
+    - concentrationType : String
+    - gender : String
+    - size : Integer
+    ==
+    + getProductCode() : String
+    + getName() : String
+    + getPrice() : BigDecimal
+    + isInStock() : boolean
+}
+
+class Order <<Entity>> {
+    - commandNumber : String <<PK>>
+    - orderDate : LocalDate
+    - status : OrderStatus
+    ==
+    + getCommandNumber() : String
+    + getStatus() : OrderStatus
+    + getTotalPrice() : BigDecimal
+}
+
+class OrderLine <<Entity>> {
+    - id : OrderLineId <<PK>>
+    - quantity : Integer
+    - unitPrice : BigDecimal
+    ==
+    + getQuantity() : Integer
+    + getSubTotal() : BigDecimal
+}
+
+' ============ RELATIONS ============
+' Composition : losange plein (◆) - cycle de vie lié
+' Agrégation : losange vide (◇) - cycle de vie indépendant
+
+Client "1" --o "0..1" Account : possède >
+note on link : Agrégation\n(Account peut exister\nsans Client)
+
+Client "1" o-- "0..*" Order : passe >
+note on link : Agrégation
+
+Order "1" *-- "1..*" OrderLine : contient >
+note on link : Composition\n(OrderLine n'existe pas\nsans Order)
+
+Product "1" o-- "0..*" OrderLine : référencé par >
+note on link : Agrégation
+
+Order "1" --> "1" OrderStatus : <<use>>
+
+' ============ LÉGENDE ============
+legend bottom
+  |= Symbole |= Signification |
+  | ◆──── | Composition (cycle de vie lié) |
+  | ◇──── | Agrégation (cycle de vie indépendant) |
+  | ────> | Association / Dépendance |
+  | <<PK>> | Clé primaire |
+endlegend
+
+@enduml

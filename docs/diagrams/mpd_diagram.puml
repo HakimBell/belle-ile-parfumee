@@ -1,0 +1,65 @@
+@startuml mpd_diagram
+skinparam backgroundColor white
+skinparam defaultFontName Consolas
+skinparam defaultFontSize 11
+
+skinparam note {
+    BackgroundColor #1E1E1E
+    BorderColor #3C3C3C
+    FontColor #D4D4D4
+}
+
+title <size:22><b><font:Arial>Modèle Physique de Données (MPD)</font></b></size>\n<size:14><font:Arial>Belle Île Parfumée - Script SQL PostgreSQL</font></size>
+
+note as SQL
+<color:#569CD6>CREATE TABLE</color> <color:#4EC9B0>account</color> (
+    email <color:#4EC9B0>VARCHAR</color>(100) <color:#569CD6>PRIMARY KEY</color>,
+    password <color:#4EC9B0>VARCHAR</color>(255) <color:#569CD6>NOT NULL</color>,
+    role <color:#4EC9B0>VARCHAR</color>(20) <color:#569CD6>NOT NULL</color>
+);
+
+<color:#569CD6>CREATE TABLE</color> <color:#4EC9B0>client</color> (
+    email <color:#4EC9B0>VARCHAR</color>(100) <color:#569CD6>PRIMARY KEY</color>,
+    last_name <color:#4EC9B0>VARCHAR</color>(50) <color:#569CD6>NOT NULL</color>,
+    first_name <color:#4EC9B0>VARCHAR</color>(50) <color:#569CD6>NOT NULL</color>,
+    phone_number <color:#4EC9B0>VARCHAR</color>(20),
+    account_email <color:#4EC9B0>VARCHAR</color>(100) <color:#569CD6>UNIQUE</color>,
+    <color:#569CD6>FOREIGN KEY</color> (account_email)
+        <color:#569CD6>REFERENCES</color> <color:#4EC9B0>account</color>(email)
+);
+
+<color:#569CD6>CREATE TABLE</color> <color:#4EC9B0>product</color> (
+    product_code <color:#4EC9B0>VARCHAR</color>(20) <color:#569CD6>PRIMARY KEY</color>,
+    name <color:#4EC9B0>VARCHAR</color>(100) <color:#569CD6>NOT NULL</color>,
+    brand <color:#4EC9B0>VARCHAR</color>(50) <color:#569CD6>NOT NULL</color>,
+    price <color:#4EC9B0>DECIMAL</color>(10,2) <color:#569CD6>NOT NULL</color>,
+    stock <color:#4EC9B0>INTEGER</color> <color:#569CD6>DEFAULT</color> 0,
+    description <color:#4EC9B0>TEXT</color>,
+    concentration_type <color:#4EC9B0>VARCHAR</color>(30),
+    gender <color:#4EC9B0>VARCHAR</color>(10),
+    size <color:#4EC9B0>INTEGER</color>
+);
+
+<color:#569CD6>CREATE TABLE</color> <color:#4EC9B0>orders</color> (
+    command_number <color:#4EC9B0>VARCHAR</color>(20) <color:#569CD6>PRIMARY KEY</color>,
+    order_date <color:#4EC9B0>DATE</color> <color:#569CD6>NOT NULL</color>,
+    status <color:#4EC9B0>VARCHAR</color>(20) <color:#569CD6>NOT NULL</color>,
+    client_email <color:#4EC9B0>VARCHAR</color>(100) <color:#569CD6>NOT NULL</color>,
+    <color:#569CD6>FOREIGN KEY</color> (client_email)
+        <color:#569CD6>REFERENCES</color> <color:#4EC9B0>client</color>(email)
+);
+
+<color:#569CD6>CREATE TABLE</color> <color:#4EC9B0>order_line</color> (
+    command_number <color:#4EC9B0>VARCHAR</color>(20),
+    product_code <color:#4EC9B0>VARCHAR</color>(20),
+    quantity <color:#4EC9B0>INTEGER</color> <color:#569CD6>NOT NULL</color>,
+    unit_price <color:#4EC9B0>DECIMAL</color>(10,2) <color:#569CD6>NOT NULL</color>,
+    <color:#569CD6>PRIMARY KEY</color> (command_number, product_code),
+    <color:#569CD6>FOREIGN KEY</color> (command_number)
+        <color:#569CD6>REFERENCES</color> <color:#4EC9B0>orders</color>(command_number),
+    <color:#569CD6>FOREIGN KEY</color> (product_code)
+        <color:#569CD6>REFERENCES</color> <color:#4EC9B0>product</color>(product_code)
+);
+end note
+
+@enduml

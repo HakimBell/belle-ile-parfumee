@@ -1,0 +1,81 @@
+@startuml mld_diagram
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing true
+
+skinparam class {
+    BackgroundColor #E8EAF6
+    BorderColor #3F51B5
+    BorderThickness 2
+    FontColor #1A237E
+    HeaderBackgroundColor #3F51B5
+    HeaderFontColor white
+    AttributeFontSize 11
+}
+
+title <size:22><b>Modèle Logique de Données (MLD)</b></size>\n<size:14>Belle Île Parfumée - Schéma relationnel</size>
+
+class ACCOUNT <<Table>> {
+    <b><color:#C62828>PK</color></b> email : VARCHAR(100)
+    --
+    password : VARCHAR(255)
+    role : VARCHAR(20)
+}
+
+class CLIENT <<Table>> {
+    <b><color:#C62828>PK</color></b> email : VARCHAR(100)
+    --
+    lastName : VARCHAR(50)
+    firstName : VARCHAR(50)
+    phoneNumber : VARCHAR(20)
+    <b><color:#1565C0>FK</color></b> account_email : VARCHAR(100)
+}
+
+class PRODUCT <<Table>> {
+    <b><color:#C62828>PK</color></b> productCode : VARCHAR(20)
+    --
+    name : VARCHAR(100)
+    brand : VARCHAR(50)
+    price : DECIMAL(10,2)
+    stock : INTEGER
+    description : TEXT
+    concentrationType : VARCHAR(30)
+    gender : VARCHAR(10)
+    size : INTEGER
+}
+
+class "ORDER" as ord <<Table>> {
+    <b><color:#C62828>PK</color></b> commandNumber : VARCHAR(20)
+    --
+    orderDate : DATE
+    status : VARCHAR(20)
+    <b><color:#1565C0>FK</color></b> client_email : VARCHAR(100)
+}
+
+class ORDER_LINE <<Table>> {
+    <b><color:#C62828>PK</color></b> <b><color:#1565C0>FK</color></b> commandNumber : VARCHAR(20)
+    <b><color:#C62828>PK</color></b> <b><color:#1565C0>FK</color></b> productCode : VARCHAR(20)
+    --
+    quantity : INTEGER
+    unitPrice : DECIMAL(10,2)
+}
+
+' Relations
+ACCOUNT "1" <-- "0..1" CLIENT : account_email
+CLIENT "1" <-- "0..*" ord : client_email
+ord "1" <-- "1..*" ORDER_LINE : commandNumber
+PRODUCT "1" <-- "0..*" ORDER_LINE : productCode
+
+legend right
+  |= Symbole |= Signification |
+  | <color:#C62828>PK</color> | Clé primaire |
+  | <color:#1565C0>FK</color> | Clé étrangère |
+endlegend
+
+note bottom of ORDER_LINE
+  Clé primaire composée :
+  (commandNumber, productCode)
+end note
+
+@enduml

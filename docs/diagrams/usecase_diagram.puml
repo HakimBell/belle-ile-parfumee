@@ -1,0 +1,105 @@
+@startuml usecase_diagram
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing true
+
+skinparam usecase {
+    BackgroundColor #E3F2FD
+    BorderColor #1565C0
+    BorderThickness 2
+    FontColor #1A237E
+}
+
+skinparam actor {
+    BackgroundColor #E8F5E9
+    BorderColor #2E7D32
+}
+
+skinparam rectangle {
+    BorderColor #546E7A
+    BorderThickness 2
+    RoundCorner 15
+}
+
+title <size:22><b>Diagramme de Cas d'Utilisation</b></size>\n<size:14>Belle Île Parfumée</size>
+
+actor "Visiteur" as visitor #E8F5E9
+actor "Client" as client #BBDEFB
+actor "Admin" as admin #FFE0B2
+
+rectangle "Belle Île Parfumée" {
+
+    ' Visiteur use cases
+    usecase "Consulter le catalogue" as UC1 #E8F5E9
+    usecase "Rechercher un produit" as UC2 #E8F5E9
+    usecase "Voir détail produit" as UC3 #E8F5E9
+    usecase "S'inscrire" as UC4 #E8F5E9
+    usecase "Se connecter" as UC5 #E8F5E9
+
+    ' Client use cases
+    usecase "Gérer son panier" as UC6 #BBDEFB
+    usecase "Ajouter au panier" as UC6a #BBDEFB
+    usecase "Modifier quantité" as UC6b #BBDEFB
+    usecase "Supprimer du panier" as UC6c #BBDEFB
+    usecase "Passer commande" as UC7 #BBDEFB
+    usecase "Consulter historique" as UC8 #BBDEFB
+    usecase "Gérer son profil" as UC9 #BBDEFB
+
+    ' Admin use cases
+    usecase "Gérer les produits" as UC10 #FFE0B2
+    usecase "Ajouter produit" as UC10a #FFE0B2
+    usecase "Modifier produit" as UC10b #FFE0B2
+    usecase "Supprimer produit" as UC10c #FFE0B2
+    usecase "Gérer les stocks" as UC11 #FFE0B2
+    usecase "Gérer les commandes" as UC12 #FFE0B2
+    usecase "Voir les clients" as UC13 #FFE0B2
+}
+
+' Visiteur relations
+visitor --> UC1
+visitor --> UC2
+visitor --> UC3
+visitor --> UC4
+visitor --> UC5
+
+' Client hérite de Visiteur
+client --|> visitor
+
+' Client relations
+client --> UC6
+client --> UC7
+client --> UC8
+client --> UC9
+
+' Panier includes
+UC6 ..> UC6a : <<include>>
+UC6 ..> UC6b : <<include>>
+UC6 ..> UC6c : <<include>>
+
+' Admin hérite de Client
+admin --|> client
+
+' Admin relations
+admin --> UC10
+admin --> UC11
+admin --> UC12
+admin --> UC13
+
+' Produits includes
+UC10 ..> UC10a : <<include>>
+UC10 ..> UC10b : <<include>>
+UC10 ..> UC10c : <<include>>
+
+' Extends
+UC7 ..> UC5 : <<extend>>\nauthentification\nrequise
+
+legend right
+  |= Symbole |= Signification |
+  | ──▶ | Association |
+  | ──▷ | Héritage |
+  | ..▶ <<include>> | Inclusion |
+  | ..▶ <<extend>> | Extension |
+endlegend
+
+@enduml

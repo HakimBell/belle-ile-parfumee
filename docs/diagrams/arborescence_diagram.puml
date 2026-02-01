@@ -1,0 +1,86 @@
+@startuml arborescence_diagram
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing true
+
+skinparam rectangle {
+    BorderThickness 2
+    RoundCorner 10
+}
+
+title <size:22><b>Arborescence du Site</b></size>\n<size:14>Belle Île Parfumée - Structure de navigation</size>
+
+' Style colors
+!define HOME_COLOR #FF6B6B
+!define PUBLIC_COLOR #74C0FC
+!define AUTH_COLOR #6BD4A8
+!define ADMIN_COLOR #FFD93D
+!define PROTECTED_COLOR #B197FC
+
+' ROOT
+rectangle "🏠 **Accueil**\n/" as home HOME_COLOR
+
+' Public pages
+rectangle "📦 **Catalogue**\n/products" as catalog PUBLIC_COLOR
+rectangle "🔍 **Détail Produit**\n/products/:id" as product PUBLIC_COLOR
+rectangle "👫 **Hommes**\n/products/homme" as men PUBLIC_COLOR
+rectangle "👩 **Femmes**\n/products/femme" as women PUBLIC_COLOR
+rectangle "⚧ **Mixte**\n/products/mixte" as unisex PUBLIC_COLOR
+
+' Auth pages
+rectangle "🔐 **Connexion**\n/login" as login AUTH_COLOR
+rectangle "📝 **Inscription**\n/register" as register AUTH_COLOR
+
+' Protected pages (Client)
+rectangle "🛒 **Panier**\n/cart" as cart PROTECTED_COLOR
+rectangle "✅ **Checkout**\n/checkout" as checkout PROTECTED_COLOR
+rectangle "🎉 **Confirmation**\n/order-confirmation" as confirm PROTECTED_COLOR
+rectangle "👤 **Mon Compte**\n/account" as account PROTECTED_COLOR
+rectangle "📋 **Mes Commandes**\n/orders" as orders PROTECTED_COLOR
+
+' Admin pages
+rectangle "⚙️ **Dashboard Admin**\n/admin" as admin ADMIN_COLOR
+rectangle "📦 **Gestion Produits**\n/admin/products" as adminProd ADMIN_COLOR
+rectangle "📊 **Gestion Commandes**\n/admin/orders" as adminOrd ADMIN_COLOR
+rectangle "👥 **Gestion Clients**\n/admin/clients" as adminCli ADMIN_COLOR
+
+' Relations - From Home
+home --> catalog
+home --> login
+home --> register
+home --> cart
+
+' Catalog children
+catalog --> product
+catalog --> men
+catalog --> women
+catalog --> unisex
+
+' Auth flow
+login --> account
+register --> login
+
+' Protected flow
+cart --> checkout
+checkout --> confirm
+
+' Account children
+account --> orders
+
+' Admin flow
+admin --> adminProd
+admin --> adminOrd
+admin --> adminCli
+
+' Legend
+legend right
+  |= Couleur |= Zone |
+  | <back:#FF6B6B>     </back> | Accueil |
+  | <back:#74C0FC>     </back> | Pages publiques |
+  | <back:#6BD4A8>     </back> | Authentification |
+  | <back:#B197FC>     </back> | Espace client (protégé) |
+  | <back:#FFD93D>     </back> | Administration |
+endlegend
+
+@enduml

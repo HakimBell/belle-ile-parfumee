@@ -1,0 +1,125 @@
+@startuml sequence_diagram
+!define ACTOR_BG #E8F5E9
+!define FRONTEND_BG #E3F2FD
+!define BACKEND_BG #FFF3E0
+!define DATABASE_BG #FCE4EC
+
+skinparam backgroundColor #FAFAFA
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing true
+skinparam roundCorner 8
+
+skinparam participant {
+    BorderColor #37474F
+    BorderThickness 2
+    FontStyle bold
+}
+
+skinparam actor {
+    BackgroundColor ACTOR_BG
+    BorderColor #2E7D32
+    FontColor #1B5E20
+}
+
+skinparam database {
+    BackgroundColor DATABASE_BG
+    BorderColor #C2185B
+    FontColor #880E4F
+}
+
+skinparam sequence {
+    ArrowColor #546E7A
+    ArrowThickness 2
+    LifeLineBorderColor #90A4AE
+    LifeLineBackgroundColor #ECEFF1
+    BoxBorderColor #78909C
+    BoxBackgroundColor #F5F5F5
+    GroupBorderColor #1565C0
+    GroupBackgroundColor #E3F2FD
+    GroupHeaderFontColor white
+    DividerBorderColor #78909C
+    DividerBackgroundColor #CFD8DC
+}
+
+skinparam note {
+    BackgroundColor #FFFDE7
+    BorderColor #FBC02D
+    FontColor #F57F17
+}
+
+title <size:20><b>Diagramme de Séquence</b></size>\n<size:14>Ajout d'un produit au panier</size>
+
+actor "Client" as Client #E8F5E9
+box "Frontend" #E3F2FD
+    participant "React\nInterface" as React #BBDEFB
+end box
+box "Backend Spring Boot" #FFF3E0
+    participant "REST\nController" as API #FFE0B2
+    participant "Cart\nService" as Service #FFCC80
+    participant "JPA\nRepository" as Repo #FFB74D
+end box
+database "PostgreSQL" as DB #F8BBD9
+
+autonumber "<b>[00]"
+
+Client -> React : Clic **"Ajouter au panier"**
+activate React #BBDEFB
+
+React -> API : **POST** /api/orders/cart/items
+activate API #FFE0B2
+
+API -> Service : addItemToCart(email, productCode, qty)
+activate Service #FFCC80
+
+Service -> Repo : findById(productCode)
+activate Repo #FFB74D
+
+Repo -> DB : **SELECT** * FROM products
+activate DB #F8BBD9
+DB --> Repo : Product
+deactivate DB
+
+Repo --> Service : Product
+deactivate Repo
+
+Service -> Service : <color:#1565C0>Vérifier stock disponible</color>
+
+alt #E8F5E9 Stock suffisant
+    Service -> Repo : findByClient_EmailAndStatus(PENDING)
+    activate Repo #FFB74D
+
+    Repo -> DB : **SELECT** * FROM orders
+    activate DB #F8BBD9
+    DB --> Repo : Order
+    deactivate DB
+
+    Repo --> Service : Order
+    deactivate Repo
+
+    Service -> DB : **INSERT INTO** order_lines
+    activate DB #F8BBD9
+    DB --> Service : OK
+    deactivate DB
+
+    Service --> API : <color:#2E7D32>CartResponseDTO</color>
+    deactivate Service
+
+    API --> React : <color:#2E7D32>**200 OK**</color> + Cart JSON
+    deactivate API
+
+    React --> Client : <color:#2E7D32>Badge panier mis à jour ✓</color>
+    deactivate React
+
+else #FFEBEE Stock insuffisant
+    Service --> API : <color:#C62828>throw InsufficientStockException</color>
+    deactivate Service
+
+    API --> React : <color:#C62828>**400 Bad Request**</color>
+    deactivate API
+
+    React --> Client : <color:#C62828>Message erreur stock ✗</color>
+    deactivate React
+end
+
+@enduml

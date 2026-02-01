@@ -1,0 +1,649 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Script de Présentation CDA - Belle Île Parfumée</title>
+    <style>
+        @media print {
+            body { font-size: 11pt; }
+            h1 { page-break-before: always; }
+            h1:first-of-type { page-break-before: avoid; }
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 12pt;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #1a1d23;
+            font-size: 28pt;
+            border-bottom: 3px solid #ff6b6b;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+
+        h2 {
+            color: #3f51b5;
+            font-size: 18pt;
+            margin-top: 30px;
+            border-left: 4px solid #74c0fc;
+            padding-left: 15px;
+        }
+
+        h3 {
+            color: #6bd4a8;
+            font-size: 14pt;
+            margin-top: 25px;
+        }
+
+        p {
+            margin: 12px 0;
+            text-align: justify;
+        }
+
+        blockquote {
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
+            border-left: 4px solid #ff6b6b;
+            margin: 20px 0;
+            padding: 20px 25px;
+            font-style: normal;
+            border-radius: 0 10px 10px 0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        blockquote p {
+            margin: 10px 0;
+        }
+
+        strong {
+            color: #1a1d23;
+        }
+
+        ul, ol {
+            margin: 12px 0 12px 25px;
+        }
+
+        li {
+            margin: 6px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 11pt;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        th {
+            background: linear-gradient(135deg, #3f51b5 0%, #5c6bc0 100%);
+            color: white;
+            padding: 12px 15px;
+            text-align: left;
+        }
+
+        td {
+            border: 1px solid #e0e0e0;
+            padding: 10px 15px;
+        }
+
+        tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+
+        tr:hover {
+            background: #f0f4ff;
+        }
+
+        code {
+            background: #f0f0f0;
+            padding: 3px 8px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-size: 11pt;
+        }
+
+        hr {
+            border: none;
+            border-top: 2px dashed #ddd;
+            margin: 30px 0;
+        }
+
+        em {
+            color: #666;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            background: linear-gradient(135deg, #1a1d23 0%, #2d3748 100%);
+            color: white;
+            border-radius: 15px;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            color: white;
+            border: none;
+            margin: 0;
+            font-size: 32pt;
+        }
+
+        .header p {
+            color: #a0aec0;
+            margin: 10px 0 0 0;
+            font-size: 14pt;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Script de Présentation CDA</h1>
+        <p>Belle Île Parfumée - Application E-commerce</p>
+    </div>
+    <h1>Script de Présentation Orale - CDA</h1>
+<h2>Belle Île Parfumée - Application E-commerce</h2>
+<hr />
+<h2>SLIDE 1 : Page de Titre</h2>
+<p><strong>[Durée estimée : 1 minute]</strong></p>
+<blockquote>
+<p>Bonjour à tous, je vous remercie de votre présence aujourd'hui.</p>
+<p>Je m'appelle [VOTRE NOM], et je suis candidat au titre professionnel de <strong>Concepteur Développeur d'Applications</strong>.</p>
+<p>Aujourd'hui, je vais vous présenter mon projet de fin de formation : <strong>Belle Île Parfumée</strong>, une application web e-commerce dédiée à la vente de parfums en ligne.</p>
+<p>Cette présentation va couvrir l'ensemble du cycle de développement, de l'analyse des besoins jusqu'au déploiement, en passant par la conception et l'implémentation technique.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 2 : Sommaire</h2>
+<p><strong>[Durée estimée : 30 secondes]</strong></p>
+<blockquote>
+<p>Voici le plan de ma présentation.</p>
+<p>Nous allons commencer par le <strong>contexte</strong> et la <strong>problématique</strong> pour comprendre les besoins métier.</p>
+<p>Ensuite, je vous présenterai les <strong>personas</strong> qui représentent nos utilisateurs cibles.</p>
+<p>Puis nous verrons la <strong>solution proposée</strong> et les <strong>objectifs</strong> du projet.</p>
+<p>Nous aborderons ensuite la <strong>conception</strong> avec les spécifications et la charte graphique, puis l'<strong>architecture technique</strong> avec les diagrammes UML.</p>
+<p>Enfin, nous parlerons des <strong>fonctionnalités</strong>, de la <strong>sécurité</strong>, puis je ferai une <strong>démonstration</strong> avant de conclure.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 3 : Contexte</h2>
+<p><strong>[Durée estimée : 1 minute 30]</strong></p>
+<blockquote>
+<p>Commençons par le contexte du projet.</p>
+<p>Belle Île Parfumée est l'activité d'un <strong>auto-entrepreneur</strong> spécialisé dans la vente de parfums de grandes marques comme Chanel, Dior ou Yves Saint Laurent depuis 10 ans.</p>
+<p>Actuellement, le processus de vente suit un cycle hebdomadaire bien défini :</p>
+<p>Chaque <strong>dimanche</strong>, l'entrepreneur se rend chez son grossiste pour se réapprovisionner. Le stock disponible varie selon les arrivages au port du Havre.</p>
+<p>Le dimanche soir, les clients fidèles le contactent pour connaître les nouveautés disponibles.</p>
+<p>Toute la communication se fait <strong>manuellement</strong> : envoi d'emails individuels, mise à jour de fichiers Excel, gestion des stocks à la main.</p>
+<p>C'est ce processus <strong>chronophage</strong> et <strong>source d'erreurs</strong> qui a motivé le développement d'une solution digitale.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 4 : Problématique</h2>
+<p><strong>[Durée estimée : 1 minute 30]</strong></p>
+<blockquote>
+<p>Cette situation engendre plusieurs <strong>difficultés</strong> majeures.</p>
+<p>Premièrement, l'<strong>inventaire manuel</strong> chaque dimanche prend énormément de temps.</p>
+<p>La mise à jour des produits se fait <strong>un par un</strong>, ce qui est fastidieux.</p>
+<p>Les <strong>emails individuels</strong> aux clients pour les informer des nouveautés sont répétitifs.</p>
+<p>La gestion via des <strong>fichiers Excel</strong> est peu fiable et difficile à maintenir.</p>
+<p>Tout ce processus est extrêmement <strong>chronophage</strong>.</p>
+<p>Les <strong>conséquences</strong> sont importantes :
+- Une <strong>perte de temps considérable</strong> chaque semaine
+- Un <strong>risque d'erreurs humaines</strong> dans les stocks ou les prix
+- Une <strong>mauvaise expérience client</strong> qui doit attendre les emails
+- Un <strong>stress</strong> important chaque dimanche soir
+- Et surtout, des <strong>clients qui partent</strong> à la concurrence faute de réactivité</p>
+</blockquote>
+<hr />
+<h2>SLIDE 5 : Personas</h2>
+<p><strong>[Durée estimée : 2 minutes]</strong></p>
+<blockquote>
+<p>Pour bien comprendre les besoins, j'ai défini deux <strong>personas</strong> qui représentent les utilisateurs cibles de l'application.</p>
+<p><strong>Premier persona : Sophie Martin</strong></p>
+<p>Sophie a 34 ans, c'est une <strong>cliente régulière</strong> qui achète ses parfums depuis plusieurs années.</p>
+<p>Ses <strong>objectifs</strong> sont :
+- Pouvoir acheter ses parfums préférés facilement
+- Être informée rapidement des nouveautés
+- Commander depuis son mobile quand elle veut</p>
+<p>Ses <strong>frustrations</strong> actuelles :
+- Elle doit attendre les emails du dimanche soir
+- Parfois le stock est épuisé avant qu'elle puisse commander</p>
+<p><strong>Deuxième persona : Marc Dupont</strong></p>
+<p>Marc a 45 ans, c'est l'<strong>administrateur</strong> et vendeur, le propriétaire de l'activité.</p>
+<p>Ses <strong>objectifs</strong> sont :
+- Gérer son stock facilement et rapidement
+- Gagner du temps sur les tâches répétitives
+- Satisfaire ses clients et les fidéliser</p>
+<p>Ses <strong>frustrations</strong> :
+- Les emails manuels répétitifs chaque dimanche
+- La mise à jour fastidieuse des fichiers Excel</p>
+<p>Ces deux personas ont guidé mes choix de conception pour répondre à leurs besoins respectifs.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 6 : Solution</h2>
+<p><strong>[Durée estimée : 1 minute 30]</strong></p>
+<blockquote>
+<p>La solution proposée est <strong>Belle Île Parfumée</strong>, une application e-commerce complète.</p>
+<p><strong>Pour les clients comme Sophie</strong> :
+- Un <strong>catalogue en temps réel</strong> accessible 24h/24
+- Les <strong>stocks visibles</strong> instantanément pour éviter les déceptions
+- Une <strong>commande en ligne simplifiée</strong> en quelques clics
+- Un <strong>historique des commandes</strong> pour retrouver ses achats
+- Une interface <strong>responsive</strong> adaptée au mobile</p>
+<p><strong>Pour l'administrateur Marc</strong> :
+- Une <strong>gestion centralisée</strong> des stocks depuis une interface unique
+- Un <strong>CRUD produits complet</strong> pour ajouter, modifier, supprimer
+- La <strong>fin des emails manuels</strong> grâce aux notifications automatiques
+- Un <strong>suivi des commandes</strong> en temps réel
+- Un <strong>tableau de bord</strong> pour visualiser l'activité</p>
+<p>Cette solution répond directement aux frustrations identifiées dans les personas.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 7 : Objectifs</h2>
+<p><strong>[Durée estimée : 1 minute]</strong></p>
+<blockquote>
+<p>Les objectifs du projet sont au nombre de quatre :</p>
+<p><strong>Automatiser</strong> : Le premier objectif est d'automatiser la gestion des stocks et la communication client pour éliminer les tâches manuelles répétitives.</p>
+<p><strong>Centraliser</strong> : Le deuxième objectif est de centraliser les commandes en un seul endroit pour réduire les risques d'erreurs et simplifier le suivi.</p>
+<p><strong>Améliorer l'expérience utilisateur</strong> : Le troisième objectif est d'offrir une expérience d'achat fluide et moderne aux clients, comparable aux grandes plateformes e-commerce.</p>
+<p><strong>Sécuriser</strong> : Enfin, le quatrième objectif est de protéger les données utilisateurs avec des technologies éprouvées comme JWT pour l'authentification et BCrypt pour le hashage des mots de passe.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 8 : Spécifications Fonctionnelles</h2>
+<p><strong>[Durée estimée : 1 minute 30]</strong></p>
+<blockquote>
+<p>Passons aux <strong>spécifications fonctionnelles</strong> qui définissent ce que l'application doit faire.</p>
+<p><strong>Espace Client</strong> :
+- <strong>Consultation du catalogue</strong> avec tous les produits disponibles
+- <strong>Recherche</strong> par nom ou par marque
+- <strong>Filtrage</strong> par genre (homme, femme, mixte) ou par catégorie (eau de parfum, eau de toilette)
+- <strong>Gestion du panier</strong> avec ajout, modification, suppression d'articles
+- <strong>Inscription et connexion</strong> avec création de compte
+- <strong>Passage de commande</strong> avec validation et confirmation</p>
+<p><strong>Espace Administration</strong> :
+- <strong>CRUD Produits complet</strong> : Create, Read, Update, Delete
+- <strong>Gestion des stocks</strong> avec mise à jour des quantités
+- <strong>Gestion des clients</strong> avec visualisation des comptes
+- <strong>Suivi des commandes</strong> avec les différents statuts
+- <strong>Tableau de bord</strong> avec vue d'ensemble de l'activité</p>
+</blockquote>
+<hr />
+<h2>SLIDE 9 : Charte Graphique</h2>
+<p><strong>[Durée estimée : 1 minute]</strong></p>
+<blockquote>
+<p>La <strong>charte graphique</strong> définit l'identité visuelle de l'application.</p>
+<p>J'ai opté pour une palette de couleurs <strong>épurée et élégante</strong> :
+- <strong>Noir</strong> (#0A0A0A) pour les textes et boutons principaux
+- <strong>Blanc</strong> (#FFFFFF) pour les fonds
+- <strong>Gris clair</strong> (#F5F5F5) pour les arrière-plans secondaires
+- <strong>Gris</strong> (#6B6B6B) pour les textes secondaires</p>
+<p>Ce choix de couleurs neutres met en valeur les visuels des parfums et véhicule une image <strong>haut de gamme</strong>.</p>
+<p>Pour la <strong>typographie</strong>, j'utilise la police <strong>Inter</strong> de Google Fonts, une police moderne et très lisible. Les titres sont en 32 à 44 pixels en gras, le corps de texte en 16 pixels.</p>
+<p>Les <strong>composants UI</strong> suivent une logique cohérente : boutons sur fond noir, cartes sur fond blanc avec ombre légère pour créer de la profondeur.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 10 : Stack Technique</h2>
+<p><strong>[Durée estimée : 2 minutes]</strong></p>
+<blockquote>
+<p>Passons maintenant aux <strong>choix techniques</strong>.</p>
+<p><strong>Côté Frontend</strong>, j'ai choisi :</p>
+<ul>
+<li>
+<p><strong>React 19</strong> avec <strong>TypeScript 5.9</strong> : React est une bibliothèque JavaScript pour créer des interfaces utilisateur basées sur des <strong>composants réutilisables</strong>. TypeScript ajoute le <strong>typage statique</strong> qui permet de détecter les erreurs à la compilation.</p>
+</li>
+<li>
+<p><strong>Vite 7</strong> comme outil de build : Vite utilise les <strong>ES Modules natifs</strong> pour un rechargement quasi instantané en développement, ce qu'on appelle le <strong>Hot Module Replacement</strong>.</p>
+</li>
+<li>
+<p><strong>React Router DOM</strong> pour la navigation côté client dans une <strong>Single Page Application</strong> (SPA).</p>
+</li>
+<li>
+<p><strong>Axios</strong> pour les requêtes HTTP vers l'API.</p>
+</li>
+<li>
+<p><strong>Context API</strong> pour la gestion de l'état global, notamment le panier et l'authentification.</p>
+</li>
+</ul>
+<p><strong>Côté Backend</strong>, j'ai choisi :</p>
+<ul>
+<li>
+<p><strong>Spring Boot 3.5</strong> avec <strong>Java 21</strong> : Spring Boot est un framework qui simplifie le développement d'applications Java grâce au principe de <strong>convention over configuration</strong>.</p>
+</li>
+<li>
+<p><strong>Spring Security</strong> avec <strong>JWT</strong> : pour l'authentification <strong>stateless</strong> basée sur des tokens.</p>
+</li>
+<li>
+<p><strong>Spring Data JPA</strong> : l'ORM qui permet de manipuler la base de données avec des objets Java via le pattern <strong>Repository</strong>.</p>
+</li>
+<li>
+<p><strong>PostgreSQL</strong> : un SGBD relationnel robuste pour persister les données.</p>
+</li>
+</ul>
+</blockquote>
+<hr />
+<h2>SLIDE 11 : Architecture 3-Tiers</h2>
+<p><strong>[Durée estimée : 2 minutes]</strong></p>
+<blockquote>
+<p>Voici le <strong>diagramme d'architecture</strong> qui présente la vue d'ensemble du système.</p>
+<p>J'ai implémenté une <strong>architecture 3-tiers</strong> qui sépare l'application en trois couches distinctes :</p>
+<p><strong>La couche Présentation</strong> (Frontend) :
+C'est l'interface utilisateur développée en React. Elle s'exécute dans le navigateur du client et communique avec le backend via le protocole <strong>HTTPS</strong>.</p>
+<p><strong>La couche Métier</strong> (Backend) :
+C'est le cœur de l'application développé en Spring Boot. Elle contient toute la <strong>logique métier</strong>, les règles de gestion, la validation et la sécurité. Elle expose une <strong>API REST</strong> qui reçoit des requêtes HTTP et renvoie des réponses au format <strong>JSON</strong>.</p>
+<p><strong>La couche Données</strong> :
+C'est la base de données PostgreSQL qui persiste les données. Le backend communique avec elle via <strong>JPA</strong> et le driver <strong>JDBC</strong>.</p>
+<p>Un <strong>service externe</strong> est également intégré : le serveur <strong>SMTP Gmail</strong> pour l'envoi d'emails de confirmation.</p>
+<p>Cette architecture offre plusieurs avantages : <strong>séparation des responsabilités</strong>, <strong>scalabilité</strong>, <strong>maintenabilité</strong> et <strong>testabilité</strong>.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 12 : Modèle de Données</h2>
+<p><strong>[Durée estimée : 1 minute]</strong></p>
+<blockquote>
+<p>Le modèle de données comprend <strong>5 entités JPA</strong> principales :</p>
+<p><strong>Account</strong> : gère l'authentification avec l'email, le mot de passe hashé et le rôle (CLIENT ou ADMIN).</p>
+<p><strong>Client</strong> : représente un utilisateur avec ses informations personnelles (nom, prénom, téléphone).</p>
+<p><strong>Product</strong> : représente un parfum avec son code unique, nom, marque et prix.</p>
+<p><strong>Order</strong> : représente une commande avec un numéro, une date et un statut.</p>
+<p><strong>OrderLine</strong> : représente une ligne de commande avec la quantité et le prix unitaire.</p>
+<p>Ces entités sont annotées avec JPA et correspondent aux tables de la base PostgreSQL.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 13 : Diagramme de Classes</h2>
+<p><strong>[Durée estimée : 2 minutes 30]</strong></p>
+<blockquote>
+<p>Voici le <strong>diagramme de classes UML</strong> qui modélise les relations entre les entités.</p>
+<p>En UML, le diagramme de classes est un <strong>diagramme structurel</strong> qui montre les classes, leurs attributs, leurs méthodes et leurs relations.</p>
+<p>Les relations utilisent deux types de <strong>losanges</strong> :</p>
+<p>Le <strong>losange vide</strong> (◇) représente une <strong>agrégation</strong>. C'est une relation où les objets ont des <strong>cycles de vie indépendants</strong>. Par exemple :
+- Client <strong>agrège</strong> Account : un compte peut exister sans client
+- Client <strong>agrège</strong> Order : les commandes sont liées au client mais ont leur propre existence
+- Product <strong>agrège</strong> OrderLine : un produit peut exister sans être dans une commande</p>
+<p>Le <strong>losange plein</strong> (◆) représente une <strong>composition</strong>. C'est une relation où le <strong>cycle de vie est lié</strong>. Par exemple :
+- Order <strong>compose</strong> OrderLine : si une commande est supprimée, ses lignes le sont aussi. Une OrderLine ne peut pas exister sans son Order parent.</p>
+<p>Les <strong>cardinalités</strong> indiquent le nombre d'instances possibles :
+- Un Client peut avoir 0 à plusieurs commandes (0..<em>)
+- Une commande contient au moins une ligne (1..</em>)
+- Un Client a 0 ou 1 Account (0..1)</p>
+</blockquote>
+<hr />
+<h2>SLIDE 14 : Fonctionnalité Panier</h2>
+<p><strong>[Durée estimée : 1 minute 30]</strong></p>
+<blockquote>
+<p>La <strong>gestion du panier</strong> est une fonctionnalité centrale de l'application e-commerce.</p>
+<p>J'ai implémenté une <strong>double persistance</strong> selon l'état de connexion de l'utilisateur :</p>
+<p><strong>Mode non connecté</strong> :
+Le panier est stocké dans le <strong>localStorage</strong> du navigateur. C'est une persistance côté client qui permet de conserver le panier même si l'utilisateur ferme son navigateur.</p>
+<p><strong>Mode connecté</strong> :
+Le panier est stocké en base de données sous forme d'une <strong>Order avec le statut PENDING</strong>. Cela permet une synchronisation temps réel entre différents appareils.</p>
+<p><strong>Caractéristiques clés</strong> :
+- <strong>Fusion automatique</strong> : à la connexion, le panier local est fusionné avec le panier serveur pour ne perdre aucun article
+- <strong>Vérification du stock</strong> en temps réel avant la validation
+- <strong>Email de confirmation</strong> automatique après validation de la commande</p>
+<p>Cette approche utilise le <strong>Context API</strong> de React pour gérer l'état global du panier.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 15 : Diagramme de Séquence</h2>
+<p><strong>[Durée estimée : 2 minutes]</strong></p>
+<blockquote>
+<p>Le <strong>diagramme de séquence</strong> est un diagramme comportemental qui montre les interactions entre objets dans le temps.</p>
+<p>J'ai modélisé le cas d'utilisation <strong>"Ajouter un produit au panier"</strong>.</p>
+<p><strong>Lecture du diagramme</strong> : le temps s'écoule de haut en bas. Les <strong>lignes de vie</strong> verticales représentent les participants : le Client, l'interface React, le Controller REST, le Service métier, le Repository et la base de données.</p>
+<p><strong>Déroulement</strong> :
+1. Le client clique sur "Ajouter au panier"
+2. React envoie une requête <strong>POST</strong> à l'endpoint <code>/api/orders/cart/items</code>
+3. Le Controller délègue au Service
+4. Le Service vérifie d'abord la disponibilité du produit via le Repository
+5. Le Repository effectue un <strong>SELECT</strong> en base</p>
+<p>Le bloc <strong>alt</strong> représente une <strong>alternative</strong> avec deux branches :
+- <strong>Stock suffisant</strong> : on récupère ou crée le panier PENDING, on ajoute la ligne, et on renvoie un code <strong>200 OK</strong>
+- <strong>Stock insuffisant</strong> : on lève une exception et on renvoie un code <strong>400 Bad Request</strong></p>
+<p>Ce diagramme illustre bien l'<strong>architecture en couches</strong> et le pattern <strong>MVC</strong>.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 16 : Sécurité</h2>
+<p><strong>[Durée estimée : 2 minutes]</strong></p>
+<blockquote>
+<p>La <strong>sécurité</strong> est un aspect critique pour une application e-commerce.</p>
+<p><strong>Authentification</strong> avec <strong>JWT</strong> (JSON Web Token) :</p>
+<p>Le JWT est un standard ouvert (RFC 7519) pour l'authentification <strong>stateless</strong>. Il se compose de trois parties encodées en Base64 :
+- Le <strong>Header</strong> : contient l'algorithme de signature
+- Le <strong>Payload</strong> : contient les données utilisateur (email, rôle, date d'expiration)
+- La <strong>Signature</strong> : garantit l'intégrité du token</p>
+<p>Les mots de passe sont hashés avec <strong>BCrypt</strong>, un algorithme qui inclut un <strong>salt</strong> aléatoire pour se protéger des attaques par rainbow table.</p>
+<p><strong>Autorisation</strong> avec gestion des <strong>rôles</strong> :</p>
+<p>Le système RBAC (Role-Based Access Control) distingue deux rôles :
+- <strong>CLIENT</strong> : accès aux fonctionnalités de consultation et commande
+- <strong>ADMIN</strong> : accès supplémentaire à la gestion des produits et commandes</p>
+<p>Les routes sont protégées côté frontend avec un composant <strong>PrivateRoute</strong>, et côté backend avec l'annotation <strong>@PreAuthorize</strong>.</p>
+<p>La configuration <strong>CORS</strong> n'autorise que le domaine du frontend à appeler l'API.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 17 : Code Produit</h2>
+<p><strong>[Durée estimée : 1 minute]</strong></p>
+<blockquote>
+<p>J'ai mis en place un système de <strong>génération automatique de code produit</strong> pour identifier chaque parfum de manière unique.</p>
+<p>Le format est : <strong>XXX-TTT-MMM-YYYY</strong></p>
+<ul>
+<li><strong>XXX</strong> : 3 lettres pour la <strong>marque</strong> (ex: CHA pour Chanel, DIO pour Dior)</li>
+<li><strong>TTT</strong> : 3 lettres pour le <strong>type de concentration</strong> (ex: EDP pour Eau de Parfum, EDT pour Eau de Toilette)</li>
+<li><strong>MMM</strong> : 3 chiffres pour la <strong>contenance en ml</strong> (ex: 050, 100)</li>
+<li><strong>YYYY</strong> : 4 chiffres <strong>séquentiels</strong> pour différencier les variantes</li>
+</ul>
+<p><strong>Exemple</strong> : CHA-EDP-100-0001 correspond au premier Chanel N°5 Eau de Parfum 100ml enregistré.</p>
+<p>Ce système permet une identification rapide et une organisation logique du catalogue.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 18 : Démonstration</h2>
+<p><strong>[Durée estimée : 5 minutes]</strong></p>
+<blockquote>
+<p>Je vais maintenant vous faire une <strong>démonstration live</strong> de l'application.</p>
+<p><em>[Ouvrir l'application dans le navigateur]</em></p>
+<p><strong>Page d'accueil</strong> : Voici l'interface principale avec le header, la navigation et les produits mis en avant. Le design est responsive.</p>
+<p><strong>Catalogue</strong> : Je peux parcourir tous les parfums, utiliser les filtres par catégorie, par genre. Les cards affichent les informations essentielles.</p>
+<p><strong>Détail produit</strong> : En cliquant sur un parfum, j'accède à sa fiche avec la description complète, le prix, le stock et le sélecteur de quantité.</p>
+<p><strong>Panier</strong> : J'ajoute un produit. Le badge se met à jour. Je peux voir mon panier, modifier les quantités, le total se recalcule automatiquement.</p>
+<p><strong>Connexion</strong> : Je me connecte avec un compte. Le JWT est généré et stocké. Mon panier local est synchronisé avec le serveur.</p>
+<p><strong>Commande</strong> : Je valide ma commande. Après vérification du stock, elle passe en statut COMPLETED.</p>
+<p><em>[Si temps disponible : montrer les DevTools avec les requêtes API]</em></p>
+</blockquote>
+<hr />
+<h2>SLIDE 19 : Conclusion</h2>
+<p><strong>[Durée estimée : 1 minute 30]</strong></p>
+<blockquote>
+<p>Pour conclure, voici le bilan du projet.</p>
+<p><strong>Réalisations</strong> :
+- Un <strong>frontend React 19</strong> moderne et responsive
+- Un <strong>backend Spring Boot 3.5</strong> robuste et sécurisé
+- Une <strong>base de données PostgreSQL</strong> pour la persistance
+- Une <strong>sécurité</strong> complète avec JWT et BCrypt
+- Un <strong>code maintenable</strong> et documenté</p>
+<p>Les objectifs initiaux ont été atteints : automatisation, centralisation, amélioration de l'UX et sécurisation.</p>
+<p><strong>Évolutions possibles</strong> pour aller plus loin :
+- Intégration d'un <strong>paiement en ligne</strong> avec Stripe
+- Ajout de <strong>tests end-to-end</strong> avec Cypress
+- Mise en place d'un <strong>CI/CD</strong> avec GitHub Actions
+- Transformation en <strong>PWA</strong> (Progressive Web App)
+- Développement d'une <strong>application mobile</strong> native</p>
+<p>Ce projet m'a permis de mettre en œuvre l'ensemble des compétences du référentiel CDA.</p>
+</blockquote>
+<hr />
+<h2>SLIDE 20 : Questions</h2>
+<p><strong>[Durée estimée : Variable]</strong></p>
+<blockquote>
+<p>Je vous remercie pour votre attention.</p>
+<p>Je suis maintenant disponible pour répondre à vos questions.</p>
+</blockquote>
+<hr />
+<h1>QUESTIONS FRÉQUENTES DU JURY</h1>
+<h2>Architecture &amp; Conception</h2>
+<p><strong>Q : Pourquoi avoir choisi une architecture 3-tiers ?</strong></p>
+<blockquote>
+<p>L'architecture 3-tiers offre une <strong>séparation claire des responsabilités</strong>. Chaque couche a un rôle précis : présentation, logique métier, accès aux données. Cela facilite la <strong>maintenance</strong> car on peut modifier une couche sans impacter les autres. C'est aussi plus <strong>scalable</strong> : on peut déployer plusieurs instances du backend derrière un load balancer. Enfin, c'est plus <strong>testable</strong> : on peut tester chaque couche isolément avec des mocks.</p>
+</blockquote>
+<p><strong>Q : Quelle est la différence entre composition et agrégation ?</strong></p>
+<blockquote>
+<p>La <strong>composition</strong> (losange plein) indique une relation forte où le cycle de vie est lié. Si le parent est supprimé, les enfants le sont aussi. Exemple : Order-OrderLine.
+L'<strong>agrégation</strong> (losange vide) indique une relation plus faible où les objets peuvent exister indépendamment. Exemple : Client-Account.</p>
+</blockquote>
+<p><strong>Q : Pourquoi avoir choisi le pattern Repository ?</strong></p>
+<blockquote>
+<p>Le pattern <strong>Repository</strong> abstrait l'accès aux données. Il permet de découpler la logique métier de la technologie de persistance. Avec Spring Data JPA, on bénéficie de méthodes CRUD automatiques et on peut ajouter des requêtes personnalisées avec des conventions de nommage ou l'annotation @Query.</p>
+</blockquote>
+<h2>Sécurité</h2>
+<p><strong>Q : Pourquoi JWT plutôt que les sessions classiques ?</strong></p>
+<blockquote>
+<p>Le JWT permet une authentification <strong>stateless</strong> : le serveur n'a pas besoin de stocker les sessions en mémoire. Chaque requête est indépendante et contient toutes les informations nécessaires dans le token. C'est plus <strong>scalable</strong> car on peut ajouter des serveurs sans se soucier de la synchronisation des sessions. C'est aussi adapté aux architectures <strong>microservices</strong> et aux <strong>SPA</strong>.</p>
+</blockquote>
+<p><strong>Q : Comment gérez-vous l'expiration des tokens ?</strong></p>
+<blockquote>
+<p>Les tokens ont une durée de vie de 24 heures définie dans le payload (claim "exp"). Côté frontend, avant chaque requête, je vérifie si le token est proche de l'expiration. Si oui, l'utilisateur est redirigé vers la page de connexion. Un système de <strong>refresh token</strong> pourrait être ajouté pour améliorer l'UX en permettant un renouvellement transparent.</p>
+</blockquote>
+<p><strong>Q : Comment sont stockés les mots de passe ?</strong></p>
+<blockquote>
+<p>Les mots de passe sont hashés avec <strong>BCrypt</strong> avant stockage en base. BCrypt est un algorithme de hashage adaptatif qui inclut automatiquement un <strong>salt</strong> aléatoire de 128 bits. Le <strong>cost factor</strong> (10 par défaut) rend les attaques par force brute très coûteuses en temps de calcul.</p>
+</blockquote>
+<h2>Technologies</h2>
+<p><strong>Q : Pourquoi React plutôt qu'Angular ou Vue ?</strong></p>
+<blockquote>
+<p>React offre une grande <strong>flexibilité</strong> avec son approche composants. Le <strong>Virtual DOM</strong> optimise les rendus. L'écosystème est riche avec de nombreuses bibliothèques. TypeScript apporte le typage fort pour la robustesse. C'est aussi le framework le plus demandé sur le marché de l'emploi, ce qui était un critère de choix pragmatique.</p>
+</blockquote>
+<p><strong>Q : Pourquoi PostgreSQL plutôt que MySQL ?</strong></p>
+<blockquote>
+<p>PostgreSQL offre de meilleures <strong>performances</strong> pour les requêtes complexes et une conformité stricte aux standards SQL. Il supporte nativement les types JSON, les arrays, et offre des fonctionnalités avancées comme les CTE (Common Table Expressions). Il est très utilisé en entreprise et dans le cloud.</p>
+</blockquote>
+<p><strong>Q : Qu'est-ce que JPA et Hibernate ?</strong></p>
+<blockquote>
+<p><strong>JPA</strong> (Java Persistence API) est une spécification Java qui définit comment mapper des objets Java vers des tables relationnelles. C'est ce qu'on appelle un <strong>ORM</strong> (Object-Relational Mapping). <strong>Hibernate</strong> est l'implémentation la plus populaire de JPA. Il génère automatiquement les requêtes SQL à partir des opérations sur les objets Java.</p>
+</blockquote>
+<h2>Fonctionnalités</h2>
+<p><strong>Q : Comment gérez-vous l'état global dans React ?</strong></p>
+<blockquote>
+<p>J'utilise le <strong>Context API</strong> natif de React pour les états partagés comme le panier et l'authentification. Le Context permet d'éviter le "prop drilling" (passage de props à travers de nombreux composants). Pour une application plus complexe, Redux ou Zustand seraient envisagés, mais le Context suffit pour ce périmètre.</p>
+</blockquote>
+<p><strong>Q : Comment fonctionne la synchronisation du panier ?</strong></p>
+<blockquote>
+<p>En mode non connecté, le panier est stocké dans le <strong>localStorage</strong>. À la connexion, une fonction <code>syncCart()</code> est appelée : elle récupère le panier serveur (Order PENDING), fusionne les articles avec le panier local, envoie le résultat au backend, puis vide le localStorage. Cela garantit qu'aucun article n'est perdu.</p>
+</blockquote>
+<p><strong>Q : Que se passe-t-il si le stock est insuffisant ?</strong></p>
+<blockquote>
+<p>La vérification du stock se fait à deux niveaux :
+1. À l'<strong>ajout au panier</strong> : on vérifie la disponibilité et on bloque si insuffisant
+2. Au <strong>checkout</strong> : on re-vérifie le stock de tous les articles avant validation
+Si le stock est insuffisant, une exception <code>InsufficientStockException</code> est levée et le frontend affiche un message d'erreur approprié.</p>
+</blockquote>
+<h2>Tests &amp; Qualité</h2>
+<p><strong>Q : Quelle est votre stratégie de test ?</strong></p>
+<blockquote>
+<p>Je suis la <strong>pyramide des tests</strong> :
+- <strong>Tests unitaires</strong> avec JUnit 5 pour la logique métier des services, en utilisant Mockito pour simuler les dépendances
+- <strong>Tests d'intégration</strong> avec Spring Boot Test pour tester les endpoints API avec une base H2 en mémoire
+- <strong>Tests manuels</strong> pour l'interface utilisateur
+L'objectif est de maintenir une couverture de code supérieure à 70% sur la couche service.</p>
+</blockquote>
+<p><strong>Q : Comment gérez-vous le versioning du code ?</strong></p>
+<blockquote>
+<p>J'utilise <strong>Git</strong> avec le workflow <strong>GitFlow</strong> : une branche <code>main</code> pour la production, une branche <code>develop</code> pour l'intégration, et des branches <code>feature/</code> pour chaque nouvelle fonctionnalité. Les commits suivent les conventions avec des messages explicites.</p>
+</blockquote>
+<hr />
+<h1>VOCABULAIRE TECHNIQUE CDA</h1>
+<table>
+<thead>
+<tr>
+<th>Terme</th>
+<th>Définition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>API REST</strong></td>
+<td>Architecture d'interface utilisant HTTP (GET, POST, PUT, DELETE) pour manipuler des ressources</td>
+</tr>
+<tr>
+<td><strong>JWT</strong></td>
+<td>JSON Web Token - standard d'authentification stateless avec signature cryptographique</td>
+</tr>
+<tr>
+<td><strong>ORM</strong></td>
+<td>Object-Relational Mapping - technique de mapping entre objets et tables relationnelles</td>
+</tr>
+<tr>
+<td><strong>JPA</strong></td>
+<td>Java Persistence API - spécification Java pour la persistance des données</td>
+</tr>
+<tr>
+<td><strong>DTO</strong></td>
+<td>Data Transfer Object - objet de transfert pour découpler entités et API</td>
+</tr>
+<tr>
+<td><strong>SPA</strong></td>
+<td>Single Page Application - application web mono-page avec routing côté client</td>
+</tr>
+<tr>
+<td><strong>CRUD</strong></td>
+<td>Create, Read, Update, Delete - les 4 opérations de base sur les données</td>
+</tr>
+<tr>
+<td><strong>MVC</strong></td>
+<td>Model-View-Controller - pattern de séparation des responsabilités</td>
+</tr>
+<tr>
+<td><strong>Stateless</strong></td>
+<td>Sans état côté serveur - chaque requête est indépendante</td>
+</tr>
+<tr>
+<td><strong>Responsive</strong></td>
+<td>Design adaptatif selon la taille d'écran (mobile, tablette, desktop)</td>
+</tr>
+<tr>
+<td><strong>Context API</strong></td>
+<td>Mécanisme React pour partager des données sans prop drilling</td>
+</tr>
+<tr>
+<td><strong>BCrypt</strong></td>
+<td>Algorithme de hashage adaptatif avec salt pour sécuriser les mots de passe</td>
+</tr>
+<tr>
+<td><strong>CORS</strong></td>
+<td>Cross-Origin Resource Sharing - politique de sécurité navigateur</td>
+</tr>
+<tr>
+<td><strong>Composition</strong></td>
+<td>Relation UML forte (losange plein) - cycle de vie lié</td>
+</tr>
+<tr>
+<td><strong>Agrégation</strong></td>
+<td>Relation UML faible (losange vide) - cycle de vie indépendant</td>
+</tr>
+<tr>
+<td><strong>Cardinalité</strong></td>
+<td>Nombre d'instances possibles dans une relation (1, 0..1, 0..<em>, 1..</em>)</td>
+</tr>
+<tr>
+<td><strong>Persona</strong></td>
+<td>Représentation fictive d'un utilisateur type basée sur des données réelles</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h1>CONSEILS POUR L'ORAL</h1>
+<ol>
+<li><strong>Chronométrez-vous</strong> : visez 25-30 minutes de présentation pour laisser du temps aux questions</li>
+<li><strong>Parlez lentement</strong> et articulez les termes techniques</li>
+<li><strong>Regardez le jury</strong>, pas uniquement l'écran</li>
+<li><strong>Utilisez des gestes</strong> pour pointer les éléments des diagrammes</li>
+<li><strong>Faites des pauses</strong> entre les sections pour que le jury assimile</li>
+<li><strong>Anticipez les questions</strong> : relisez les réponses préparées</li>
+<li><strong>Avouez si vous ne savez pas</strong> plutôt que d'inventer</li>
+<li><strong>Restez calme</strong> : une respiration profonde aide</li>
+<li><strong>Préparez votre démo</strong> : vérifiez que tout fonctionne avant</li>
+<li><strong>Ayez un plan B</strong> : captures d'écran si la démo ne marche pas</li>
+</ol>
+<hr />
+<p><strong>Bonne chance pour votre soutenance !</strong></p>
+</body>
+</html>

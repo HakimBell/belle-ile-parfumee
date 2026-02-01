@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belle Île Parfumée - Présentation CDA</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/theme/black.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #09090B;
+            --bg-secondary: #18181B;
+            --bg-card: #1F1F23;
+            --text-primary: #FAFAFA;
+            --text-secondary: #A1A1AA;
+            --accent-1: #8B5CF6;
+            --accent-2: #EC4899;
+            --accent-3: #06B6D4;
+            --gradient-1: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%);
+            --gradient-2: linear-gradient(135deg, #06B6D4 0%, #8B5CF6 100%);
+            --glow: 0 0 60px rgba(139, 92, 246, 0.3);
+        }
+
+        .reveal-viewport {
+            background: var(--bg-primary);
+            background-image:
+                radial-gradient(ellipse at top, rgba(139, 92, 246, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(236, 72, 153, 0.1) 0%, transparent 50%);
+        }
+
+        .reveal {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            font-size: 22px;
+        }
+
+        .reveal h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.8em;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.3em;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8em;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5em;
+            letter-spacing: -0.01em;
+        }
+
+        .reveal h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 0.7em;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent-1);
+            margin-bottom: 1em;
+        }
+
+        .reveal p, .reveal li {
+            color: var(--text-secondary);
+            line-height: 1.8;
+            font-size: 0.85em;
+        }
+
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+            margin: 0;
+        }
+
+        .reveal li {
+            margin: 0.6em 0;
+            padding-left: 1.6em;
+            position: relative;
+        }
+
+        .reveal li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.5em;
+            width: 8px;
+            height: 8px;
+            background: var(--gradient-1);
+            border-radius: 50%;
+        }
+
+        .reveal strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .reveal .line {
+            width: 80px;
+            height: 4px;
+            background: var(--gradient-1);
+            margin: 0.6em auto;
+            border-radius: 4px;
+        }
+
+        /* Title Slide */
+        .reveal .title-slide {
+            text-align: center;
+        }
+
+        .reveal .title-slide h1 {
+            font-size: 3.5em;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.1em;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(139, 92, 246, 0.4)); }
+            to { filter: drop-shadow(0 0 40px rgba(236, 72, 153, 0.4)); }
+        }
+
+        .reveal .title-slide .tagline {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1em;
+            color: var(--text-secondary);
+            letter-spacing: 0.1em;
+            margin-top: 0.5em;
+        }
+
+        .reveal .title-slide .year {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75em;
+            font-weight: 600;
+            color: var(--text-primary);
+            background: var(--gradient-1);
+            letter-spacing: 0.12em;
+            margin-top: 2em;
+            display: inline-block;
+            padding: 0.7em 2em;
+            border-radius: 50px;
+            box-shadow: var(--glow);
+        }
+
+        /* Two columns */
+        .reveal .cols {
+            display: flex;
+            gap: 2em;
+            text-align: left;
+        }
+
+        .reveal .col {
+            flex: 1;
+        }
+
+        /* Cards */
+        .reveal .card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 16px;
+            padding: 1.2em 1.4em;
+            margin: 0.6em 0;
+            text-align: left;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .reveal .card:hover {
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 0 30px rgba(139, 92, 246, 0.15);
+        }
+
+        .reveal .card h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--text-primary);
+            font-size: 0.85em;
+            font-weight: 600;
+            margin-bottom: 0.6em;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .reveal .card h4::before {
+            content: "";
+            width: 4px;
+            height: 18px;
+            background: var(--gradient-1);
+            border-radius: 2px;
+        }
+
+        .reveal .card p, .reveal .card li {
+            font-size: 0.75em;
+            margin: 0.35em 0;
+            color: var(--text-secondary);
+        }
+
+        .reveal .card li::before {
+            width: 5px;
+            height: 5px;
+            top: 0.55em;
+        }
+
+        /* Images */
+        .reveal img {
+            max-height: 280px;
+            border-radius: 12px;
+            border: 1px solid rgba(255,255,255,0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5), var(--glow);
+        }
+
+        .reveal .img-small {
+            max-height: 240px;
+        }
+
+        /* Code */
+        .reveal pre {
+            background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
+            border: 1px solid rgba(139, 92, 246, 0.3);
+            font-size: 0.38em;
+            padding: 1.2em 1.5em;
+            margin: 0.8em 0;
+            text-align: left;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+        }
+
+        .reveal code {
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            color: #E4E4E7;
+        }
+
+        .reveal .inline-code {
+            background: rgba(139, 92, 246, 0.2);
+            padding: 0.2em 0.6em;
+            border-radius: 6px;
+            font-size: 0.85em;
+            color: var(--accent-1);
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        /* Color boxes */
+        .reveal .color-row {
+            display: flex;
+            gap: 1.2em;
+            margin: 0.8em 0;
+            flex-wrap: wrap;
+        }
+
+        .reveal .color-box {
+            width: 90px;
+            text-align: center;
+        }
+
+        .reveal .color-box .swatch {
+            width: 90px;
+            height: 60px;
+            border-radius: 12px;
+            margin-bottom: 0.5em;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+
+        .reveal .color-box span {
+            font-size: 0.55em;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* Table */
+        .reveal table {
+            font-size: 0.7em;
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            background: var(--bg-card);
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .reveal th {
+            color: var(--text-primary);
+            background: var(--gradient-1);
+            font-weight: 600;
+            text-align: left;
+            padding: 1em 1.2em;
+        }
+
+        .reveal td {
+            padding: 0.9em 1.2em;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            color: var(--text-secondary);
+        }
+
+        .reveal tr:last-child td {
+            border-bottom: none;
+        }
+
+        .reveal tr:hover td {
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        /* Small text */
+        .reveal .small {
+            font-size: 0.7em;
+            color: var(--text-secondary);
+        }
+
+        /* Sommaire */
+        .reveal .sommaire {
+            text-align: left;
+            columns: 2;
+            column-gap: 4em;
+        }
+
+        .reveal .sommaire li {
+            font-size: 0.82em;
+            margin: 0.7em 0;
+            color: var(--text-secondary);
+            transition: all 0.2s ease;
+        }
+
+        .reveal .sommaire li:hover {
+            color: var(--text-primary);
+            transform: translateX(5px);
+        }
+
+        /* Progress & slide number */
+        .reveal .progress {
+            height: 4px;
+            background: var(--bg-secondary);
+        }
+
+        .reveal .progress span {
+            background: var(--gradient-1);
+        }
+
+        .reveal .slide-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            background: var(--bg-card);
+            padding: 0.4em 0.8em;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        /* Check list */
+        .reveal .check li::before {
+            content: "✓";
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            width: auto;
+            height: auto;
+            font-weight: 700;
+            font-size: 1.1em;
+            top: 0;
+        }
+
+        /* Centered section */
+        .reveal .centered {
+            text-align: center;
+        }
+
+        .reveal .centered h1 {
+            font-size: 2.5em;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .reveal .merci {
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-secondary);
+            font-size: 1.1em;
+            margin-top: 1em;
+        }
+
+        /* Tech badges */
+        .reveal .tech-badge {
+            display: inline-block;
+            background: rgba(139, 92, 246, 0.15);
+            color: var(--accent-1);
+            padding: 0.3em 0.8em;
+            border-radius: 20px;
+            font-size: 0.7em;
+            font-weight: 500;
+            margin: 0.2em;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        /* Animated background shapes */
+        .reveal section::before {
+            content: "";
+            position: absolute;
+            top: -50%;
+            right: -30%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* Glass effect for special sections */
+        .reveal .glass {
+            background: rgba(255,255,255,0.03);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 20px;
+            padding: 2em;
+        }
+
+        /* Icon styling */
+        .reveal .icon {
+            font-size: 1.5em;
+            margin-right: 0.3em;
+        }
+
+        /* Feature grid */
+        .reveal .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1em;
+        }
+
+        .reveal .feature-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 1em;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .reveal .feature-item:hover {
+            transform: translateY(-5px);
+            border-color: rgba(139, 92, 246, 0.4);
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.2);
+        }
+
+        .reveal .feature-item .icon {
+            font-size: 2em;
+            margin-bottom: 0.3em;
+        }
+
+        .reveal .feature-item h4 {
+            color: var(--text-primary);
+            font-size: 0.8em;
+            margin-bottom: 0.3em;
+        }
+
+        .reveal .feature-item p {
+            font-size: 0.65em;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- 1. TITRE -->
+            <section class="title-slide">
+                <h1>Belle Île Parfumée</h1>
+                <div class="line"></div>
+                <p class="tagline">Vente de parfums de grandes marques</p>
+                <p class="year">CDA 2024</p>
+            </section>
+
+            <!-- 2. SOMMAIRE -->
+            <section>
+                <h2>Sommaire</h2>
+                <div class="line"></div>
+                <ul class="sommaire" style="columns:1; max-width: 500px; margin: 0 auto;">
+                    <li>Le projet</li>
+                    <li>Conception</li>
+                    <li>Architecture technique</li>
+                    <li>Base de données</li>
+                    <li>Fonctionnalité : Gestion du panier</li>
+                    <li>Démonstration</li>
+                    <li>Conclusion</li>
+                </ul>
+            </section>
+
+            <!-- 3. CONTEXTE -->
+            <section>
+                <h2>Contexte</h2>
+                <div class="line"></div>
+                <div class="card">
+                    <h4>Mon activité</h4>
+                    <p>Auto-entrepreneur depuis 10 ans dans la vente de parfums de grandes marques (Chanel, Dior, YSL, Guerlain...)</p>
+                </div>
+                <div class="card" style="margin-top:0.8em;">
+                    <h4>Le processus actuel</h4>
+                    <ul>
+                        <li>Réapprovisionnement chaque <strong>dimanche</strong> chez mon grossiste</li>
+                        <li>Stock variable : dépend de ce que le grossiste reçoit du port du Havre le vendredi</li>
+                        <li>Pas de visibilité à l'avance sur les références disponibles</li>
+                        <li>Les clients me contactent le dimanche soir pour connaître les nouveautés</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 4. PROBLEMATIQUE -->
+            <section>
+                <h2>Problématique</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <div class="card">
+                            <h4>Surcharge de travail</h4>
+                            <ul>
+                                <li>Inventaire manuel chaque dimanche</li>
+                                <li>Mise à jour des produits</li>
+                                <li>Emails individuels à chaque client</li>
+                                <li>Fichiers Excel à maintenir</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <h4>Conséquences</h4>
+                            <ul>
+                                <li>Processus chronophage</li>
+                                <li>Risque d'erreurs</li>
+                                <li>Mauvaise expérience client</li>
+                                <li>Perte de temps sur les tâches répétitives</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. SOLUTION -->
+            <section>
+                <h2>Solution : Belle Île Parfumée</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <h3>Pour les clients</h3>
+                        <ul>
+                            <li>Consulter le catalogue en temps réel</li>
+                            <li>Voir les stocks disponibles</li>
+                            <li>Passer commande en ligne 24/7</li>
+                            <li>Plus besoin d'attendre mes emails</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Pour l'administrateur</h3>
+                        <ul>
+                            <li>Mise à jour des produits centralisée</li>
+                            <li>Gestion des commandes simplifiée</li>
+                            <li>Fin des emails individuels</li>
+                            <li>Gain de temps considérable</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. OBJECTIFS -->
+            <section>
+                <h2>Objectifs</h2>
+                <div class="line"></div>
+                <div class="card">
+                    <h4>Améliorer l'efficacité</h4>
+                    <p>Automatiser la gestion des stocks et la communication des nouveaux produits disponibles</p>
+                </div>
+                <div class="card">
+                    <h4>Centraliser les commandes</h4>
+                    <p>Mieux répondre aux attentes des clients tout en réduisant les tâches manuelles répétitives</p>
+                </div>
+                <div class="card">
+                    <h4>Offrir une meilleure expérience utilisateur</h4>
+                    <p>Les clients peuvent consulter directement les produits disponibles et passer commande à leur convenance</p>
+                </div>
+            </section>
+
+            <!-- 4. SPECIFICATIONS FONCTIONNELLES -->
+            <section>
+                <h2>Spécifications Fonctionnelles</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <h3>Espace Client</h3>
+                        <ul>
+                            <li>Consultation du catalogue</li>
+                            <li>Recherche par nom/marque</li>
+                            <li>Filtrage par genre (H/F/Mixte)</li>
+                            <li>Gestion du panier</li>
+                            <li>Inscription / Connexion</li>
+                            <li>Passage de commande</li>
+                            <li>Confirmation par email</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Espace Administration</h3>
+                        <ul>
+                            <li>CRUD Produits</li>
+                            <li>Gestion des stocks</li>
+                            <li>Gestion des clients</li>
+                            <li>Suivi des commandes</li>
+                            <li>Changement de statuts</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 5. CHARTE GRAPHIQUE - COULEURS -->
+            <section>
+                <h2>Charte Graphique</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <h3>Palette de couleurs</h3>
+                        <div class="color-row">
+                            <div class="color-box">
+                                <div class="swatch" style="background:#0A0A0A;"></div>
+                                <span>Noir<br>#0A0A0A</span>
+                            </div>
+                            <div class="color-box">
+                                <div class="swatch" style="background:#FFFFFF; border:1px solid #333;"></div>
+                                <span>Blanc<br>#FFFFFF</span>
+                            </div>
+                            <div class="color-box">
+                                <div class="swatch" style="background:#F5F5F5;"></div>
+                                <span>Gris clair<br>#F5F5F5</span>
+                            </div>
+                            <div class="color-box">
+                                <div class="swatch" style="background:#6B6B6B;"></div>
+                                <span>Gris moyen<br>#6B6B6B</span>
+                            </div>
+                        </div>
+                        <p class="small" style="margin-top:1em;">Style minimaliste luxe : contraste noir/blanc avec nuances de gris</p>
+                    </div>
+                    <div class="col">
+                        <h3>Typographie</h3>
+                        <div class="card">
+                            <h4>Police principale</h4>
+                            <p style="font-size:1.2em; margin:0.5em 0;"><strong>Inter</strong></p>
+                            <ul>
+                                <li>Titres : 32-44px Bold</li>
+                                <li>Corps : 16px Regular</li>
+                                <li>Boutons : 14px Medium</li>
+                            </ul>
+                        </div>
+                        <p class="small">Police moderne et lisible, adaptée au web</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 6. CHARTE GRAPHIQUE - COMPOSANTS -->
+            <section>
+                <h2>Charte Graphique</h2>
+                <h3>Composants UI</h3>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <div class="card">
+                            <h4>Boutons</h4>
+                            <ul>
+                                <li>Primaire : fond noir, texte blanc</li>
+                                <li>Secondaire : fond blanc, bordure noire</li>
+                                <li>Border-radius : 0 (angles droits)</li>
+                                <li>Hover : inversion des couleurs</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h4>Cartes produit</h4>
+                            <ul>
+                                <li>Fond blanc, ombre légère</li>
+                                <li>Image 1:1 (carré)</li>
+                                <li>Texte centré</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <h4>Navigation</h4>
+                            <ul>
+                                <li>Header fixe, fond blanc</li>
+                                <li>Logo centré</li>
+                                <li>Menu horizontal</li>
+                                <li>Icônes : panier, compte</li>
+                            </ul>
+                        </div>
+                        <div class="card">
+                            <h4>Espacements</h4>
+                            <ul>
+                                <li>Marges : 16px, 24px, 32px</li>
+                                <li>Grille : 12 colonnes</li>
+                                <li>Gap : 24px</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 7. WIREFRAMES -->
+            <section>
+                <h2>Wireframes</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col" style="text-align:center;">
+                        <h3>Page d'accueil</h3>
+                        <pre style="font-size:0.35em; text-align:center; background:#1a1a1a; padding:0.5em;">
+┌─────────────────────────────┐
+│  LOGO    MENU    🛒  👤    │
+├─────────────────────────────┤
+│                             │
+│     BELLE ÎLE PARFUMÉE      │
+│     [ Découvrir ]           │
+│                             │
+├─────────────────────────────┤
+│  HOMME  │  FEMME  │  MIXTE  │
+├─────────────────────────────┤
+│ ┌─────┐ ┌─────┐ ┌─────┐    │
+│ │ IMG │ │ IMG │ │ IMG │    │
+│ │Prod1│ │Prod2│ │Prod3│    │
+│ │ 95€ │ │120€ │ │ 85€ │    │
+│ └─────┘ └─────┘ └─────┘    │
+└─────────────────────────────┘
+                        </pre>
+                    </div>
+                    <div class="col" style="text-align:center;">
+                        <h3>Page Produit</h3>
+                        <pre style="font-size:0.35em; text-align:center; background:#1a1a1a; padding:0.5em;">
+┌─────────────────────────────┐
+│  LOGO    MENU    🛒  👤    │
+├─────────────────────────────┤
+│ ┌─────────┐ ┌─────────────┐│
+│ │         │ │ Chanel N°5  ││
+│ │  IMAGE  │ │ Eau de Parf ││
+│ │ PRODUIT │ │             ││
+│ │         │ │ 135,00 €    ││
+│ └─────────┘ │             ││
+│             │ Qté: [1] [+]││
+│             │             ││
+│             │[AJOUTER]    ││
+│             └─────────────┘│
+├─────────────────────────────┤
+│ Description du produit...   │
+└─────────────────────────────┘
+                        </pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 8. ARCHITECTURE TECHNIQUE -->
+            <section>
+                <h2>Architecture Technique</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <h3>Frontend</h3>
+                        <ul>
+                            <li><strong>React 18</strong> + TypeScript</li>
+                            <li><strong>Vite</strong> (build tool)</li>
+                            <li><strong>React Router 6</strong> (navigation)</li>
+                            <li><strong>Axios</strong> (HTTP client)</li>
+                            <li><strong>Context API</strong> (état global)</li>
+                            <li>CSS Modules</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Backend</h3>
+                        <ul>
+                            <li><strong>Spring Boot 3</strong> + Java 17</li>
+                            <li><strong>Spring Security</strong> + JWT</li>
+                            <li><strong>Spring Data JPA</strong></li>
+                            <li><strong>PostgreSQL 17</strong></li>
+                            <li><strong>JavaMail</strong> (emails)</li>
+                            <li>Architecture 3-tiers</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 9. ARCHITECTURE 3-TIERS -->
+            <section>
+                <h2>Architecture 3-Tiers</h2>
+                <div class="line"></div>
+                <img src="diagrams/architecture.png" alt="Architecture" class="img-small">
+                <p class="small">Client → Frontend React → API REST → Backend Spring → PostgreSQL</p>
+            </section>
+
+            <!-- 10. BASE DE DONNEES - MCD -->
+            <section>
+                <h2>Base de Données — MCD</h2>
+                <div class="line"></div>
+                <img src="../database/diagrams/mcd.png" alt="MCD" class="img-small">
+                <p class="small">Modèle Conceptuel : 5 entités — Account, Client, Product, Order, OrderLine</p>
+            </section>
+
+            <!-- 11. BASE DE DONNEES - MLD -->
+            <section>
+                <h2>Base de Données — MLD</h2>
+                <div class="line"></div>
+                <img src="../database/diagrams/mld.png" alt="MLD" class="img-small">
+                <p class="small">Modèle Logique avec types de données et contraintes</p>
+            </section>
+
+            <!-- 12. BASE DE DONNEES - MPD -->
+            <section>
+                <h2>Base de Données — MPD</h2>
+                <div class="line"></div>
+                <img src="diagrams/mpd.png" alt="MPD" class="img-small">
+                <p class="small">Modèle Physique — Implémentation PostgreSQL avec index</p>
+            </section>
+
+            <!-- 13. ARBORESCENCE -->
+            <section>
+                <h2>Arborescence du Site</h2>
+                <div class="line"></div>
+                <img src="diagrams/arborescence.png" alt="Arborescence" class="img-small">
+            </section>
+
+            <!-- 14. DIAGRAMME DE CLASSES -->
+            <section>
+                <h2>Diagramme de Classes</h2>
+                <div class="line"></div>
+                <img src="diagrams/classes.png" alt="Classes" class="img-small">
+                <p class="small">Entités JPA avec relations et méthodes</p>
+            </section>
+
+            <!-- 15. CAS D'UTILISATION -->
+            <section>
+                <h2>Cas d'Utilisation</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <h3>Visiteur / Client</h3>
+                        <ul>
+                            <li>Consulter le catalogue</li>
+                            <li>Rechercher un produit</li>
+                            <li>Filtrer par genre</li>
+                            <li>S'inscrire / Se connecter</li>
+                            <li>Ajouter au panier</li>
+                            <li>Modifier les quantités</li>
+                            <li>Passer commande</li>
+                            <li>Recevoir confirmation</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Administrateur</h3>
+                        <ul>
+                            <li>Se connecter (rôle ADMIN)</li>
+                            <li>Ajouter un produit</li>
+                            <li>Modifier un produit</li>
+                            <li>Supprimer un produit</li>
+                            <li>Consulter les clients</li>
+                            <li>Voir les commandes</li>
+                            <li>Changer statut commande</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 16. FONCTIONNALITE PANIER - INTRO -->
+            <section>
+                <h2>Fonctionnalité : Gestion du Panier</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <div class="card">
+                            <h4>Mode Non Connecté</h4>
+                            <ul>
+                                <li>Stockage dans <span class="inline-code">localStorage</span></li>
+                                <li>Persistance côté client</li>
+                                <li>Pas d'appel API</li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card">
+                            <h4>Mode Connecté</h4>
+                            <ul>
+                                <li>Stockage en base de données</li>
+                                <li>API REST Spring Boot</li>
+                                <li>Synchronisation automatique</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="card" style="margin-top:1em;">
+                    <h4>Caractéristiques</h4>
+                    <ul>
+                        <li>Fusion du panier local à la connexion</li>
+                        <li>Vérification du stock en temps réel</li>
+                        <li>Décrémentation du stock au checkout</li>
+                        <li>Email de confirmation de commande</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 17. DIAGRAMME DE SEQUENCE -->
+            <section>
+                <h2>Diagramme de Séquence</h2>
+                <h3>Ajouter au Panier</h3>
+                <div class="line"></div>
+                <img src="diagrams/sequence.png" alt="Séquence" class="img-small">
+            </section>
+
+            <!-- 18. CODE BACKEND -->
+            <section>
+                <h2>Code Backend</h2>
+                <h3>CartService.java</h3>
+                <div class="line"></div>
+                <pre><code>public CartResponseDTO addItemToCart(String email, String productCode, int quantity) {
+    // 1. Récupérer ou créer le panier (status = PENDING)
+    Order cart = getOrCreateCart(email);
+
+    // 2. Vérifier le stock disponible
+    Product product = productRepository.findById(productCode)
+        .orElseThrow(() -> new RuntimeException("Produit non trouvé"));
+
+    if (product.getStock() < quantity) {
+        throw new RuntimeException("Stock insuffisant");
+    }
+
+    // 3. Ajouter ou mettre à jour la ligne de commande
+    OrderLine line = findOrCreateOrderLine(cart, product);
+    line.setQuantity(line.getQuantity() + quantity);
+    line.setUnitPrice(product.getPrice());
+
+    orderLineRepository.save(line);
+    return toCartResponseDTO(cart);
+}</code></pre>
+            </section>
+
+            <!-- 19. CODE FRONTEND -->
+            <section>
+                <h2>Code Frontend</h2>
+                <h3>CartContext.tsx</h3>
+                <div class="line"></div>
+                <pre><code>const addToCart = async (product: Product, quantity: number) => {
+    if (isAuthenticated) {
+        // Mode connecté : appel API REST
+        const email = authService.getUserEmail();
+        const response = await cartService.addItem(email, product.productCode, quantity);
+        setItems(response.items);
+    } else {
+        // Mode non connecté : localStorage
+        const existingItem = items.find(i => i.product.productCode === product.productCode);
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            items.push({ product, quantity });
+        }
+        localStorage.setItem('cart', JSON.stringify(items));
+        setItems([...items]);
+    }
+};</code></pre>
+            </section>
+
+            <!-- 20. SECURITE -->
+            <section>
+                <h2>Sécurité</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <h3>Authentification</h3>
+                        <ul>
+                            <li><strong>JWT</strong> (JSON Web Token)</li>
+                            <li>Cookie <strong>HttpOnly</strong></li>
+                            <li>Expiration : 24 heures</li>
+                            <li><strong>BCrypt</strong> (hash mots de passe)</li>
+                            <li>Refresh token possible</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Autorisation</h3>
+                        <ul>
+                            <li>Rôles : <strong>CLIENT</strong>, <strong>ADMIN</strong></li>
+                            <li>Routes protégées par rôle</li>
+                            <li>Filtre JWT personnalisé</li>
+                            <li>CORS configuré</li>
+                            <li>Validation des entrées</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 21. CODE PRODUIT -->
+            <section>
+                <h2>Génération du Code Produit</h2>
+                <div class="line"></div>
+                <p>Format : <span class="inline-code">XXX-TTT-MMM-YYYY</span></p>
+                <table style="margin-top:1em;">
+                    <thead>
+                        <tr>
+                            <th>Segment</th>
+                            <th>Description</th>
+                            <th>Exemple</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>XXX</td>
+                            <td>Code marque (3 lettres)</td>
+                            <td>CHA, DIO, YSL</td>
+                        </tr>
+                        <tr>
+                            <td>TTT</td>
+                            <td>Type de concentration</td>
+                            <td>EDP, EDT, EXT</td>
+                        </tr>
+                        <tr>
+                            <td>MMM</td>
+                            <td>Taille en ml</td>
+                            <td>050, 100, 075</td>
+                        </tr>
+                        <tr>
+                            <td>YYYY</td>
+                            <td>Numéro séquentiel</td>
+                            <td>0001, 0002</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top:1em;">Exemple : <span class="inline-code">CHA-EDP-100-0001</span> → Chanel N°5 EDP 100ml</p>
+            </section>
+
+            <!-- 22. DEMO -->
+            <section class="centered">
+                <h1>Démonstration</h1>
+                <div class="line"></div>
+                <p style="color: var(--gray); font-style: italic;">Application en live</p>
+            </section>
+
+            <!-- 23. CONCLUSION -->
+            <section>
+                <h2>Conclusion</h2>
+                <div class="line"></div>
+                <div class="cols">
+                    <div class="col">
+                        <h3>Réalisations</h3>
+                        <ul class="check">
+                            <li>Frontend React moderne</li>
+                            <li>Backend Spring Boot robuste</li>
+                            <li>Base PostgreSQL structurée</li>
+                            <li>Sécurité JWT + BCrypt</li>
+                            <li>Documentation complète</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <h3>Évolutions possibles</h3>
+                        <ul>
+                            <li>Paiement en ligne (Stripe)</li>
+                            <li>Tests E2E (Cypress)</li>
+                            <li>CI/CD (GitHub Actions)</li>
+                            <li>PWA (Progressive Web App)</li>
+                            <li>Gestion des avis clients</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 24. QUESTIONS -->
+            <section class="centered">
+                <h1>Questions ?</h1>
+                <div class="line"></div>
+                <p class="merci">Merci de votre attention</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/reveal.js@4.5.0/dist/reveal.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: 'c/t',
+            transition: 'fade',
+            transitionSpeed: 'default',
+            center: true,
+            width: 1280,
+            height: 720,
+            margin: 0.1,
+            progress: true
+        });
+    </script>
+</body>
+</html>
