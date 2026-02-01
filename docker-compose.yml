@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # Base de données PostgreSQL
+  postgres:
+    image: postgres:15
+    container_name: belle-ile-db
+    environment:
+      POSTGRES_DB: belle_ile_parfumee
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./database/dml.sql:/docker-entrypoint-initdb.d/dml.sql
+
+  # Backend Spring Boot
+  backend:
+    build: ./backend
+    container_name: belle-ile-api
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/belle_ile_parfumee
+      DB_USERNAME: postgres
+      DB_PASSWORD: postgres
+    ports:
+      - "8081:8081"
+    depends_on:
+      - postgres
+
+  # Frontend React
+  frontend:
+    build: ./frontend
+    container_name: belle-ile-front
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:
