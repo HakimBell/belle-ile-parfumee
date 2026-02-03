@@ -3,7 +3,8 @@ package com.belleileperfumee.belle_ile_parfumee.controller;
 import com.belleileperfumee.belle_ile_parfumee.dto.cart.CartItemRequestDTO;
 import com.belleileperfumee.belle_ile_parfumee.dto.cart.CartResponseDTO;
 import com.belleileperfumee.belle_ile_parfumee.service.CartService;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,8 +12,13 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/orders/cart")
 public class CartController {
 
-    @Autowired
-    private CartService cartService;
+    private static final Logger logger = LoggerFactory.getLogger(CartController.class);
+
+    private final CartService cartService;
+
+    public CartController(CartService cartService) {
+        this.cartService = cartService;
+    }
 
     /**
      * GET /api/orders/cart?email= - Récupérer le panier
@@ -35,8 +41,7 @@ public class CartController {
                     email, request.getProductCode(), request.getQuantity());
             return ResponseEntity.ok(cart);
         } catch (RuntimeException e) {
-            System.err.println("Erreur addItem: " + e.getMessage());
-            e.printStackTrace();
+            logger.error("Erreur addItem: {}", e.getMessage());
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
