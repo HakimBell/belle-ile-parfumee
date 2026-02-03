@@ -3,7 +3,7 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-ENV VITE_API_URL=http://localhost:8081/api
+ENV VITE_API_URL=https://belle-ile-api.onrender.com/api
 RUN npm run build
 
 FROM nginx:alpine
