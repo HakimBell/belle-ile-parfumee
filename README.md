@@ -1,5 +1,10 @@
 # Belle Île Parfumée
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=HakimBell_belle-ile-parfumee&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=HakimBell_belle-ile-parfumee)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=HakimBell_belle-ile-parfumee&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=HakimBell_belle-ile-parfumee)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=HakimBell_belle-ile-parfumee&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=HakimBell_belle-ile-parfumee)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=HakimBell_belle-ile-parfumee&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=HakimBell_belle-ile-parfumee)
+
 Application e-commerce de vente de parfums développée avec **Spring Boot** (backend) et **React** (frontend).
 
 ## Technologies utilisées
