@@ -10,7 +10,6 @@ import com.belleileperfumee.belle_ile_parfumee.mapper.AccountMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.AccountService;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
@@ -25,11 +24,13 @@ import java.util.Optional;
 @RequestMapping("/api/accounts")
 public class AccountController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
+    private final JwtUtil jwtUtil;
 
-    @Autowired
-    private JwtUtil jwtUtil; // ✅ AJOUTER JwtUtil
+    public AccountController(AccountService accountService, JwtUtil jwtUtil) {
+        this.accountService = accountService;
+        this.jwtUtil = jwtUtil;
+    }
 
     // Helper pour créer le cookie JWT
     private ResponseCookie createAuthCookie(String token) {

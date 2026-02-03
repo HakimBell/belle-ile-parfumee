@@ -5,7 +5,6 @@ import com.belleileperfumee.belle_ile_parfumee.dto.client.ClientResponseDTO;
 import com.belleileperfumee.belle_ile_parfumee.entity.Client;
 import com.belleileperfumee.belle_ile_parfumee.mapper.ClientMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.ClientService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,8 +16,11 @@ import java.util.Optional;
 @RequestMapping("/api/clients")
 public class ClientController {
 
-    @Autowired
-    private ClientService clientService;
+    private final ClientService clientService;
+
+    public ClientController(ClientService clientService) {
+        this.clientService = clientService;
+    }
 
     // CREATE - Créer un nouveau client
     @PostMapping

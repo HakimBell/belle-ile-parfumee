@@ -5,7 +5,6 @@ import com.belleileperfumee.belle_ile_parfumee.dto.order.OrderResponseDTO;
 import com.belleileperfumee.belle_ile_parfumee.entity.Order;
 import com.belleileperfumee.belle_ile_parfumee.mapper.OrderMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +19,11 @@ import java.util.Optional;
 @RequestMapping("/api/orders")
 public class OrderController {
 
-    @Autowired
-    private OrderService orderService;
+    private final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
     // CREATE - Créer une nouvelle commande
     @PostMapping

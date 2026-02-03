@@ -5,7 +5,6 @@ import com.belleileperfumee.belle_ile_parfumee.dto.orderline.OrderLineResponseDT
 import com.belleileperfumee.belle_ile_parfumee.entity.OrderLine;
 import com.belleileperfumee.belle_ile_parfumee.mapper.OrderLineMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.OrderLineService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -16,8 +15,11 @@ import java.util.List;
 @RequestMapping("/api/orderlines")
 public class OrderLineController {
 
-    @Autowired
-    private OrderLineService orderLineService;
+    private final OrderLineService orderLineService;
+
+    public OrderLineController(OrderLineService orderLineService) {
+        this.orderLineService = orderLineService;
+    }
 
     // CREATE - Ajouter un produit à une commande
     @PostMapping

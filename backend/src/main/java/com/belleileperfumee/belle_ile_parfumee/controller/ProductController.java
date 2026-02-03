@@ -6,7 +6,6 @@ import com.belleileperfumee.belle_ile_parfumee.entity.Product;
 import com.belleileperfumee.belle_ile_parfumee.mapper.ProductMapper;
 import com.belleileperfumee.belle_ile_parfumee.service.ProductService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,8 +17,11 @@ import java.util.Optional;
 @RequestMapping("/api/products")
 public class ProductController {
 
-    @Autowired
-    private ProductService productService;
+    private final ProductService productService;
+
+    public ProductController(ProductService productService) {
+        this.productService = productService;
+    }
 
     // CREATE - Créer un nouveau produit
     @PostMapping
