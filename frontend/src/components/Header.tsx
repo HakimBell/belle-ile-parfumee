@@ -39,7 +39,7 @@ const Header: React.FC = () => {
     return (
         <header className="header">
             <div className="header-container">
-                <a href="/" className="logo">Belle Île Parfuméeeeeee</a>
+                <a href="/" className="logo">Belle Île Parfumée</a>
 
                 {/* Hamburger button for mobile */}
                 <button
