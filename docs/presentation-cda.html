@@ -76,7 +76,7 @@
         }
 
         .reveal li {
-            margin: 0.6em 0;
+            margin: 0.4em 0;
             padding-left: 1.6em;
             position: relative;
         }
@@ -163,8 +163,8 @@
             background: var(--bg-card);
             border: 1px solid rgba(255,255,255,0.08);
             border-radius: 16px;
-            padding: 1.2em 1.4em;
-            margin: 0.6em 0;
+            padding: 0.9em 1.2em;
+            margin: 0.5em 0;
             text-align: left;
             backdrop-filter: blur(10px);
             transition: all 0.3s ease;
@@ -195,8 +195,8 @@
         }
 
         .reveal .card p, .reveal .card li {
-            font-size: 0.75em;
-            margin: 0.35em 0;
+            font-size: 0.7em;
+            margin: 0.3em 0;
             color: var(--text-secondary);
         }
 
@@ -208,26 +208,28 @@
 
         /* Images */
         .reveal img {
-            max-height: 280px;
+            max-height: 260px;
             border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.1);
             box-shadow: 0 20px 50px rgba(0,0,0,0.5), var(--glow);
         }
 
         .reveal .img-small {
-            max-height: 240px;
+            max-height: 220px;
         }
 
         /* Code */
         .reveal pre {
             background: linear-gradient(145deg, #1a1a2e 0%, #16213e 100%);
             border: 1px solid rgba(139, 92, 246, 0.3);
-            font-size: 0.38em;
-            padding: 1.2em 1.5em;
-            margin: 0.8em 0;
+            font-size: 0.35em;
+            padding: 1em 1.2em;
+            margin: 0.6em 0;
             text-align: left;
             border-radius: 12px;
             box-shadow: 0 10px 40px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+            max-height: 320px;
+            overflow: auto;
         }
 
         .reveal code {
@@ -422,6 +424,65 @@
             padding: 2em;
         }
 
+        /* PDF Print Styles */
+        @media print {
+            .reveal-viewport {
+                background: white !important;
+            }
+
+            .reveal {
+                font-size: 18px !important;
+            }
+
+            .reveal section {
+                page-break-inside: avoid !important;
+                page-break-after: always !important;
+                height: auto !important;
+                min-height: 100vh !important;
+                padding: 20px !important;
+            }
+
+            .reveal .card {
+                page-break-inside: avoid !important;
+                margin: 0.4em 0 !important;
+                padding: 0.8em 1em !important;
+            }
+
+            .reveal pre {
+                page-break-inside: avoid !important;
+                font-size: 0.32em !important;
+                max-height: none !important;
+                overflow: visible !important;
+            }
+
+            .reveal img {
+                max-height: 220px !important;
+                page-break-inside: avoid !important;
+            }
+
+            .reveal table {
+                font-size: 0.6em !important;
+                page-break-inside: avoid !important;
+            }
+
+            .reveal .cols {
+                gap: 1em !important;
+            }
+
+            .reveal li {
+                margin: 0.3em 0 !important;
+                font-size: 0.75em !important;
+            }
+
+            .reveal h2 {
+                font-size: 1.5em !important;
+            }
+
+            .reveal .line {
+                margin: 0.4em auto !important;
+            }
+        }
+
         /* Icon styling */
         .reveal .icon {
             font-size: 1.5em;
@@ -513,33 +574,33 @@
                 </div>
             </section>
 
-            <!-- 4. PROBLEMATIQUE -->
+            <!-- 4a. PROBLEMATIQUE - Surcharge -->
             <section>
                 <h2>Problématique</h2>
+                <h3>Surcharge de travail</h3>
                 <div class="line"></div>
-                <div class="cols">
-                    <div class="col">
-                        <div class="card">
-                            <h4>Surcharge de travail</h4>
-                            <ul>
-                                <li>Inventaire manuel chaque dimanche</li>
-                                <li>Mise à jour des produits</li>
-                                <li>Emails individuels à chaque client</li>
-                                <li>Fichiers Excel à maintenir</li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card">
-                            <h4>Conséquences</h4>
-                            <ul>
-                                <li>Processus chronophage</li>
-                                <li>Risque d'erreurs</li>
-                                <li>Mauvaise expérience client</li>
-                                <li>Perte de temps sur les tâches répétitives</li>
-                            </ul>
-                        </div>
-                    </div>
+                <div class="card">
+                    <ul>
+                        <li>Inventaire manuel chaque dimanche</li>
+                        <li>Mise à jour des produits un par un</li>
+                        <li>Emails individuels à chaque client</li>
+                        <li>Fichiers Excel à maintenir manuellement</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- 4b. PROBLEMATIQUE - Conséquences -->
+            <section>
+                <h2>Problématique</h2>
+                <h3>Conséquences</h3>
+                <div class="line"></div>
+                <div class="card">
+                    <ul>
+                        <li>Processus chronophage</li>
+                        <li>Risque d'erreurs humaines</li>
+                        <li>Mauvaise expérience client</li>
+                        <li>Perte de temps sur les tâches répétitives</li>
+                    </ul>
                 </div>
             </section>
 
@@ -587,77 +648,75 @@
                 </div>
             </section>
 
-            <!-- 4. SPECIFICATIONS FONCTIONNELLES -->
+            <!-- 7a. SPECIFICATIONS - Espace Client -->
             <section>
                 <h2>Spécifications Fonctionnelles</h2>
+                <h3>Espace Client</h3>
                 <div class="line"></div>
-                <div class="cols">
-                    <div class="col">
-                        <h3>Espace Client</h3>
-                        <ul>
-                            <li>Consultation du catalogue</li>
-                            <li>Recherche par nom/marque</li>
-                            <li>Filtrage par genre (H/F/Mixte)</li>
-                            <li>Gestion du panier</li>
-                            <li>Inscription / Connexion</li>
-                            <li>Passage de commande</li>
-                            <li>Confirmation par email</li>
-                        </ul>
-                    </div>
-                    <div class="col">
-                        <h3>Espace Administration</h3>
-                        <ul>
-                            <li>CRUD Produits</li>
-                            <li>Gestion des stocks</li>
-                            <li>Gestion des clients</li>
-                            <li>Suivi des commandes</li>
-                            <li>Changement de statuts</li>
-                        </ul>
-                    </div>
-                </div>
+                <ul>
+                    <li>Consultation du catalogue</li>
+                    <li>Recherche par nom/marque</li>
+                    <li>Filtrage par genre (H/F/Mixte)</li>
+                    <li>Gestion du panier</li>
+                    <li>Inscription / Connexion</li>
+                    <li>Passage de commande</li>
+                </ul>
             </section>
 
-            <!-- 5. CHARTE GRAPHIQUE - COULEURS -->
+            <!-- 7b. SPECIFICATIONS - Espace Admin -->
+            <section>
+                <h2>Spécifications Fonctionnelles</h2>
+                <h3>Espace Administration</h3>
+                <div class="line"></div>
+                <ul>
+                    <li>CRUD Produits (Créer, Lire, Modifier, Supprimer)</li>
+                    <li>Gestion des stocks</li>
+                    <li>Gestion des clients</li>
+                    <li>Suivi des commandes</li>
+                    <li>Changement de statuts</li>
+                </ul>
+            </section>
+
+            <!-- 8a. CHARTE GRAPHIQUE - COULEURS -->
             <section>
                 <h2>Charte Graphique</h2>
+                <h3>Palette de couleurs</h3>
                 <div class="line"></div>
-                <div class="cols">
-                    <div class="col">
-                        <h3>Palette de couleurs</h3>
-                        <div class="color-row">
-                            <div class="color-box">
-                                <div class="swatch" style="background:#0A0A0A;"></div>
-                                <span>Noir<br>#0A0A0A</span>
-                            </div>
-                            <div class="color-box">
-                                <div class="swatch" style="background:#FFFFFF; border:1px solid #333;"></div>
-                                <span>Blanc<br>#FFFFFF</span>
-                            </div>
-                            <div class="color-box">
-                                <div class="swatch" style="background:#F5F5F5;"></div>
-                                <span>Gris clair<br>#F5F5F5</span>
-                            </div>
-                            <div class="color-box">
-                                <div class="swatch" style="background:#6B6B6B;"></div>
-                                <span>Gris moyen<br>#6B6B6B</span>
-                            </div>
-                        </div>
-                        <p class="small" style="margin-top:1em;">Style minimaliste luxe : contraste noir/blanc avec nuances de gris</p>
+                <div class="color-row" style="justify-content:center;">
+                    <div class="color-box">
+                        <div class="swatch" style="background:#0A0A0A;"></div>
+                        <span>Noir<br>#0A0A0A</span>
                     </div>
-                    <div class="col">
-                        <h3>Typographie</h3>
-                        <div class="card">
-                            <h4>Police principale</h4>
-                            <p style="font-size:1.2em; margin:0.5em 0;"><strong>Inter</strong></p>
-                            <ul>
-                                <li>Titres : 32-44px Bold</li>
-                                <li>Corps : 16px Regular</li>
-                                <li>Boutons : 14px Medium</li>
-                            </ul>
-                        </div>
-                        <p class="small">Police moderne et lisible, adaptée au web</p>
+                    <div class="color-box">
+                        <div class="swatch" style="background:#FFFFFF; border:1px solid #333;"></div>
+                        <span>Blanc<br>#FFFFFF</span>
+                    </div>
+                    <div class="color-box">
+                        <div class="swatch" style="background:#F5F5F5;"></div>
+                        <span>Gris clair<br>#F5F5F5</span>
+                    </div>
+                    <div class="color-box">
+                        <div class="swatch" style="background:#6B6B6B;"></div>
+                        <span>Gris moyen<br>#6B6B6B</span>
                     </div>
                 </div>
+                <p class="small" style="margin-top:1em;">Style minimaliste luxe : contraste noir/blanc avec nuances de gris</p>
+            </section>
+
+            <!-- 8b. CHARTE GRAPHIQUE - TYPOGRAPHIE -->
+            <section>
+                <h2>Charte Graphique</h2>
+                <h3>Typographie</h3>
+                <div class="line"></div>
+                <div class="card" style="max-width:500px; margin:0 auto;">
+                    <h4>Police principale : Inter</h4>
+                    <ul>
+                        <li>Titres : 32-44px Bold</li>
+                        <li>Corps : 16px Regular</li>
+                        <li>Boutons : 14px Medium</li>
+                    </ul>
+                </div>
+                <p class="small" style="margin-top:1em;">Police moderne et lisible, adaptée au web</p>
             </section>
 
             <!-- 6. CHARTE GRAPHIQUE - COMPOSANTS -->
@@ -757,34 +816,32 @@
                 </div>
             </section>
 
-            <!-- 8. ARCHITECTURE TECHNIQUE -->
+            <!-- 11a. ARCHITECTURE TECHNIQUE - Frontend -->
             <section>
                 <h2>Architecture Technique</h2>
+                <h3>Frontend</h3>
                 <div class="line"></div>
-                <div class="cols">
-                    <div class="col">
-                        <h3>Frontend</h3>
-                        <ul>
-                            <li><strong>React 18</strong> + TypeScript</li>
-                            <li><strong>Vite</strong> (build tool)</li>
-                            <li><strong>React Router 6</strong> (navigation)</li>
-                            <li><strong>Axios</strong> (HTTP client)</li>
-                            <li><strong>Context API</strong> (état global)</li>
-                            <li>CSS Modules</li>
-                        </ul>
-                    </div>
-                    <div class="col">
-                        <h3>Backend</h3>
-                        <ul>
-                            <li><strong>Spring Boot 3</strong> + Java 17</li>
-                            <li><strong>Spring Security</strong> + JWT</li>
-                            <li><strong>Spring Data JPA</strong></li>
-                            <li><strong>PostgreSQL 17</strong></li>
-                            <li><strong>JavaMail</strong> (emails)</li>
-                            <li>Architecture 3-tiers</li>
-                        </ul>
-                    </div>
-                </div>
+                <ul>
+                    <li><strong>React 18</strong> + TypeScript</li>
+                    <li><strong>Vite</strong> (build tool rapide)</li>
+                    <li><strong>React Router 6</strong> (navigation SPA)</li>
+                    <li><strong>Axios</strong> (client HTTP)</li>
+                    <li><strong>Context API</strong> (gestion d'état global)</li>
+                </ul>
+            </section>
+
+            <!-- 11b. ARCHITECTURE TECHNIQUE - Backend -->
+            <section>
+                <h2>Architecture Technique</h2>
+                <h3>Backend</h3>
+                <div class="line"></div>
+                <ul>
+                    <li><strong>Spring Boot 3</strong> + Java 17</li>
+                    <li><strong>Spring Security</strong> + JWT</li>
+                    <li><strong>Spring Data JPA</strong> (ORM)</li>
+                    <li><strong>PostgreSQL 17</strong> (base de données)</li>
+                    <li><strong>JavaMail</strong> (envoi d'emails)</li>
+                </ul>
             </section>
 
             <!-- 9. ARCHITECTURE 3-TIERS -->
@@ -795,20 +852,20 @@
                 <p class="small">Client → Frontend React → API REST → Backend Spring → PostgreSQL</p>
             </section>
 
-            <!-- 10. BASE DE DONNEES - MCD -->
+            <!-- 13. BASE DE DONNEES - MCD -->
             <section>
                 <h2>Base de Données — MCD</h2>
                 <div class="line"></div>
-                <img src="../database/diagrams/mcd.png" alt="MCD" class="img-small">
-                <p class="small">Modèle Conceptuel : 5 entités — Account, Client, Product, Order, OrderLine</p>
+                <img src="../database/diagrams/mcd.png" alt="MCD" style="max-height:380px;">
+                <p class="small">Modèle Conceptuel : 5 entités</p>
             </section>
 
-            <!-- 11. BASE DE DONNEES - MLD -->
+            <!-- 14. BASE DE DONNEES - MLD -->
             <section>
                 <h2>Base de Données — MLD</h2>
                 <div class="line"></div>
-                <img src="../database/diagrams/mld.png" alt="MLD" class="img-small">
-                <p class="small">Modèle Logique avec types de données et contraintes</p>
+                <img src="../database/diagrams/mld.png" alt="MLD" style="max-height:380px;">
+                <p class="small">Modèle Logique avec types et contraintes</p>
             </section>
 
             <!-- 12. BASE DE DONNEES - MPD -->

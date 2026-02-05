@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Étude de Cas DevOps - World News</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Poppins', sans-serif; line-height: 1.8; color: #2d3748; background: #f7fafc; }
+        .slide { width: 100%; min-height: 100vh; padding: 50px 70px; page-break-after: always; background: white; position: relative; }
+        .slide-cover { background: linear-gradient(135deg, #0f4c75 0%, #1b262c 100%); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .slide-cover h1 { font-size: 2.8em; font-weight: 700; margin-bottom: 15px; }
+        .slide-cover h2 { font-size: 1.3em; font-weight: 300; margin-bottom: 20px; color: white; }
+        .slide-cover .subtitle { font-size: 1em; opacity: 0.85; max-width: 650px; line-height: 1.6; }
+        .slide-cover .certification-badge { background: linear-gradient(135deg, #3282b8, #0f4c75); padding: 10px 30px; border-radius: 30px; font-weight: 600; margin: 25px 0; font-size: 0.95em; border: 2px solid rgba(255,255,255,0.3); }
+        .slide-cover .author { font-size: 1.1em; margin-top: 40px; font-weight: 500; }
+        .slide-cover .author span { display: block; font-weight: 300; font-size: 0.85em; opacity: 0.8; margin-top: 5px; }
+        .slide h2 { color: #1b262c; font-size: 1.6em; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; border-bottom: 3px solid #3282b8; padding-bottom: 10px; }
+        .slide h2 i { color: #3282b8; }
+        .slide h3 { color: #0f4c75; font-size: 1.15em; margin: 18px 0 10px 0; display: flex; align-items: center; gap: 8px; }
+        .slide h3 i { color: #3282b8; font-size: 0.9em; }
+        .slide p { margin-bottom: 12px; font-size: 0.95em; color: #4a5568; text-align: justify; }
+        .slide ul { margin-left: 25px; margin-bottom: 12px; }
+        .slide li { margin-bottom: 6px; font-size: 0.9em; color: #4a5568; }
+        .slide strong { color: #1b262c; }
+        .sommaire-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .sommaire-item { background: white; border-radius: 10px; padding: 18px; border: 1px solid #e2e8f0; display: flex; align-items: center; gap: 12px; }
+        .sommaire-number { background: linear-gradient(135deg, #3282b8, #0f4c75); color: white; width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.1em; }
+        .sommaire-text { font-size: 0.95em; font-weight: 500; }
+        table { width: 100%; border-collapse: collapse; margin: 12px 0; border-radius: 8px; overflow: hidden; font-size: 0.85em; }
+        th, td { padding: 10px 12px; text-align: left; }
+        th { background: linear-gradient(135deg, #1b262c, #0f4c75); color: white; font-weight: 600; }
+        tr:nth-child(even) { background: #f8f9fa; }
+        tr:nth-child(odd) { background: white; }
+        .info-box { background: linear-gradient(135deg, #e8f4fd, #fff); border-left: 4px solid #3282b8; padding: 12px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+        .warning-box { background: linear-gradient(135deg, #fff5e6, #fff); border-left: 4px solid #ed8936; padding: 12px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+        .success-box { background: linear-gradient(135deg, #e6fffa, #fff); border-left: 4px solid #38a169; padding: 12px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+        .danger-box { background: linear-gradient(135deg, #fff5f5, #fff); border-left: 4px solid #e53e3e; padding: 12px 18px; border-radius: 0 8px 8px 0; margin: 12px 0; }
+        .highlight-box { background: linear-gradient(135deg, #0f4c75, #1b262c); color: white; padding: 18px; border-radius: 10px; margin: 15px 0; }
+        .highlight-box strong, .highlight-box p { color: white; }
+        .schema-box { background: #f8f9fa; border: 2px solid #e2e8f0; border-radius: 10px; padding: 20px; margin: 15px 0; text-align: center; }
+        .schema-row { display: flex; justify-content: center; align-items: center; gap: 15px; margin: 12px 0; flex-wrap: wrap; }
+        .schema-block { background: white; border: 2px solid #3282b8; border-radius: 8px; padding: 12px 20px; font-weight: 500; min-width: 130px; font-size: 0.9em; }
+        .schema-block.dev { border-color: #3182ce; background: #ebf8ff; }
+        .schema-block.ops { border-color: #38a169; background: #f0fff4; }
+        .schema-block.devops { border-color: #805ad5; background: #faf5ff; }
+        .schema-arrow { color: #3282b8; font-size: 1.3em; }
+        .schema-x { color: #e53e3e; font-size: 1.5em; }
+        .schema-check { color: #38a169; font-size: 1.5em; }
+        .pipeline-flow { display: flex; justify-content: space-between; align-items: center; margin: 15px 0; flex-wrap: wrap; }
+        .pipeline-step { background: white; border: 2px solid #e2e8f0; border-radius: 8px; padding: 12px; text-align: center; flex: 1; margin: 4px; min-width: 90px; }
+        .pipeline-step i { font-size: 1.5em; color: #3282b8; display: block; margin-bottom: 6px; }
+        .pipeline-step span { font-size: 0.8em; font-weight: 500; }
+        .pipeline-arrow { color: #3282b8; font-size: 1.2em; }
+        .cards-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 15px 0; }
+        .cards-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin: 15px 0; }
+        .card { background: white; border: 1px solid #e2e8f0; border-radius: 8px; padding: 15px; }
+        .card h4 { color: #0f4c75; margin-bottom: 8px; font-size: 0.95em; display: flex; align-items: center; gap: 6px; }
+        .card p, .card ul { font-size: 0.85em; margin: 0; }
+        .card ul { margin-left: 15px; }
+        .roadmap { margin: 15px 0; }
+        .roadmap-phase { background: white; border-left: 4px solid #3282b8; padding: 15px; margin: 12px 0; border-radius: 0 8px 8px 0; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+        .roadmap-phase h4 { color: #0f4c75; margin-bottom: 8px; font-size: 1em; }
+        .roadmap-phase.phase1 { border-left-color: #38a169; }
+        .roadmap-phase.phase2 { border-left-color: #3182ce; }
+        .roadmap-phase.phase3 { border-left-color: #805ad5; }
+        .slide-footer { position: absolute; bottom: 15px; left: 70px; right: 70px; display: flex; justify-content: space-between; font-size: 0.75em; color: #a0aec0; }
+        .slide-final { background: linear-gradient(135deg, #0f4c75 0%, #1b262c 100%); color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; }
+        .slide-final h1 { font-size: 2.2em; margin-bottom: 20px; }
+        .slide-final p { color: rgba(255,255,255,0.9); max-width: 700px; font-size: 1em; }
+        .two-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media print { .slide { height: 100vh; overflow: hidden; page-break-after: always; } body { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }
+
+        /* Compact mode for dense slides */
+        .slide.compact h2 { font-size: 1.4em; margin-bottom: 12px; }
+        .slide.compact h3 { font-size: 1em; margin: 10px 0 6px 0; }
+        .slide.compact p { font-size: 0.85em; margin-bottom: 8px; line-height: 1.5; }
+        .slide.compact ul { margin-bottom: 8px; }
+        .slide.compact li { font-size: 0.8em; margin-bottom: 3px; }
+        .slide.compact .card { padding: 10px; }
+        .slide.compact .card h4 { font-size: 0.85em; margin-bottom: 4px; }
+        .slide.compact .card p, .slide.compact .card li { font-size: 0.75em; }
+        .slide.compact table { font-size: 0.75em; }
+        .slide.compact th, .slide.compact td { padding: 6px 8px; }
+        .slide.compact .info-box { padding: 8px 12px; margin: 8px 0; }
+        .slide.compact .info-box p { margin-top: 4px; font-size: 0.8em; }
+        .slide.compact .cards-grid { gap: 8px; margin: 10px 0; }
+        .slide.compact .cards-grid-2 { gap: 10px; margin: 10px 0; }
+        .slide.compact .schema-box { padding: 12px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Couverture -->
+<div class="slide slide-cover">
+    <h1><i class="fas fa-newspaper"></i> World News</h1>
+    <h2 style="color: white;">Étude de cas - Transformation DevOps</h2>
+    <div class="subtitle">
+        Accompagner les collaborateurs au sein de l'équipe projet dans la sensibilisation et l'acculturation des méthodes d'organisation et de production DevOps
+    </div>
+    <div class="certification-badge">
+        <i class="fas fa-certificate"></i> Certification DevOps - Février 2026
+    </div>
+    <div class="author">
+        BELLIL Hakim
+        <span>Concepteur Développeur d'Applications</span>
+    </div>
+</div>
+
+<!-- Slide 2: Sommaire -->
+<div class="slide">
+    <h2><i class="fas fa-list"></i> Sommaire</h2>
+    <div class="sommaire-grid">
+        <div class="sommaire-item">
+            <div class="sommaire-number">1</div>
+            <div class="sommaire-text">Analyse de la situation initiale</div>
+        </div>
+        <div class="sommaire-item">
+            <div class="sommaire-number">2</div>
+            <div class="sommaire-text">Les objectifs cibles</div>
+        </div>
+        <div class="sommaire-item">
+            <div class="sommaire-number">3</div>
+            <div class="sommaire-text">Les préconisations organisationnelles</div>
+        </div>
+        <div class="sommaire-item">
+            <div class="sommaire-number">4</div>
+            <div class="sommaire-text">La chaîne d'outils CI/CD</div>
+        </div>
+        <div class="sommaire-item">
+            <div class="sommaire-number">5</div>
+            <div class="sommaire-text">Acculturation et conduite du changement</div>
+        </div>
+        <div class="sommaire-item">
+            <div class="sommaire-number">6</div>
+            <div class="sommaire-text">Plan de transformation et risques</div>
+        </div>
+        <div class="sommaire-item">
+            <div class="sommaire-number">7</div>
+            <div class="sommaire-text">Conclusion</div>
+        </div>
+    </div>
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 3: Analyse situation - Contexte -->
+<div class="slide">
+    <h2><i class="fas fa-building"></i> 1. Analyse de la situation initiale</h2>
+
+    <h3><i class="fas fa-info-circle"></i> World News : Son identité, son actualité, ses défis</h3>
+
+    <div class="two-cols">
+        <div>
+            <h3><i class="fas fa-question-circle"></i> Qui est World News ?</h3>
+            <p><strong>World News</strong> est une entreprise leader à l'international sur la presse papier et numérique. L'entreprise gère plusieurs plateformes applicatives critiques : système de gestion des abonnements, portails d'actualités en ligne, outils d'analyse d'audience et solutions de gestion de contenu.</p>
+            <p>Ces applications ont été historiquement conçues sous forme de <strong>systèmes monolithiques robustes</strong>, mais devenus complexes à maintenir et à faire évoluer au fil du temps.</p>
+        </div>
+        <div>
+            <h3><i class="fas fa-exclamation-triangle"></i> Quels sont les freins ?</h3>
+            <ul>
+                <li><strong>Time-to-market élevé :</strong> Livraisons majeures tous les 3 à 4 mois seulement, malgré le travail en agilité depuis 3 ans</li>
+                <li><strong>Qualité discutable :</strong> Incidents récurrents en production, bugs fréquents</li>
+                <li><strong>Insatisfaction croissante :</strong> Les utilisateurs finaux subissent les conséquences</li>
+                <li><strong>Silos organisationnels :</strong> Les équipes Dev et Ops sont dans deux départements séparés</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="warning-box">
+        <strong><i class="fas fa-exclamation-circle"></i> Constat majeur :</strong> Bien que l'entreprise ait adopté les méthodes Agile et le framework Scrum depuis plusieurs années, la direction constate une dégradation progressive de la capacité de livraison. Le fonctionnement en silos génère des tensions internes et une perte d'efficacité globale.
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 4: Organisation en silos -->
+<div class="slide compact">
+    <h3><i class="fas fa-sitemap"></i> Le constat majeur : Une organisation en silos</h3>
+
+    <p>La séparation Dev/Ops crée des <strong>objectifs divergents</strong> nuisant à l'alignement sur <strong>la valeur utilisateur</strong>.</p>
+
+    <div class="schema-box">
+        <div class="schema-row">
+            <div class="schema-block dev">
+                <i class="fas fa-code"></i><br>
+                <strong>Équipe Dev</strong><br>
+                <small>Vélocité</small>
+            </div>
+            <div>
+                <div class="schema-x"><i class="fas fa-times"></i></div>
+                <small style="color: #e53e3e;">Silos</small>
+            </div>
+            <div class="schema-block ops">
+                <i class="fas fa-server"></i><br>
+                <strong>Équipe Ops</strong><br>
+                <small>Stabilité</small>
+            </div>
+        </div>
+    </div>
+
+    <h3><i class="fas fa-ban"></i> Freins organisationnels identifiés</h3>
+    <div class="cards-grid-2">
+        <div class="card">
+            <h4><i class="fas fa-users-slash" style="color: #e53e3e;"></i> Absence d'équipe transverse</h4>
+            <p>Pas de structure DevOps pour faciliter la collaboration et diffuser les bonnes pratiques.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-comment-slash" style="color: #e53e3e;"></i> Faible partage de connaissances</h4>
+            <p>Manque de communication empêchant la montée en compétences collective.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-hand-paper" style="color: #e53e3e;"></i> Résistance au changement</h4>
+            <p>Peur de l'inconnu et méconnaissance des bénéfices DevOps.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-user-times" style="color: #e53e3e;"></i> Culture du blâme</h4>
+            <p>Rejet de responsabilité empêchant l'amélioration continue.</p>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 5: Freins techniques -->
+<div class="slide">
+    <h3><i class="fas fa-cogs"></i> Des pratiques inadaptées : Sources de freins opérationnels</h3>
+
+    <div class="cards-grid">
+        <div class="card" style="border-top: 3px solid #3182ce;">
+            <h4><i class="fas fa-cube" style="color: #3182ce;"></i> Problèmes de conception</h4>
+            <ul>
+                <li>Applications <strong>monolithiques</strong> difficiles à faire évoluer techniquement</li>
+                <li>Intégration manuelle, non itérative</li>
+                <li>Exposition inutile aux risques d'erreurs humaines</li>
+                <li>Potentiels incidents techniques coûteux</li>
+            </ul>
+        </div>
+        <div class="card" style="border-top: 3px solid #38a169;">
+            <h4><i class="fas fa-server" style="color: #38a169;"></i> Pratiques Ops limitées</h4>
+            <ul>
+                <li>Déploiements manuels effectués <strong>la nuit ou le week-end</strong></li>
+                <li>Peu ou pas d'automatisation (tests, intégration, déploiements)</li>
+                <li>Peu de dashboards, logs difficiles d'accès</li>
+                <li>Incidents longs à diagnostiquer</li>
+            </ul>
+        </div>
+        <div class="card" style="border-top: 3px solid #e53e3e;">
+            <h4><i class="fas fa-exclamation-triangle" style="color: #e53e3e;"></i> Répercussions</h4>
+            <ul>
+                <li>Vélocité perçue comme faible par les Product Owners</li>
+                <li>Développeurs non initiés aux outils de production</li>
+                <li>Ops découvrent les changements au moment du déploiement</li>
+                <li>Délais élevés, bugs en production, clients mécontents</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3><i class="fas fa-chart-line"></i> 4 enjeux majeurs pour World News</h3>
+    <table>
+        <tr>
+            <th>Enjeu</th>
+            <th>Description</th>
+            <th>Impact</th>
+        </tr>
+        <tr>
+            <td><strong>Time-to-Market</strong></td>
+            <td>Livraisons tous les 3-4 mois, impossible de répondre vite aux attentes clients</td>
+            <td>Perte de compétitivité</td>
+        </tr>
+        <tr>
+            <td><strong>Qualité</strong></td>
+            <td>Bugs récurrents, incidents en production dégradent l'expérience utilisateur</td>
+            <td>Perte de confiance</td>
+        </tr>
+        <tr>
+            <td><strong>Coûts</strong></td>
+            <td>Processus manuels mobilisent des ressources sur des tâches à faible valeur</td>
+            <td>Perte de productivité</td>
+        </tr>
+        <tr>
+            <td><strong>Humain</strong></td>
+            <td>Culture cloisonnée et frustrante, déploiements nocturnes stressants</td>
+            <td>Turnover, démotivation</td>
+        </tr>
+    </table>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 6: Objectifs cibles -->
+<div class="slide">
+    <h2><i class="fas fa-bullseye"></i> 2. Les objectifs cibles</h2>
+
+    <h3><i class="fas fa-users"></i> #1 - Réorganisation humaine et culturelle</h3>
+
+    <div class="cards-grid-2">
+        <div class="card">
+            <h4><i class="fas fa-project-diagram" style="color: #3182ce;"></i> Des équipes produit ciblées</h4>
+            <p>L'objectif est de restructurer les équipes autour de la <strong>valeur (Value Stream)</strong> à apporter au client. Nous visons la création d'équipes "features" autonomes composées des profils nécessaires (Dev, Ops, QA) pour mener à bien la conception, le développement, le déploiement et l'exploitation d'un service de bout en bout.</p>
+            <p><strong>→ Nous cassons les silos et alignons les équipes sur le même objectif produit.</strong></p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-handshake" style="color: #38a169;"></i> La culture de la co-responsabilité</h4>
+            <p>Nous devons passer d'un modèle de "transfert de responsabilité" à un modèle de <strong>"responsabilité partagée"</strong>. Chaque équipe produit sera responsable de son code, de ses tests, de son déploiement et de son bon fonctionnement en production.</p>
+            <p><strong>→ L'entraide et la communication entre les équipes sont encouragées.</strong></p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-layer-group" style="color: #805ad5;"></i> Une équipe "Plateforme" transverse</h4>
+            <p>Pour soutenir l'autonomie des équipes produit, nous formerons une équipe transverse DevOps dont la mission sera de fournir les outils, les plateformes et les expertises nécessaires. Cette équipe construira et maintiendra l'infrastructure entière (pipelines CI/CD, conteneurisation, observabilité).</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-sync-alt" style="color: #ed8936;"></i> La culture de l'amélioration continue</h4>
+            <p>L'objectif est de faire de l'apprentissage une pratique quotidienne : points après chaque incident pour en tirer des leçons, revues de code systématiques pour partager la connaissance, rétrospectives régulières pour améliorer les processus.</p>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 7: Objectifs techniques -->
+<div class="slide compact">
+    <h3><i class="fas fa-cogs"></i> #2 - Objectifs techniques</h3>
+
+    <div class="info-box">
+        <strong><i class="fas fa-infinity"></i> Automatiser la chaîne CI/CD</strong>
+        <p>Pipelines automatisés pour chaque composant : compilation, tests, analyse qualité, déploiement. <strong>Déploiements fréquents, fiables et sans stress.</strong></p>
+    </div>
+
+    <div class="info-box">
+        <strong><i class="fas fa-file-code"></i> Infrastructure as Code (IaC)</strong>
+        <p>Gérer l'infrastructure via des fichiers de code versionnés pour garantir cohérence et reproductibilité des environnements.</p>
+    </div>
+
+    <div class="info-box">
+        <strong><i class="fas fa-cubes"></i> Passage progressif aux microservices</strong>
+        <p>Stratégie de <strong>découplage progressif</strong> : nouvelles fonctionnalités en services indépendants, migration progressive du monolithe.</p>
+    </div>
+
+    <div class="info-box">
+        <strong><i class="fas fa-chart-area"></i> Plateforme d'observabilité</strong>
+        <p>Supervision moderne : <strong>métriques</strong>, <strong>logs centralisés</strong>, <strong>tracing distribué</strong> pour une approche proactive.</p>
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 8: Préconisations organisationnelles -->
+<div class="slide compact">
+    <h2><i class="fas fa-user-tie"></i> 3. Préconisations organisationnelles</h2>
+
+    <h3><i class="fas fa-users-cog"></i> Nouveaux métiers DevOps</h3>
+
+    <table>
+        <tr>
+            <th>Rôle</th>
+            <th>Mission</th>
+        </tr>
+        <tr>
+            <td><strong>Ingénieur DevOps</strong></td>
+            <td>Construit et maintient les outils CI/CD et IaC permettant l'autonomie des équipes</td>
+        </tr>
+        <tr>
+            <td><strong>SRE</strong></td>
+            <td>Responsable fiabilité et performance en production, définit les SLO</td>
+        </tr>
+        <tr>
+            <td><strong>QA Engineer</strong></td>
+            <td>Stratégie de tests automatisés intégrée aux pipelines CI/CD</td>
+        </tr>
+    </table>
+
+    <h3><i class="fas fa-user-edit"></i> Évolution des rôles existants</h3>
+    <div class="cards-grid-2">
+        <div class="card">
+            <h4><i class="fas fa-tasks" style="color: #3182ce;"></i> Product Owner</h4>
+            <p>Intègre les contraintes techniques, collabore avec DevOps sur les critères de déploiement et les SLO.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-people-arrows" style="color: #38a169;"></i> Scrum Master</h4>
+            <p>Facilite les pratiques DevOps, anime les post-mortems, intègre l'automatisation dans la DoD.</p>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 9: Chaîne CI/CD - Partie 1 -->
+<div class="slide">
+    <h2><i class="fas fa-toolbox"></i> 4. La chaîne d'outils CI/CD</h2>
+
+    <p>Nous préconisons une chaîne d'outils cohérente, basée sur des standards de l'industrie, pour couvrir l'ensemble du cycle de vie d'une application. Chaque choix est justifié par la valeur ajoutée qu'il apporte dans le contexte de World News.</p>
+
+    <div class="pipeline-flow">
+        <div class="pipeline-step">
+            <i class="fab fa-git-alt"></i>
+            <span>Code Source<br>(Git)</span>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-step">
+            <i class="fas fa-code-branch"></i>
+            <span>CI/CD<br>(GitLab CI)</span>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-step">
+            <i class="fas fa-search"></i>
+            <span>Qualité<br>(SonarQube)</span>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-step">
+            <i class="fab fa-docker"></i>
+            <span>Container<br>(Docker)</span>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-step">
+            <i class="fas fa-dharmachakra"></i>
+            <span>Orchestration<br>(K8s)</span>
+        </div>
+        <div class="pipeline-arrow"><i class="fas fa-arrow-right"></i></div>
+        <div class="pipeline-step">
+            <i class="fas fa-chart-line"></i>
+            <span>Monitoring<br>(Prometheus)</span>
+        </div>
+    </div>
+
+    <div class="cards-grid-2">
+        <div class="card">
+            <h4><i class="fab fa-git-alt" style="color: #f05032;"></i> Gestion du Code Source (SCM)</h4>
+            <p><strong>Outils préconisés :</strong> Git + GitLab</p>
+            <p><strong>Justification :</strong> Git est le standard mondial pour la gestion de code source décentralisée. GitLab est une plateforme qui intègre nativement le SCM, les pipelines CI/CD, un registre de conteneurs. Cette intégration simplifie l'adoption et réduit le nombre d'outils à gérer.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-infinity" style="color: #fc6d26;"></i> Intégration & Déploiement Continus</h4>
+            <p><strong>Outil préconisé :</strong> GitLab CI</p>
+            <p><strong>Justification :</strong> GitLab CI permet de définir les pipelines d'automatisation via un simple fichier de configuration (.gitlab-ci.yml). Il rend l'automatisation visible, versionnable et accessible à tous les développeurs, favorisant l'appropriation des pratiques CI/CD.</p>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 10: Chaîne CI/CD - Partie 2 -->
+<div class="slide">
+    <h3><i class="fas fa-tools"></i> La chaîne d'outils CI/CD (suite)</h3>
+
+    <div class="cards-grid-2">
+        <div class="card">
+            <h4><i class="fas fa-bug" style="color: #4c9aff;"></i> Analyse Qualité du Code</h4>
+            <p><strong>Outil préconisé :</strong> SonarQube</p>
+            <p><strong>Justification :</strong> SonarQube s'intègre parfaitement au pipeline CI/CD pour analyser le code à chaque modification. Il fournit des métriques claires sur la dette technique, la couverture de tests et les vulnérabilités de sécurité. Sa fonctionnalité de "Quality Gate" permet de bloquer automatiquement une livraison si la qualité n'atteint pas le seuil défini.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fab fa-docker" style="color: #2496ed;"></i> Conteneurisation & Orchestration</h4>
+            <p><strong>Outils préconisés :</strong> Docker & Kubernetes</p>
+            <p><strong>Justification :</strong> Docker package une application avec toutes ses dépendances dans une image portable et immuable, garantissant un comportement identique dans tous les environnements. Kubernetes est l'orchestrateur leader pour gérer les conteneurs à grande échelle, offrant résilience, scalabilité horizontale et gestion optimisée des ressources.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-file-code" style="color: #7b42bc;"></i> Infrastructure as Code (IaC)</h4>
+            <p><strong>Outils préconisés :</strong> Terraform & Ansible</p>
+            <p><strong>Justification :</strong> Approche complémentaire. <strong>Terraform</strong> pour le "provisioning" de l'infrastructure (créer serveurs, réseaux, bases de données) de manière agnostique au cloud. <strong>Ansible</strong> pour la "configuration" (installer logiciels, gérer fichiers de config). Ensemble, ils rendent l'infrastructure entièrement reproductible et versionnable avec Git.</p>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-chart-area" style="color: #e6522c;"></i> Observabilité (Monitoring)</h4>
+            <p><strong>Outils préconisés :</strong> Prometheus, Grafana, Loki, Jaeger</p>
+            <p><strong>Justification :</strong> Cette pile open-source est un standard de l'industrie. <strong>Prometheus</strong> collecte les métriques en temps réel. <strong>Grafana</strong> crée des tableaux de bord visuels et alertes. <strong>Loki</strong> centralise les logs efficacement. <strong>Jaeger</strong> permet le traçage distribué pour suivre une requête à travers les services.</p>
+        </div>
+    </div>
+
+    <div class="success-box">
+        <strong><i class="fas fa-check-circle"></i> Synthèse :</strong> Cette chaîne d'outils cohérente permet d'automatiser l'ensemble du cycle de vie applicatif, de la conception au monitoring en production, tout en garantissant qualité, sécurité et traçabilité.
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 11: Acculturation -->
+<div class="slide compact">
+    <h2><i class="fas fa-graduation-cap"></i> 5. Acculturation et conduite du changement</h2>
+
+    <h3><i class="fas fa-chalkboard-teacher"></i> L'embarquement des équipes</h3>
+
+    <div class="cards-grid">
+        <div class="card">
+            <h4><i class="fas fa-comments" style="color: #3182ce;"></i> Rituels collaboratifs</h4>
+            <ul>
+                <li>Post-mortems sans blâme</li>
+                <li>Revues de code systématiques</li>
+                <li>Démos croisées</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-users" style="color: #38a169;"></i> Communautés de pratique</h4>
+            <ul>
+                <li>Groupes transverses thématiques</li>
+                <li>Partage succès/difficultés</li>
+                <li>Ateliers immersifs</li>
+            </ul>
+        </div>
+        <div class="card">
+            <h4><i class="fas fa-flask" style="color: #805ad5;"></i> Projet pilote</h4>
+            <ul>
+                <li>App non critique mais visible</li>
+                <li>Équipe volontaire</li>
+                <li>Succès = modèle</li>
+            </ul>
+        </div>
+    </div>
+
+    <h3><i class="fas fa-exclamation-triangle"></i> Gestion des résistances</h3>
+    <table>
+        <tr>
+            <th>Résistance</th>
+            <th>Solution</th>
+        </tr>
+        <tr>
+            <td><strong>Peur remise en question (Ops)</strong></td>
+            <td>Plan de formation, évolution vers SRE/Platform Engineer</td>
+        </tr>
+        <tr>
+            <td><strong>Surcharge de travail (Dev)</strong></td>
+            <td>Temps d'apprentissage intégré aux sprints, projet pilote comme preuve</td>
+        </tr>
+        <tr>
+            <td><strong>Scepticisme management</strong></td>
+            <td>Impliquer dès le début, visibilité sur indicateurs</td>
+        </tr>
+    </table>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 12: Roadmap -->
+<div class="slide">
+    <h2><i class="fas fa-road"></i> 6. Plan de transformation</h2>
+
+    <h3><i class="fas fa-calendar-alt"></i> Roadmap sur 12 mois</h3>
+
+    <div class="roadmap">
+        <div class="roadmap-phase phase1">
+            <h4><i class="fas fa-play-circle"></i> Phase 1 : Fondations (0-3 mois)</h4>
+            <p><strong>Actions clés :</strong></p>
+            <ul>
+                <li>Structurer l'utilisation de Git avec adoption des bonnes pratiques : gestion des branches, pull requests systématiques, revues de code obligatoires</li>
+                <li>Mettre en place GitLab CI pour automatiser l'intégration continue (build et tests automatiques à chaque commit)</li>
+                <li>Former les équipes Dev et Ops à ces nouvelles pratiques collaboratives</li>
+                <li>Constituer une équipe pilote mixte de 5-8 personnes (Dev + Ops + QA) pour expérimenter sur un périmètre limité</li>
+            </ul>
+            <p><strong>→ Objectif : Obtenir des quick wins visibles et mesurables pour démontrer la valeur de la transformation.</strong></p>
+        </div>
+
+        <div class="roadmap-phase phase2">
+            <h4><i class="fas fa-cogs"></i> Phase 2 : Automatisation (3-6 mois)</h4>
+            <p><strong>Actions clés :</strong></p>
+            <ul>
+                <li>Conteneuriser progressivement les applications avec Docker pour garantir la portabilité</li>
+                <li>Automatiser les déploiements sur l'environnement de staging via le pipeline CI/CD</li>
+                <li>Mettre en place SonarQube pour analyser automatiquement la qualité et la sécurité du code</li>
+                <li>Étendre les pratiques DevOps à 2-3 équipes supplémentaires en capitalisant sur les retours de l'équipe pilote</li>
+                <li>Instaurer les rituels collaboratifs : stand-ups quotidiens, rétrospectives bi-mensuelles, post-mortems</li>
+            </ul>
+            <p><strong>→ Objectif : Disposer d'un pipeline CI/CD fonctionnel de bout en bout, du commit à l'environnement de test.</strong></p>
+        </div>
+
+        <div class="roadmap-phase phase3">
+            <h4><i class="fas fa-rocket"></i> Phase 3 : Industrialisation (6-12 mois)</h4>
+            <p><strong>Actions clés :</strong></p>
+            <ul>
+                <li>Déployer les outils de monitoring (Prometheus) et de visualisation (Grafana) pour surveiller la production en temps réel</li>
+                <li>Automatiser la gestion de l'infrastructure avec Ansible et Terraform</li>
+                <li>Généraliser les pratiques DevOps à l'ensemble des équipes de développement</li>
+                <li>Mettre en place un tableau de bord d'indicateurs clés (métriques DORA) : fréquence des déploiements, temps de résolution des incidents, taux d'échec</li>
+            </ul>
+            <p><strong>→ Objectif : Ancrer durablement la transformation DevOps avec des déploiements fréquents en production.</strong></p>
+        </div>
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 13: Risques et facteurs de succès -->
+<div class="slide compact">
+    <h3><i class="fas fa-key"></i> Facteurs clés de succès</h3>
+
+    <div class="cards-grid">
+        <div class="card" style="border-left: 3px solid #38a169;">
+            <h4><i class="fas fa-user-tie" style="color: #38a169;"></i> Engagement direction</h4>
+            <p>Soutien actif du comité exécutif, communication régulière, budgets alloués.</p>
+        </div>
+        <div class="card" style="border-left: 3px solid #3182ce;">
+            <h4><i class="fas fa-graduation-cap" style="color: #3182ce;"></i> Formation continue</h4>
+            <p>Montée en compétences, formations régulières, mentoring.</p>
+        </div>
+        <div class="card" style="border-left: 3px solid #805ad5;">
+            <h4><i class="fas fa-chart-line" style="color: #805ad5;"></i> Quick wins</h4>
+            <p>Succès visibles rapidement, communication sur les résultats.</p>
+        </div>
+    </div>
+
+    <h3><i class="fas fa-exclamation-circle"></i> Risques et atténuation</h3>
+    <table>
+        <tr>
+            <th>Risque</th>
+            <th>Mesure d'atténuation</th>
+        </tr>
+        <tr>
+            <td><strong>Planning trop ambitieux</strong></td>
+            <td>Roadmap réaliste 12 mois, avancer par étapes</td>
+        </tr>
+        <tr>
+            <td><strong>Budget insuffisant</strong></td>
+            <td>Business case solide, engagement ferme</td>
+        </tr>
+        <tr>
+            <td><strong>Manque engagement direction</strong></td>
+            <td>Sponsor exécutif dédié</td>
+        </tr>
+        <tr>
+            <td><strong>Outils inadaptés</strong></td>
+            <td>Test sur équipe pilote d'abord</td>
+        </tr>
+        <tr>
+            <td><strong>Essoufflement</strong></td>
+            <td>Quick wins réguliers, célébrer avancées</td>
+        </tr>
+    </table>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 14: Conclusion -->
+<div class="slide compact">
+    <h2><i class="fas fa-flag-checkered"></i> 7. Conclusion</h2>
+
+    <p>Les freins de World News sont ancrés dans une <strong>culture en silos</strong>. La vision cible : équipes produit autonomes, automatisation bout en bout, co-responsabilité.</p>
+
+    <h3><i class="fas fa-trophy"></i> Bénéfices attendus</h3>
+    <div class="cards-grid">
+        <div class="card" style="text-align: center; border-top: 3px solid #3182ce;">
+            <i class="fas fa-tachometer-alt" style="font-size: 1.5em; color: #3182ce;"></i>
+            <h4>Time-to-market</h4>
+            <p>De 3-4 mois à quelques semaines</p>
+        </div>
+        <div class="card" style="text-align: center; border-top: 3px solid #38a169;">
+            <i class="fas fa-check-circle" style="font-size: 1.5em; color: #38a169;"></i>
+            <h4>Qualité</h4>
+            <p>Moins d'incidents</p>
+        </div>
+        <div class="card" style="text-align: center; border-top: 3px solid #805ad5;">
+            <i class="fas fa-smile" style="font-size: 1.5em; color: #805ad5;"></i>
+            <h4>Satisfaction</h4>
+            <p>Clients et équipes</p>
+        </div>
+    </div>
+
+    <div class="success-box" style="background: #e6fffa; border-left-color: #38a169;">
+        <strong style="color: #276749;"><i class="fas fa-lightbulb"></i> Enseignement clé :</strong>
+        <p style="color: #276749;">La transformation DevOps est avant tout <strong>culturelle et humaine</strong>. Les outils sont des facilitateurs, mais le véritable changement réside dans la collaboration et la responsabilité partagée.</p>
+    </div>
+
+    <div class="slide-footer">
+        <span>BELLIL Hakim</span>
+        <span>Étude de cas DevOps - Février 2026</span>
+    </div>
+</div>
+
+<!-- Slide 15: Merci -->
+<div class="slide slide-final">
+    <h1><i class="fas fa-handshake"></i> Merci</h1>
+    <p>Cette étude de cas démontre ma compréhension des enjeux d'une transformation DevOps et ma capacité à formuler des préconisations adaptées au contexte d'une entreprise, en alliant aspects techniques, organisationnels et humains.</p>
+    <div style="margin-top: 50px; font-size: 1.1em;">
+        <strong>BELLIL Hakim</strong><br>
+        <span style="opacity: 0.8;">Concepteur Développeur d'Applications</span><br>
+        <span style="opacity: 0.7; font-size: 0.9em;">Certification DevOps - Février 2026</span>
+    </div>
+</div>
+
+</body>
+</html>

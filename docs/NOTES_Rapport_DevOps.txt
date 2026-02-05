@@ -1,0 +1,177 @@
+================================================================================
+NOTES DE PRÉSENTATION - RAPPORT DEVOPS - BELLE ÎLE PARFUMÉE
+================================================================================
+
+Copiez-collez ces notes dans Keynote pour chaque slide correspondante.
+Dans Keynote : Affichage → Afficher les notes du présentateur
+
+================================================================================
+
+================================================================================
+SLIDE 1
+================================================================================
+Bonjour, je m'appelle Hakim BELLIL. Je suis ici pour vous présenter mon projet chef d'œuvre réalisé dans le cadre de ma certification DevOps : Belle Île Parfumée.
+
+================================================================================
+SLIDE 2
+================================================================================
+Ma présentation se déroule en 5 parties : je vais d'abord vous présenter le projet et son contexte, puis la stack technique et le versionnement, ensuite le pipeline CI/CD avec Docker et le déploiement, et enfin le bilan avec les améliorations possibles.
+
+================================================================================
+SLIDE 3
+================================================================================
+Belle Île Parfumée est une plateforme e-commerce de vente de parfums haut de gamme que j'ai développée dans le cadre de ma formation.
+L'objectif principal était de mettre en œuvre l'ensemble de la chaîne DevOps, du développement jusqu'au déploiement en production.
+"Les résultats obtenus sont concrets :
+- Une architecture 3-tiers fonctionnelle
+- Des tests unitaires automatisés
+- Un pipeline CI/CD avec GitHub Actions
+- Une conteneurisation complète avec Docker
+- Et un déploiement continu sur Render."
+
+================================================================================
+SLIDE 4
+================================================================================
+Le projet répond à deux problématiques principales :
+Pour les clients : la difficulté de trouver des parfums avec des informations détaillées sur les notes, les concentrations, etc.
+Pour les vendeurs : l'absence d'un outil centralisé pour gérer leur catalogue et leurs commandes.
+La solution que j'ai développée propose deux interfaces :
+Pour les clients : la consultation du catalogue, le filtrage par genre homme/femme/mixte, un panier d'achat et une authentification sécurisée.
+Pour les administrateurs : la gestion complète des produits avec création, modification et suppression, ainsi que la gestion des clients et le suivi des commandes.
+
+================================================================================
+SLIDE 5
+================================================================================
+L'application repose sur une architecture 3-tiers classique, qui sépare l'application en trois couches distinctes.
+La couche Présentation avec React 19 et TypeScript, qui gère l'interface utilisateur.
+La couche Métier avec Spring Boot et Java 21, qui contient toute la logique applicative et expose une API REST.
+Et la couche Données avec PostgreSQL, qui stocke toutes les informations.
+Cette séparation offre plusieurs avantages : une maintenance facilitée, la possibilité de faire évoluer chaque couche indépendamment, et une sécurité renforcée car la base de données n'est jamais accessible directement depuis le navigateur.
+
+================================================================================
+SLIDE 6
+================================================================================
+Voici les technologies que j'ai utilisées :
+Côté backend : Java 21, la dernière version LTS, avec Spring Boot, Spring Security pour l'authentification JWT, et Spring Data JPA pour la persistance.
+Côté frontend : React 19 avec TypeScript pour le typage, Vite comme outil de build, et Axios pour les appels API.
+Pour la base de données : PostgreSQL 15.
+Et pour le DevOps : Git et GitHub pour le versionnement, GitHub Actions pour la CI/CD, et Docker pour la conteneurisation.
+J'ai choisi une architecture monolithique car c'est adapté à la taille du projet, plus simple à développer seul, et plus facile à déployer.
+
+================================================================================
+SLIDE 7
+================================================================================
+Pour le versionnement, j'ai utilisé Git avec GitHub, en suivant le workflow GitHub Flow.
+"J'ai organisé mes branches de cette façon :
+- La branche main qui est la branche stable, déployée en production
+- Des branches feature pour chaque nouvelle fonctionnalité
+- Des branches fix pour les corrections de bugs"
+J'ai aussi adopté la convention Conventional Commits pour mes messages de commit, avec des préfixes comme feat pour les nouvelles fonctionnalités, fix pour les corrections, docs pour la documentation, etc.
+Cette organisation permet d'avoir un historique clair et de faciliter le travail collaboratif.
+
+================================================================================
+SLIDE 8
+================================================================================
+Pour garantir la qualité du code, j'ai mis en place des tests automatisés.
+Côté backend, j'utilise JUnit 5 avec Mockito pour les tests unitaires des services. Mockito permet de simuler les dépendances comme le repository, pour tester uniquement la logique métier.
+Côté frontend, j'utilise Vitest avec React Testing Library pour tester les hooks et les composants.
+Voici un exemple de test : je vérifie que la méthode getAllProducts retourne bien tous les produits. J'utilise le pattern Arrange-Act-Assert : je prépare les données mockées, j'appelle la méthode, et je vérifie le résultat.
+
+================================================================================
+SLIDE 9
+================================================================================
+J'ai mis en place un pipeline CI/CD avec GitHub Actions.
+Le principe est simple : à chaque push sur la branche main ou à chaque Pull Request, le pipeline se déclenche automatiquement.
+"Le processus se déroule en plusieurs étapes :
+- D'abord le checkout du code
+- Puis le build du backend avec Maven
+- L'exécution des tests backend
+- Le build du frontend avec npm
+- Et finalement la validation"
+Si toutes les étapes passent, le code est prêt à être déployé. Sinon, je suis notifié de l'erreur et je peux la corriger avant de merger.
+
+================================================================================
+SLIDE 10
+================================================================================
+J'ai conteneurisé l'application avec Docker.
+Docker permet de packager l'application avec toutes ses dépendances, garantissant qu'elle fonctionne de la même manière en local et en production.
+Pour le backend, j'utilise un Dockerfile avec un multi-stage build : une première étape pour compiler l'application avec Maven, et une deuxième étape avec une image plus légère contenant uniquement le JAR.
+J'ai aussi créé un docker-compose.yml qui orchestre les trois services : PostgreSQL, le backend Spring Boot, et le frontend React. Une seule commande docker compose up --build permet de tout lancer.
+
+================================================================================
+SLIDE 11
+================================================================================
+Pour le déploiement en production, j'utilise Render.com, une plateforme cloud de type PaaS.
+"L'architecture déployée comprend trois services :
+- Le backend déployé via Docker
+- Le frontend en tant que site statique
+- Et une base PostgreSQL managée par Render"
+Le principal avantage est le déploiement automatique : à chaque push sur la branche main, Render détecte le changement et redéploie automatiquement l'application. C'est de la livraison continue.
+Render fournit aussi automatiquement les certificats SSL pour le HTTPS.
+
+================================================================================
+SLIDE 12
+================================================================================
+Durant le développement, j'ai rencontré plusieurs problèmes techniques.
+Le premier concernait le CORS. Le frontend déployé sur Render ne pouvait pas communiquer avec le backend car seul localhost était autorisé. La solution a été d'ajouter l'URL du frontend Render dans la configuration CORS du backend.
+Le deuxième problème concernait le routing de React. Quand on rafraîchissait une page, on obtenait une erreur 404. C'est parce que le serveur cherchait un fichier physique au lieu de servir index.html. La solution a été d'ajouter un fichier _redirects qui redirige toutes les requêtes vers index.html.
+Ces problèmes m'ont permis de mieux comprendre le fonctionnement des applications Single Page et la configuration des serveurs web.
+
+================================================================================
+SLIDE 13
+================================================================================
+La veille technologique a été essentielle tout au long du projet.
+Par exemple, pour choisir la plateforme de déploiement, j'ai comparé plusieurs solutions : Render, Railway, Fly.io, Heroku.
+"Ma démarche a consisté à :
+- Rechercher les plateformes disponibles
+- Comparer leurs fonctionnalités et limitations
+- Consulter la documentation officielle
+- Et faire des tests pratiques"
+Cette veille m'a permis de maîtriser le déploiement sur Render, de comprendre le fonctionnement du déploiement continu, et de gérer les différences entre environnement de développement et de production.
+
+================================================================================
+SLIDE 14
+================================================================================
+Pour résumer les compétences acquises :
+C1 Versionnement : Git avec GitHub Flow et les commits conventionnels.
+C2 Tests et qualité : JUnit, Vitest, ESLint pour l'analyse statique.
+C3 Intégration continue : Pipeline GitHub Actions automatisé.
+C4 Livraison continue : Déploiement automatique sur Render.
+C5 Architecture : Architecture 3-tiers avec Docker et Docker Compose.
+C6 Veille : Comparaison d'outils et choix argumentés.
+
+================================================================================
+SLIDE 15
+================================================================================
+Si je devais poursuivre le projet, voici les améliorations que j'envisagerais :
+Côté technique : ajouter des tests end-to-end avec Cypress, intégrer SonarCloud pour l'analyse de qualité, et mettre en place du monitoring avec Prometheus et Grafana.
+Côté fonctionnel : ajouter le paiement en ligne avec Stripe, des notifications email pour le suivi des commandes, et un système d'avis sur les produits.
+
+================================================================================
+SLIDE 16
+================================================================================
+En conclusion, ce projet m'a permis de mettre en pratique l'ensemble des compétences DevOps.
+Les principaux enseignements sont : l'importance du versionnement pour travailler de manière structurée, les tests automatisés pour prévenir les régressions, Docker pour garantir la cohérence entre les environnements, et le déploiement continu pour des mises en production rapides.
+Belle Île Parfumée représente une expérience concrète et professionnelle qui constitue une base solide pour la suite de mon parcours.
+
+================================================================================
+SLIDE 17
+================================================================================
+Merci pour votre attention. Je vais maintenant vous faire une démonstration de l'application et du workflow DevOps.
+Voici l'application déployée en production sur Render. On peut voir le catalogue de parfums, filtrer par genre, consulter les détails d'un produit et ajouter au panier.
+En local, j'utilise Docker Compose pour lancer l'ensemble de l'application. On voit ici les 3 containers : la base de données PostgreSQL, le backend Spring Boot, et le frontend React.
+Sur GitHub Actions, on peut voir l'historique de tous les pipelines. À chaque push, le code est automatiquement buildé et testé. Ici on voit les différentes étapes : checkout, build backend, tests, build frontend.
+Voici les fichiers clés du DevOps : le workflow GitHub Actions qui définit le pipeline, le Dockerfile pour conteneuriser le backend, et le docker-compose pour orchestrer les services.
+GitHub Flow est plus simple et adapté à un projet avec un seul développeur. Git Flow avec ses branches develop, release, hotfix est plus adapté aux équipes avec des releases planifiées.
+Merge crée un commit de fusion qui préserve l'historique complet. Rebase réécrit l'historique en déplaçant les commits. J'ai utilisé merge pour garder un historique clair.
+Le test unitaire teste une unité de code isolée, en mockant les dépendances. Le test d'intégration teste plusieurs composants ensemble, par exemple le service avec la vraie base de données.
+Mockito permet de simuler les dépendances. Par exemple, je mock le repository pour tester uniquement la logique du service, sans avoir besoin d'une vraie base de données.
+L'intégration continue (CI) consiste à automatiser le build et les tests à chaque commit. Le déploiement continu (CD) va plus loin en déployant automatiquement en production si tous les tests passent.
+GitHub Actions est intégré nativement à GitHub, gratuit pour les repos publics, et simple à configurer avec un fichier YAML. Jenkins demande plus de configuration et un serveur dédié.
+C'est une technique qui utilise plusieurs étapes dans un Dockerfile. La première étape compile l'application, la deuxième copie uniquement le résultat dans une image légère. Ça réduit la taille de l'image finale.
+L'image est un template en lecture seule qui contient l'application et ses dépendances. Le container est une instance en cours d'exécution de cette image.
+Docker Compose permet de définir et lancer plusieurs containers ensemble. C'est pratique pour une application avec plusieurs services comme backend, frontend et base de données.
+Pour ce projet de taille moyenne développé seul, le monolithe est plus adapté : plus simple à développer, tester et déployer. Les microservices ajoutent de la complexité qui n'est pas justifiée ici.
+REST est un style d'architecture qui utilise les méthodes HTTP (GET, POST, PUT, DELETE) pour manipuler des ressources. L'API retourne généralement du JSON.
+JWT est un token signé qui contient les informations de l'utilisateur. Après connexion, le serveur génère un token que le client envoie à chaque requête. Le serveur vérifie la signature pour authentifier l'utilisateur.
+Un cookie httpOnly n'est pas accessible en JavaScript, ce qui protège contre les attaques XSS. Le token est automatiquement envoyé avec chaque requête.

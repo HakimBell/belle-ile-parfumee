@@ -1,0 +1,375 @@
+================================================================================
+PRÉSENTATION ÉTUDE DE CAS DEVOPS - WORLD NEWS
+17 slides avec notes de présentation
+================================================================================
+
+Pour créer la présentation dans Keynote :
+1. Ouvrez presentation-cda.pptx avec Keynote
+2. Fichier > Enregistrer sous > "etude-de-cas-devops"
+3. Supprimez toutes les slides existantes
+4. Ajoutez des nouvelles slides et copiez-collez le contenu ci-dessous
+
+================================================================================
+
+SLIDE 1 : COUVERTURE
+================================================================================
+Titre : World News
+Sous-titre :
+Étude de cas - Transformation DevOps
+
+BELLIL Hakim
+Concepteur Développeur d'Applications
+Certification DevOps - Février 2026
+
+--- NOTES ---
+Bonjour, je m'appelle Hakim BELLIL. Je suis ici pour vous présenter mon étude de cas DevOps : World News - Transformation DevOps.
+
+================================================================================
+
+SLIDE 2 : SOMMAIRE
+================================================================================
+Titre : Sommaire
+
+Contenu :
+1. Analyse de la situation initiale
+2. Les objectifs cibles
+3. Les préconisations organisationnelles
+4. La chaîne d'outils CI/CD
+5. Acculturation et conduite du changement
+6. Plan de transformation et risques
+7. Conclusion
+
+--- NOTES ---
+Ma présentation se déroule en 7 parties : je vais d'abord analyser la situation initiale de World News, puis présenter les objectifs cibles, les préconisations organisationnelles, la chaîne d'outils CI/CD, l'acculturation et la conduite du changement, le plan de transformation avec les risques, et enfin la conclusion.
+
+================================================================================
+
+SLIDE 3 : ANALYSE DE LA SITUATION INITIALE
+================================================================================
+Titre : 1. Analyse de la situation initiale
+
+Contenu :
+Qui est World News ?
+• Leader international presse papier et numérique
+• Systèmes monolithiques robustes mais complexes
+• Gestion des abonnements, portails d'actualités
+
+Quels sont les freins ?
+• Time-to-market élevé : livraisons tous les 3-4 mois
+• Qualité discutable : incidents récurrents
+• Silos organisationnels : Dev et Ops séparés
+
+--- NOTES ---
+World News est une entreprise leader à l'international sur la presse papier et numérique. Malgré l'adoption de l'agilité depuis 3 ans, l'entreprise fait face à plusieurs freins : un time-to-market élevé avec des livraisons tous les 3 à 4 mois seulement, une qualité discutable avec des incidents récurrents en production, et surtout une organisation en silos où les équipes Dev et Ops travaillent dans des départements séparés.
+
+================================================================================
+
+SLIDE 4 : ORGANISATION EN SILOS
+================================================================================
+Titre : Le constat majeur : Organisation en silos
+
+Contenu :
+Séparation Dev/Ops créant des objectifs divergents
+• Équipe Dev : Focus sur la vélocité
+• Équipe Ops : Focus sur la stabilité
+
+Freins organisationnels identifiés :
+• Absence d'équipe transverse
+• Faible partage de connaissances
+• Résistance au changement
+• Culture du blâme
+
+--- NOTES ---
+Le constat majeur est une organisation en silos. Les équipes Dev et Ops ont des objectifs divergents : les Dev cherchent la vélocité, les Ops cherchent la stabilité. Cette séparation nuit à l'alignement sur la valeur utilisateur. On observe plusieurs freins : pas d'équipe transverse pour faciliter la collaboration, un faible partage de connaissances, une résistance au changement par peur de l'inconnu, et une culture du blâme qui empêche l'amélioration continue.
+
+================================================================================
+
+SLIDE 5 : DES PRATIQUES INADAPTÉES
+================================================================================
+Titre : Des pratiques inadaptées
+
+Contenu :
+Problèmes de conception :
+• Applications monolithiques difficiles à faire évoluer
+• Intégration manuelle, non itérative
+• Exposition aux risques d'erreurs humaines
+
+Pratiques Ops limitées :
+• Déploiements manuels la nuit ou le week-end
+• Peu ou pas d'automatisation
+• Peu de monitoring, logs difficiles d'accès
+• Incidents longs à diagnostiquer
+
+--- NOTES ---
+Aux freins organisationnels s'ajoutent des freins techniques. Les applications monolithiques sont difficiles à faire évoluer. L'intégration est manuelle et expose aux erreurs humaines. Les déploiements se font manuellement la nuit ou le week-end, il y a peu d'automatisation, peu de monitoring, et les incidents sont longs à diagnostiquer. Les répercussions sont majeures : vélocité faible, développeurs non initiés aux outils de production, Ops découvrant les changements au moment du déploiement.
+
+================================================================================
+
+SLIDE 6 : 4 ENJEUX MAJEURS
+================================================================================
+Titre : 4 enjeux majeurs pour World News
+
+Contenu :
+1. Time-to-Market : Perte de compétitivité
+   Livraisons tous les 3-4 mois
+
+2. Qualité : Perte de confiance
+   Bugs récurrents, incidents en production
+
+3. Coûts : Perte de productivité
+   Processus manuels mobilisant des ressources
+
+4. Humain : Turnover, démotivation
+   Culture cloisonnée, déploiements nocturnes stressants
+
+--- NOTES ---
+Ces freins se traduisent par 4 enjeux majeurs pour World News. Premièrement, le time-to-market : des livraisons tous les 3-4 mois rendent impossible de répondre vite aux attentes clients, entraînant une perte de compétitivité. Deuxièmement, la qualité : les bugs récurrents dégradent l'expérience utilisateur et causent une perte de confiance. Troisièmement, les coûts : les processus manuels mobilisent des ressources sur des tâches à faible valeur ajoutée. Enfin, l'aspect humain : la culture cloisonnée et les déploiements nocturnes stressants causent turnover et démotivation.
+
+================================================================================
+
+SLIDE 7 : LES OBJECTIFS CIBLES
+================================================================================
+Titre : 2. Les objectifs cibles
+
+Contenu :
+Réorganisation humaine et culturelle :
+
+• Équipes produit ciblées
+  Restructurer autour de la valeur (Value Stream)
+  Équipes features autonomes (Dev, Ops, QA)
+
+• Culture de la co-responsabilité
+  Responsabilité partagée de bout en bout
+
+• Équipe Plateforme transverse
+  Fournir outils, plateformes et expertises
+
+--- NOTES ---
+Le premier objectif cible est la réorganisation humaine et culturelle. Nous visons la création d'équipes produit ciblées, structurées autour de la valeur à apporter au client, avec tous les profils nécessaires. Nous devons instaurer une culture de co-responsabilité : passer d'un modèle de transfert à un modèle de responsabilité partagée où chaque équipe est responsable de son code de bout en bout. Enfin, nous formerons une équipe Plateforme transverse dont la mission sera de fournir les outils et l'infrastructure CI/CD pour soutenir l'autonomie des équipes produit.
+
+================================================================================
+
+SLIDE 8 : OBJECTIFS TECHNIQUES
+================================================================================
+Titre : Objectifs techniques
+
+Contenu :
+• Automatiser la chaîne CI/CD
+  Pipelines automatisés : compilation, tests, analyse, déploiement
+  Déploiements fréquents, fiables et sans stress
+
+• Infrastructure as Code (IaC)
+  Gérer l'infrastructure via des fichiers versionnés
+
+• Passage progressif aux microservices
+  Découplage progressif, nouvelles fonctionnalités en services indépendants
+
+• Plateforme d'observabilité
+  Métriques, logs centralisés, tracing distribué
+
+--- NOTES ---
+Les objectifs techniques sont tout aussi importants. Nous devons automatiser la chaîne CI/CD avec des pipelines automatisés couvrant compilation, tests, analyse qualité et déploiement, pour des déploiements fréquents et fiables. Nous adopterons l'Infrastructure as Code pour gérer l'infrastructure via des fichiers versionnés garantissant cohérence et reproductibilité. Nous visons un passage progressif aux microservices avec une stratégie de découplage progressif. Enfin, nous mettrons en place une plateforme d'observabilité complète avec métriques, logs centralisés et tracing distribué pour une approche proactive.
+
+================================================================================
+
+SLIDE 9 : PRÉCONISATIONS ORGANISATIONNELLES
+================================================================================
+Titre : 3. Préconisations organisationnelles
+
+Contenu :
+Nouveaux métiers DevOps :
+
+• Ingénieur DevOps
+  Construit et maintient les outils CI/CD et IaC
+  Permet l'autonomie des équipes
+
+• SRE (Site Reliability Engineer)
+  Responsable fiabilité et performance en production
+  Définit les SLO (Service Level Objectives)
+
+• QA Engineer
+  Stratégie de tests automatisés intégrée aux pipelines CI/CD
+
+--- NOTES ---
+Pour réussir cette transformation, nous recommandons de créer de nouveaux métiers DevOps. L'Ingénieur DevOps construira et maintiendra les outils CI/CD et IaC permettant l'autonomie des équipes. Le SRE sera responsable de la fiabilité et des performances en production et définira les SLO. Le QA Engineer établira la stratégie de tests automatisés intégrée aux pipelines. Les rôles existants évoluent aussi : le Product Owner intégrera les contraintes techniques et collaborera avec DevOps sur les critères de déploiement, et le Scrum Master facilitera l'adoption des pratiques DevOps et animera les post-mortems.
+
+================================================================================
+
+SLIDE 10 : LA CHAÎNE D'OUTILS CI/CD
+================================================================================
+Titre : 4. La chaîne d'outils CI/CD
+
+Contenu :
+Pipeline complet :
+Git → CI/CD → Qualité → Container → Orchestration → Monitoring
+
+• Gestion du Code Source : Git + GitLab
+  Standard mondial, plateforme intégrée
+
+• Intégration & Déploiement Continus : GitLab CI
+  Pipelines via fichier .gitlab-ci.yml
+  Automatisation visible, versionnable et accessible
+
+• Analyse Qualité du Code : SonarQube
+  Quality Gate pour bloquer les livraisons non conformes
+
+--- NOTES ---
+Nous préconisons une chaîne d'outils cohérente basée sur les standards de l'industrie. Pour la gestion du code source, Git et GitLab offrent une plateforme intégrée avec SCM, pipelines CI/CD et registre de conteneurs, simplifiant l'adoption. GitLab CI permet de définir les pipelines via un fichier YAML versionné, rendant l'automatisation visible et accessible à tous les développeurs. SonarQube s'intègre au pipeline pour analyser le code à chaque modification et fournir des métriques sur la dette technique et les vulnérabilités. Sa fonctionnalité Quality Gate bloque automatiquement les livraisons non conformes.
+
+================================================================================
+
+SLIDE 11 : LA CHAÎNE D'OUTILS CI/CD (SUITE)
+================================================================================
+Titre : La chaîne d'outils CI/CD (suite)
+
+Contenu :
+• Conteneurisation & Orchestration : Docker & Kubernetes
+  Docker : package portable et immuable
+  Kubernetes : orchestrateur leader, résilience et scalabilité
+
+• Infrastructure as Code : Terraform & Ansible
+  Terraform : provisioning infrastructure agnostique cloud
+  Ansible : configuration serveurs
+  Infrastructure reproductible et versionnable avec Git
+
+• Observabilité : Prometheus, Grafana, Loki, Jaeger
+  Métriques temps réel, tableaux de bord, logs centralisés, tracing
+
+--- NOTES ---
+Pour la conteneurisation, Docker package l'application avec ses dépendances dans une image portable garantissant un comportement identique dans tous les environnements. Kubernetes est l'orchestrateur leader offrant résilience, scalabilité horizontale et gestion optimisée des ressources. Pour l'Infrastructure as Code, nous recommandons une approche complémentaire : Terraform pour le provisioning de manière agnostique au cloud, et Ansible pour la configuration. Ensemble, ils rendent l'infrastructure entièrement reproductible et versionnable. Pour l'observabilité, la pile Prometheus-Grafana-Loki-Jaeger est un standard : Prometheus collecte les métriques, Grafana crée les dashboards et alertes, Loki centralise les logs, et Jaeger permet le tracing distribué.
+
+================================================================================
+
+SLIDE 12 : ACCULTURATION ET CONDUITE DU CHANGEMENT
+================================================================================
+Titre : 5. Acculturation et conduite du changement
+
+Contenu :
+L'embarquement des équipes :
+
+• Rituels collaboratifs
+  Post-mortems sans blâme
+  Revues de code systématiques
+  Démos croisées
+
+• Communautés de pratique
+  Groupes transverses thématiques
+  Partage des succès et difficultés
+
+• Projet pilote
+  Application non critique mais visible
+  Équipe volontaire, le succès devient modèle
+
+--- NOTES ---
+L'acculturation et la conduite du changement sont essentielles pour réussir la transformation. Pour embarquer les équipes, nous instaurerons des rituels collaboratifs comme les post-mortems sans blâme pour apprendre des incidents, les revues de code systématiques pour partager la connaissance, et les démos croisées. Nous créerons des communautés de pratique, groupes transverses thématiques où les équipes partagent succès et difficultés et organisent des ateliers immersifs. Enfin, nous lancerons un projet pilote sur une application non critique mais visible avec une équipe volontaire. Le succès de ce pilote servira de modèle pour convaincre les autres équipes.
+
+================================================================================
+
+SLIDE 13 : GESTION DES RÉSISTANCES
+================================================================================
+Titre : Gestion des résistances
+
+Contenu :
+• Peur de la remise en question (Ops)
+  Solution : Plan de formation détaillé
+  Évolution vers SRE ou Platform Engineer
+
+• Surcharge de travail perçue (Dev)
+  Solution : Temps d'apprentissage intégré aux sprints
+  Projet pilote comme preuve de valeur
+
+• Scepticisme du management
+  Solution : Impliquer dès le début de la transformation
+  Visibilité totale sur les indicateurs (métriques DORA)
+  Communication régulière sur les avancées
+
+--- NOTES ---
+Nous anticipons plusieurs résistances au changement et préparons des solutions adaptées. Les Ops peuvent craindre la remise en question de leur rôle : nous proposerons un plan de formation détaillé et une évolution vers des rôles SRE ou Platform Engineer valorisants. Les Dev peuvent craindre une surcharge de travail : nous intégrerons le temps d'apprentissage aux sprints et le projet pilote prouvera la valeur ajoutée. Face au scepticisme du management, nous les impliquerons dès le début de la transformation et assurerons une visibilité totale sur les indicateurs de performance avec les métriques DORA : fréquence des déploiements, délai de mise en production, temps de restauration et taux d'échec des changements.
+
+================================================================================
+
+SLIDE 14 : PLAN DE TRANSFORMATION
+================================================================================
+Titre : 6. Plan de transformation - Roadmap 12 mois
+
+Contenu :
+Phase 1 : Fondations (0-3 mois)
+• Structurer Git, GitLab CI, former équipe pilote de 5-8 personnes
+• Objectif : Quick wins visibles et mesurables
+
+Phase 2 : Automatisation (3-6 mois)
+• Conteneurisation Docker, déploiements automatisés staging
+• SonarQube pour qualité du code, étendre à 2-3 équipes
+• Objectif : Pipeline CI/CD fonctionnel de bout en bout
+
+Phase 3 : Industrialisation (6-12 mois)
+• Monitoring Prometheus/Grafana, IaC Ansible/Terraform
+• Généraliser DevOps à toutes les équipes, métriques DORA
+• Objectif : Ancrer durablement la transformation
+
+--- NOTES ---
+Le plan de transformation s'étale sur 12 mois en 3 phases progressives. Phase 1 - Fondations : nous structurerons Git avec les bonnes pratiques (branches, pull requests, revues), mettrons en place GitLab CI pour l'intégration continue automatique, formerons les équipes et constituerons une équipe pilote mixte de 5-8 personnes. Objectif : obtenir des quick wins visibles et mesurables. Phase 2 - Automatisation : nous conteneuriserons progressivement les applications avec Docker, automatiserons les déploiements sur staging, intégrerons SonarQube et étendrons les pratiques à 2-3 équipes supplémentaires. Objectif : disposer d'un pipeline CI/CD fonctionnel de bout en bout. Phase 3 - Industrialisation : nous déploierons le monitoring avec Prometheus et Grafana, automatiserons l'infrastructure avec Ansible et Terraform, généraliserons DevOps à toutes les équipes et mettrons en place un tableau de bord des métriques DORA. Objectif : ancrer durablement la transformation avec des déploiements fréquents en production.
+
+================================================================================
+
+SLIDE 15 : FACTEURS CLÉS DE SUCCÈS ET RISQUES
+================================================================================
+Titre : Facteurs clés de succès et risques
+
+Contenu :
+Facteurs clés de succès :
+• Engagement de la direction : soutien actif, budgets alloués
+• Formation continue : montée en compétences, mentoring
+• Quick wins : succès visibles rapidement, communication résultats
+
+Risques et mesures d'atténuation :
+• Planning trop ambitieux → Roadmap réaliste 12 mois, étapes
+• Budget insuffisant → Business case solide, engagement ferme
+• Manque engagement direction → Sponsor exécutif dédié
+• Outils inadaptés → Test sur équipe pilote d'abord
+• Essoufflement → Quick wins réguliers, célébrer avancées
+
+--- NOTES ---
+Les facteurs clés de succès de la transformation sont : l'engagement de la direction avec un soutien actif du comité exécutif, une communication régulière et des budgets alloués ; la formation continue pour assurer la montée en compétences avec des formations régulières et du mentoring ; et des quick wins pour démontrer rapidement la valeur avec une communication sur les résultats. Côté risques : un planning trop ambitieux sera atténué par une roadmap réaliste sur 12 mois en avançant par étapes. Un budget insuffisant nécessite un business case solide et un engagement ferme de la direction. Le manque d'engagement de la direction sera géré par la désignation d'un sponsor exécutif dédié. Les outils inadaptés seront détectés grâce aux tests sur l'équipe pilote d'abord. L'essoufflement sera évité par des quick wins réguliers et en célébrant les avancées pour maintenir la motivation.
+
+================================================================================
+
+SLIDE 16 : CONCLUSION
+================================================================================
+Titre : 7. Conclusion
+
+Contenu :
+Les freins de World News sont ancrés dans une culture en silos
+
+Vision cible :
+• Équipes produit autonomes
+• Automatisation bout en bout
+• Co-responsabilité
+
+Bénéfices attendus :
+• Time-to-market : de 3-4 mois à quelques semaines
+• Qualité : moins d'incidents en production
+• Satisfaction : clients et équipes
+
+Enseignement clé : La transformation DevOps est avant tout culturelle et humaine
+
+--- NOTES ---
+En conclusion, les freins de World News sont ancrés dans une culture en silos héritée d'une organisation traditionnelle. Notre vision cible repose sur trois piliers : des équipes produit autonomes et pluridisciplinaires, une automatisation de bout en bout du cycle de vie applicatif, et une culture de co-responsabilité où chacun est responsable du succès collectif. Les bénéfices attendus sont concrets et mesurables : réduire drastiquement le time-to-market de 3-4 mois à quelques semaines pour gagner en compétitivité, améliorer significativement la qualité avec moins d'incidents en production et une meilleure expérience utilisateur, et augmenter la satisfaction tant des clients que des équipes qui travailleront dans un environnement plus collaboratif et moins stressant. L'enseignement clé de cette étude de cas : la transformation DevOps est avant tout culturelle et humaine. Les outils sont des facilitateurs indispensables, mais le véritable changement réside dans la collaboration, le partage de connaissances et la responsabilité partagée.
+
+================================================================================
+
+SLIDE 17 : MERCI
+================================================================================
+Titre : Merci
+
+Contenu :
+BELLIL Hakim
+Concepteur Développeur d'Applications
+Certification DevOps - Février 2026
+
+--- NOTES ---
+Merci pour votre attention. Cette étude de cas démontre ma compréhension des enjeux d'une transformation DevOps et ma capacité à formuler des préconisations adaptées au contexte d'une entreprise, en alliant aspects techniques, organisationnels et humains. Je reste à votre disposition pour répondre à vos questions.
+
+================================================================================
+FIN DU DOCUMENT
+================================================================================

@@ -1,0 +1,78 @@
+@startuml deployment_diagram
+!theme plain
+skinparam backgroundColor #FEFEFE
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam roundcorner 10
+
+title Diagramme de Déploiement - Belle Île Parfumée
+
+' Acteurs
+actor "Client" as client
+actor "Administrateur" as admin
+
+' Noeud Développeur
+node "Poste Développeur" as dev {
+    artifact "Code Source" as code
+    artifact "Docker Compose" as compose
+    database "PostgreSQL\n(local)" as localdb
+}
+
+' GitHub
+cloud "GitHub" as github {
+    artifact "Repository\nbelle-ile-parfumee" as repo
+    artifact "GitHub Actions\n(CI Pipeline)" as actions
+}
+
+' Render.com
+cloud "Render.com (PaaS)" as render {
+    node "Frontend Service" as frontnode {
+        artifact "React App\n(Static Site)" as frontend
+    }
+
+    node "Backend Service" as backnode {
+        artifact "Spring Boot\n(Docker)" as backend
+    }
+
+    database "PostgreSQL\n(Managed)" as proddb
+}
+
+' Relations Développement
+dev --> github : "git push"
+code --> compose : "docker-compose up"
+compose --> localdb
+
+' Relations CI/CD
+repo --> actions : "trigger on push"
+actions --> render : "auto-deploy"
+
+' Relations Production
+client --> frontend : "HTTPS\n(port 443)"
+admin --> frontend : "HTTPS\n(port 443)"
+frontend --> backend : "API REST\n(HTTPS)"
+backend --> proddb : "JDBC\n(port 5432)"
+
+' Notes
+note right of actions
+  **Pipeline CI:**
+  1. Checkout
+  2. Build Backend (Maven)
+  3. Test Backend (JUnit)
+  4. Build Frontend (npm)
+end note
+
+note right of render
+  **Déploiement automatique**
+  à chaque push sur main
+end note
+
+note bottom of frontend
+  URL: belle-ile-front.onrender.com
+end note
+
+note bottom of backend
+  URL: belle-ile-api.onrender.com
+end note
+
+@enduml
