@@ -1,0 +1,103 @@
+@startuml arborescence_site
+
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam shadowing false
+
+skinparam rectangle {
+    RoundCorner 20
+    BackgroundColor #64D8CB
+    BorderColor #3DBCAF
+    BorderThickness 2
+    FontColor #0D0D0D
+    FontSize 11
+}
+
+skinparam ArrowColor #FF8C42
+skinparam ArrowThickness 2
+skinparam ArrowFontColor #555555
+skinparam ArrowFontSize 9
+skinparam ArrowFontStyle italic
+
+title <size:16><b>Arborescence de Belle Île Parfumée</b></size>
+
+' ─── NIVEAU 0 : Accueil ───
+rectangle "Page d'accueil" as home
+
+' ─── NIVEAU 1 : Navigation principale ───
+rectangle "Catalogue\nParfums" as catalogue
+rectangle "Connexion /\nInscription" as auth
+rectangle "S'inscrire" as register
+rectangle "Recherche" as search
+rectangle "Nouveautés" as nouveautes
+
+' ─── FICHE PRODUIT ───
+rectangle "Fiche Produit" as product
+
+' ─── CATALOGUE : Sous-filtres ───
+rectangle "Hommes\n/parfums/homme" as homme
+rectangle "Femmes\n/parfums/femme" as femme
+rectangle "Mixtes\n/parfums/mixte" as mixte
+
+' ─── APRÈS CONNEXION ───
+rectangle "Page accueil\nutilisateur" as userHome
+rectangle "Back-office\nAdmin" as admin
+
+' ─── ESPACE CLIENT ───
+rectangle "Panier" as cart
+rectangle "Confirmation\ncommande" as confirm
+
+' ─── ADMIN : Sous-pages ───
+rectangle "Gestion\nProduits" as adminProd
+rectangle "Gestion\nClients" as adminClients
+rectangle "Gestion\nCommandes" as adminOrders
+
+' ─── ACTIONS CRUD PRODUITS ───
+rectangle "Créer" as create
+rectangle "Modifier" as edit
+rectangle "Supprimer" as del
+
+' ═══════════════════════
+' RELATIONS
+' ═══════════════════════
+
+home --> catalogue : En cliquant\nsur un genre
+home --> auth : Clic icône\ncompte
+home --> search : Clic icône\nrecherche
+home --> cart : Clic icône\npanier
+home --> nouveautes : Menu\n"Nouveautés"
+home --> product : Clic sur\nune carte produit
+
+catalogue --> homme
+catalogue --> femme
+catalogue --> mixte
+homme --> product : Clic produit
+femme --> product : Clic produit
+mixte --> product : Clic produit
+search --> product : Clic sur\nun résultat
+nouveautes --> product : Clic produit
+
+product --> cart : Clic "Ajouter\nau panier"
+product --> auth : Si non connecté\npour commander
+
+auth --> register : Si non inscrit
+register --> auth : Après inscription
+
+auth --> userHome : Connexion\nrôle CLIENT
+auth --> admin : Connexion\nrôle ADMIN
+
+cart --> auth : Si non connecté\nlors du checkout
+cart --> confirm : Validation\nde la commande
+
+confirm -[hidden]-> admin
+
+admin --> adminProd
+admin --> adminClients
+admin --> adminOrders
+
+adminProd --> create
+adminProd --> edit
+adminProd --> del
+
+@enduml

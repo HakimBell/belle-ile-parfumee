@@ -1,0 +1,225 @@
+@startuml crud_products_sequence
+
+skinparam backgroundColor #FAFAFA
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing true
+skinparam roundCorner 8
+
+skinparam participant {
+    BorderColor #37474F
+    BorderThickness 2
+    FontStyle bold
+}
+
+skinparam actor {
+    BackgroundColor #E8F5E9
+    BorderColor #2E7D32
+    FontColor #1B5E20
+}
+
+skinparam database {
+    BackgroundColor #FCE4EC
+    BorderColor #C2185B
+    FontColor #880E4F
+}
+
+skinparam sequence {
+    ArrowColor #546E7A
+    ArrowThickness 2
+    LifeLineBorderColor #90A4AE
+    LifeLineBackgroundColor #ECEFF1
+    BoxBorderColor #78909C
+    BoxBackgroundColor #F5F5F5
+    GroupBorderColor #1565C0
+    GroupBackgroundColor #E3F2FD
+    GroupHeaderFontColor white
+    DividerBorderColor #78909C
+    DividerBackgroundColor #CFD8DC
+}
+
+skinparam note {
+    BackgroundColor #FFFDE7
+    BorderColor #FBC02D
+    FontColor #F57F17
+}
+
+title <size:20><b>Diagramme de Séquence</b></size>\n<size:14>Gestion du catalogue produits — CRUD (fonctionnalité type)</size>
+
+actor "Admin" as Admin #E8F5E9
+
+box "Frontend React" #E3F2FD
+    participant "AdminProducts\n.tsx" as AdminPage #BBDEFB
+    participant "ProductForm\n.tsx" as Form #DDEEFF
+end box
+
+box "Backend Spring Boot" #FFF3E0
+    participant "Product\nController" as Controller #FFE0B2
+    participant "Product\nService" as Service #FFCC80
+    participant "Product\nRepository" as Repo #FFB74D
+end box
+
+database "PostgreSQL" as DB #F8BBD9
+
+autonumber "<b>[00]"
+
+== CREATE — Ajout d'un produit ==
+
+Admin -> AdminPage : Clic **"+ Ajouter un produit"**
+activate AdminPage #BBDEFB
+AdminPage -> Form : Ouvre la modale\n(isEdit = false)
+activate Form #DDEEFF
+
+Admin -> Form : Saisit nom, marque, prix, stock,\ntype, genre, taille
+Admin -> Form : Clic **"Ajouter le produit"**
+
+Form -> Controller : **POST** /api/products\n{ name, brand, price, stock,\n  concentrationType, gender, size }
+activate Controller #FFE0B2
+
+note right of Controller
+  @Valid valide le DTO :
+  @NotBlank(name, brand)
+  @DecimalMin("0.01") price
+  @Pattern(Homme|Femme|Mixte)
+end note
+
+alt #FFEBEE Données invalides — @Valid échoue
+    Controller --> Form : **400 Bad Request**\n+ messages d'erreur Jakarta Validation
+    Form --> Admin : <color:#C62828>Erreurs affichées sur le formulaire ✗</color>
+else #E8F5E9 Données valides
+    Controller -> Service : createProduct(product)
+    activate Service #FFCC80
+
+    Service -> Service : <color:#1565C0>generateProductCode(product)</color>\nbrandCode="CHA" + typeCode="EDP"\n+ sizeCode="050" → préfixe "CHA-EDP-050-"
+
+    Service -> Repo : findProductCodesByPrefix("CHA-EDP-050-")
+    activate Repo #FFB74D
+    Repo -> DB : **SELECT** product_code FROM products\nWHERE product_code LIKE 'CHA-EDP-050-%'\nORDER BY product_code DESC
+    activate DB #F8BBD9
+    DB --> Repo : [] (aucun existant → séquence = 1)
+    deactivate DB
+    Repo --> Service : []
+    deactivate Repo
+
+    note right of Service
+      Code généré :
+      **CHA-EDP-050-0001**
+    end note
+
+    Service -> Repo : save(product)
+    activate Repo #FFB74D
+    Repo -> DB : **INSERT INTO** products\n(product_code, name, brand, price,\n stock, concentration_type,\n gender, size, created_at)
+    activate DB #F8BBD9
+    DB --> Repo : Produit persisté
+    deactivate DB
+    Repo --> Service : Product sauvegardé
+    deactivate Repo
+
+    Service --> Controller : <color:#2E7D32>Product (productCode="CHA-EDP-050-0001")</color>
+    deactivate Service
+
+    Controller --> Form : <color:#2E7D32>**201 Created**\n+ ProductResponseDTO</color>
+    deactivate Controller
+
+    Form --> AdminPage : setIsModalOpen(false)
+    deactivate Form
+    AdminPage -> Controller : **GET** /api/products\n(refetch())
+    activate Controller #FFE0B2
+    Controller --> AdminPage : <color:#2E7D32>**200 OK** + liste mise à jour</color>
+    deactivate Controller
+    AdminPage --> Admin : <color:#2E7D32>Nouveau produit visible dans le tableau ✓</color>
+end
+
+deactivate AdminPage
+
+== UPDATE — Modification d'un produit ==
+
+Admin -> AdminPage : Clic **✏️** sur CHA-EDP-050-0001
+activate AdminPage #BBDEFB
+AdminPage -> Form : Ouvre la modale\n(isEdit=true, initialData pré-rempli)
+activate Form #DDEEFF
+
+Admin -> Form : Modifie le prix : 89.99 → 95.00 €
+Admin -> Form : Clic **"Modifier le produit"**
+
+Form -> Controller : **PUT** /api/products/CHA-EDP-050-0001\n{ ...champs mis à jour }
+activate Controller #FFE0B2
+
+Controller -> Service : updateProduct(product)
+activate Service #FFCC80
+
+note right of Service
+  @Transactional :
+  rollback automatique
+  en cas d'exception
+end note
+
+Service -> Repo : findById("CHA-EDP-050-0001")
+activate Repo #FFB74D
+Repo -> DB : **SELECT** * FROM products\nWHERE product_code='CHA-EDP-050-0001'
+activate DB #F8BBD9
+DB --> Repo : Product existant
+deactivate DB
+Repo --> Service : Optional<Product>
+deactivate Repo
+
+Service -> Service : Mise à jour des champs\n(setPrice, setStock, setName...)
+Service -> Repo : save(existingProduct)
+activate Repo #FFB74D
+Repo -> DB : **UPDATE** products SET price=95.00\nWHERE product_code='CHA-EDP-050-0001'
+activate DB #F8BBD9
+DB --> Repo : OK
+deactivate DB
+Repo --> Service : Product mis à jour
+deactivate Repo
+
+Service --> Controller : <color:#2E7D32>Product</color>
+deactivate Service
+Controller --> Form : <color:#2E7D32>**200 OK** + ProductResponseDTO</color>
+deactivate Controller
+
+Form --> AdminPage : Ferme la modale + refetch()
+deactivate Form
+AdminPage --> Admin : <color:#2E7D32>Liste rechargée, prix mis à jour ✓</color>
+deactivate AdminPage
+
+== DELETE — Suppression d'un produit ==
+
+Admin -> AdminPage : Clic **🗑** sur CHA-EDP-050-0001
+activate AdminPage #BBDEFB
+AdminPage --> Admin : window.confirm(\n"Supprimer CHA-EDP-050-0001 ?")
+Admin -> AdminPage : Confirme
+
+AdminPage -> Controller : **DELETE** /api/products/CHA-EDP-050-0001
+activate Controller #FFE0B2
+Controller -> Service : deleteProduct("CHA-EDP-050-0001")
+activate Service #FFCC80
+
+Service -> Repo : existsById("CHA-EDP-050-0001")
+activate Repo #FFB74D
+Repo --> Service : true
+deactivate Repo
+
+Service -> Repo : deleteById("CHA-EDP-050-0001")
+activate Repo #FFB74D
+Repo -> DB : **DELETE FROM** products\nWHERE product_code='CHA-EDP-050-0001'
+activate DB #F8BBD9
+DB --> Repo : OK
+deactivate DB
+Repo --> Service : void
+deactivate Repo
+
+Service --> Controller : <color:#2E7D32>true</color>
+deactivate Service
+Controller --> AdminPage : <color:#2E7D32>**204 No Content**</color>
+deactivate Controller
+
+AdminPage -> Controller : **GET** /api/products (refetch())
+activate Controller #FFE0B2
+Controller --> AdminPage : <color:#2E7D32>**200 OK** + liste sans le produit supprimé</color>
+deactivate Controller
+
+AdminPage --> Admin : <color:#2E7D32>Produit retiré du tableau ✓</color>
+deactivate AdminPage
+
+@enduml
