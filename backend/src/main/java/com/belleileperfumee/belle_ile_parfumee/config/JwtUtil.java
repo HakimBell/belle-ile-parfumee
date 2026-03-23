@@ -16,7 +16,7 @@ public class JwtUtil {
     private final String SECRET = "MaCleSuperSecretePourJWTQuiDoitFaire256BitsMin!";
 
     // Clé secrète pour signer les tokens (comme un mot de passe)
-    private final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
+    private final Key SECRET_KEY = Keys.hmacShaKeyFor(SECRET.getBytes());
 
     // Durée de validité du token : 10 heures
     private final long EXPIRATION_TIME = 1000 * 60 * 60 * 10; // 10 heures en millisecondes
